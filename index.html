@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EDYCACE STORE – Tiras Nasales</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Variables ── */
+    :root {
+      /* Marca: rojo #FF3126, blanco, negros armonizados */
+      --navy:   #1A1A1A;
+      --navy2:  #2A2A2A;
+      --mint:   #FF3126;
+      --mint2:  #E62A21;
+      --white:  #FFFFFF;
+      --offwhite: #F5F5F5;
+      --gray:   #6E6E6E;
+      --text:   #242424;
+      --border: #E8E8E8;
+      --radius: 16px;
+      --shadow: 0 8px 40px rgba(0, 0, 0, 0.14);
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* ── Navbar ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 72px;
+      background: var(--mint);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    }
+    .nav-logo {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.25rem 0.45rem;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--white);
+      line-height: 1.15;
+    }
+    .nav-logo-main {
+      font-size: clamp(0.78rem, 1.5vw, 0.95rem);
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+    .nav-logo-store {
+      font-size: clamp(0.58rem, 1.1vw, 0.68rem);
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      opacity: 0.95;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+    }
+    .nav-links a {
+      font-size: .875rem;
+      font-weight: 500;
+      color: rgba(255,255,255,.75);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--white); opacity: 1; }
+    .nav-cta {
+      background: var(--white);
+      color: var(--mint) !important;
+      padding: .45rem 1.1rem;
+      border-radius: 100px;
+      font-weight: 600 !important;
+    }
+    .nav-cta:hover { background: rgba(255, 255, 255, 0.92) !important; color: var(--mint2) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: .3s; }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      padding: 100px 5% 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    /* dot grid background */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255, 49, 38, 0.14) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+    /* glow orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+    .orb-1 { width: 420px; height: 420px; background: rgba(255, 49, 38, 0.12); top: -80px; left: -100px; }
+    .orb-2 { width: 320px; height: 320px; background: rgba(255, 255, 255, 0.06); bottom: 40px; right: 10%; }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .hero-left { display: flex; flex-direction: column; gap: 1.6rem; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(255, 49, 38, 0.12);
+      border: 1px solid rgba(255, 49, 38, 0.35);
+      color: var(--mint);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .35rem .9rem;
+      border-radius: 100px;
+      width: fit-content;
+    }
+    .hero-badge::before { content: '●'; font-size: .55rem; animation: blink 1.6s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .hero-title {
+      font-family: 'Cormorant Garant', serif;
+      font-size: clamp(2.8rem, 5vw, 4.4rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.1;
+      letter-spacing: -.01em;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: var(--mint);
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.65);
+      line-height: 1.7;
+      max-width: 420px;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--mint);
+      color: var(--white);
+      font-weight: 600;
+      font-size: .95rem;
+      padding: .85rem 2rem;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+      letter-spacing: .02em;
+    }
+    .btn-primary:hover { background: var(--mint2); color: var(--white); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      color: rgba(255,255,255,.8);
+      font-weight: 500;
+      font-size: .95rem;
+      padding: .85rem 2rem;
+      border-radius: 100px;
+      border: 1px solid rgba(255,255,255,.25);
+      cursor: pointer;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-outline:hover { border-color: var(--mint); color: var(--mint); }
+
+    /* ── Product Carousel ── */
+    .hero-right { position: relative; }
+    .carousel-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+    .carousel-track {
+      position: relative;
+      height: 480px;
+    }
+    .carousel-card {
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.4rem;
+      opacity: 0;
+      transform: translateX(40px) scale(.97);
+      transition: opacity .6s ease, transform .6s ease;
+      pointer-events: none;
+    }
+    .carousel-card.active {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      pointer-events: auto;
+    }
+    .carousel-card.exit {
+      opacity: 0;
+      transform: translateX(-40px) scale(.97);
+    }
+
+    .product-image-placeholder {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(255, 49, 38, 0.22) 0%, rgba(255, 49, 38, 0.05) 100%);
+      border: 2px solid rgba(255, 49, 38, 0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .product-image-placeholder svg { width: 80px; height: 80px; opacity: .7; }
+    .product-badge-tag {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--mint);
+      background: rgba(255, 49, 38, 0.1);
+      border: 1px solid rgba(255, 49, 38, 0.25);
+      padding: .25rem .7rem;
+      border-radius: 100px;
+    }
+    .product-name {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--white);
+      text-align: center;
+    }
+    .product-desc {
+      font-size: .9rem;
+      color: rgba(255,255,255,.6);
+      text-align: center;
+      line-height: 1.6;
+    }
+    .product-price {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--mint);
+    }
+    .product-price span { font-size: 1rem; font-family: 'DM Sans', sans-serif; color: rgba(255,255,255,.5); }
+    .card-btn {
+      background: var(--mint);
+      color: var(--white);
+      font-weight: 600;
+      font-size: .85rem;
+      padding: .65rem 1.6rem;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .card-btn:hover { background: var(--mint2); }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: .6rem;
+      margin-top: 1.4rem;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.25);
+      cursor: pointer;
+      transition: background .3s, transform .3s;
+    }
+    .dot.active { background: var(--mint); transform: scale(1.3); }
+
+    /* ── Section base ── */
+    section {
+      padding: 100px 5%;
+    }
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--mint2);
+      margin-bottom: .75rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garant', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.15;
+      margin-bottom: 1.2rem;
+    }
+    .section-sub {
+      font-size: 1rem;
+      color: var(--gray);
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    /* ── Nosotros ── */
+    #nosotros { background: var(--offwhite); }
+    .nosotros-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+    .nosotros-visual {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+      border-radius: 24px;
+      height: 380px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .nosotros-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255, 49, 38, 0.12) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .nosotros-visual-icon { position: relative; z-index: 1; }
+    .nosotros-visual-icon svg { width: 120px; height: 120px; opacity: .6; }
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .stat {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.4rem 1.2rem;
+      border: 1px solid var(--border);
+    }
+    .stat-num {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .stat-num span { color: var(--mint2); }
+    .stat-label { font-size: .85rem; color: var(--gray); margin-top: .2rem; }
+
+    /* ── Productos ── */
+    #productos { background: var(--white); }
+    .productos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .product-card {
+      background: var(--offwhite);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .product-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+    .product-card-img {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .product-card-img svg { width: 90px; height: 90px; opacity: .5; }
+    .product-card-body { padding: 1.8rem 1.6rem; }
+    .product-card-tag {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--mint2);
+      margin-bottom: .5rem;
+    }
+    .product-card-name {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: .6rem;
+    }
+    .product-card-desc {
+      font-size: .88rem;
+      color: var(--gray);
+      line-height: 1.65;
+      margin-bottom: 1.4rem;
+    }
+    .product-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .product-card-price {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--mint);
+    }
+    .product-card-price small { font-family: 'DM Sans',sans-serif; font-size: .75rem; color: var(--gray); }
+    .btn-card {
+      background: var(--navy);
+      color: var(--white);
+      font-size: .82rem;
+      font-weight: 600;
+      padding: .55rem 1.2rem;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .btn-card:hover { background: var(--mint2); }
+
+    /* ── Testimonios ── */
+    #testimonios { background: var(--navy); position: relative; overflow: hidden; }
+    #testimonios::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255, 49, 38, 0.1) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+    #testimonios .section-title { color: var(--white); }
+    #testimonios .section-sub { color: rgba(255,255,255,.5); }
+    #testimonios .section-label { color: var(--mint); }
+    .testimonios-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+      position: relative;
+      z-index: 1;
+    }
+    .testimonial-card {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      padding: 2rem 1.8rem;
+      transition: border-color .25s;
+    }
+    .testimonial-card:hover { border-color: rgba(255, 49, 38, 0.45); }
+    .stars { color: var(--mint); font-size: 1.1rem; letter-spacing: .1em; margin-bottom: 1rem; }
+    .testimonial-text {
+      font-size: .95rem;
+      color: rgba(255,255,255,.75);
+      line-height: 1.7;
+      margin-bottom: 1.4rem;
+      font-style: italic;
+    }
+    .testimonial-author { display: flex; align-items: center; gap: .85rem; }
+    .author-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--mint2), var(--navy));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garant', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+    .author-name { font-weight: 600; font-size: .9rem; color: var(--white); }
+    .author-role { font-size: .78rem; color: rgba(255,255,255,.45); margin-top: .1rem; }
+
+    /* ── FAQ ── */
+    #faq { background: var(--offwhite); }
+    .faq-list { margin-top: 3rem; display: flex; flex-direction: column; gap: 1rem; max-width: 740px; }
+    .faq-item {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: box-shadow .2s;
+    }
+    .faq-item:hover { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 1.4rem 1.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      text-align: left;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .97rem;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .faq-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--offwhite);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background .2s, transform .3s;
+    }
+    .faq-icon svg { width: 14px; height: 14px; transition: transform .3s; }
+    .faq-item.open .faq-icon { background: var(--mint2); border-color: var(--mint2); }
+    .faq-item.open .faq-icon svg { transform: rotate(45deg); stroke: white; }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .4s ease, padding .3s;
+      padding: 0 1.6rem;
+    }
+    .faq-item.open .faq-answer { max-height: 200px; padding-bottom: 1.4rem; }
+    .faq-answer p { font-size: .91rem; color: var(--gray); line-height: 1.7; }
+
+    /* ── Contacto ── */
+    #contacto { background: var(--white); }
+    .contacto-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 5rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+    .contacto-info { display: flex; flex-direction: column; gap: 2rem; }
+    .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .contact-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: rgba(255, 49, 38, 0.1);
+      border: 1px solid rgba(255, 49, 38, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-icon svg { width: 20px; height: 20px; stroke: var(--mint2); }
+    .contact-item-label { font-weight: 600; font-size: .9rem; color: var(--navy); margin-bottom: .2rem; }
+    .contact-item-val { font-size: .88rem; color: var(--gray); }
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: .45rem; }
+    .form-group label { font-size: .82rem; font-weight: 600; color: var(--navy); letter-spacing: .03em; }
+    .form-group input,
+    .form-group textarea {
+      background: var(--offwhite);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: .85rem 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .9rem;
+      color: var(--text);
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      resize: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--mint2);
+      box-shadow: 0 0 0 3px rgba(255, 49, 38, 0.15);
+    }
+    .form-group textarea { min-height: 130px; }
+    .btn-submit {
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: .95rem;
+      padding: .9rem 2rem;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+      align-self: flex-start;
+    }
+    .btn-submit:hover { background: var(--mint2); transform: translateY(-2px); }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,.5);
+      padding: 3rem 5%;
+      text-align: center;
+      font-size: .85rem;
+    }
+    footer .footer-brand {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: .5rem;
+    }
+    footer .footer-brand span { color: var(--mint); }
+    footer .footer-links { display: flex; justify-content: center; gap: 2rem; margin: 1.2rem 0; flex-wrap: wrap; }
+    footer .footer-links a { color: rgba(255,255,255,.5); font-size: .8rem; letter-spacing: .05em; text-transform: uppercase; transition: color .2s; }
+    footer .footer-links a:hover { color: var(--mint); }
+    footer .footer-copy { margin-top: .5rem; }
+
+    /* ── WhatsApp flotante ── */
+    .wa-float {
+      position: fixed;
+      bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
+      right: max(1.25rem, env(safe-area-inset-right, 0px));
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #25d366;
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45), 0 2px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .wa-float:hover {
+      transform: scale(1.06);
+      box-shadow: 0 6px 28px rgba(37, 211, 102, 0.55), 0 4px 12px rgba(0, 0, 0, 0.22);
+    }
+    .wa-float:focus-visible {
+      outline: 3px solid var(--white);
+      outline-offset: 3px;
+    }
+    .wa-float svg {
+      width: 30px;
+      height: 30px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-right { order: -1; }
+      .carousel-wrapper { max-width: 340px; }
+      .carousel-track { height: 400px; }
+      .nosotros-grid,
+      .contacto-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .productos-grid,
+      .testimonios-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* ── Reveal animation ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAVBAR ══ -->
+  <nav>
+    <div class="nav-logo">
+      <span class="nav-logo-main">Edycace</span>
+      <span class="nav-logo-store">Store</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#productos">Productos</a></li>
+      <li><a href="#testimonios">Testimonios</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contacto" class="nav-cta">Contacto</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <section id="hero">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-badge">Respira mejor, vive mejor</div>
+        <h1 class="hero-title">
+          EDYCACE<br />
+          <em>STORE</em>
+        </h1>
+        <p class="hero-sub">
+          Tiras nasales de alta calidad diseñadas para mejorar tu respiración, reducir el ronquido y potenciar tu descanso nocturno.
+        </p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="document.getElementById('productos').scrollIntoView({behavior:'smooth'})">Ver Productos</button>
+          <button class="btn-outline" onclick="document.getElementById('nosotros').scrollIntoView({behavior:'smooth'})">Conoce más</button>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="carousel-wrapper">
+          <div class="carousel-track" id="carouselTrack">
+
+            <!-- Card 1 -->
+            <div class="carousel-card active">
+              <div class="product-image-placeholder">
+                <svg viewBox="0 0 80 80" fill="none" stroke="#FF3126" stroke-width="2" stroke-linecap="round">
+                  <ellipse cx="40" cy="40" rx="26" ry="14"/>
+                  <path d="M14 40 Q40 20 66 40"/>
+                  <circle cx="40" cy="40" r="4" fill="#FF3126"/>
+                </svg>
+              </div>
+              <div class="product-badge-tag">Más Vendido</div>
+              <div class="product-name">Tira Clásica</div>
+              <div class="product-desc">Ideal para uso diario. Apertura nasal suave y cómoda durante toda la noche.</div>
+              <div class="product-price">S/ 33.90 <span>/ 30 tiras</span></div>
+              <button class="card-btn" onclick="document.getElementById('productos').scrollIntoView({behavior:'smooth'})">Ver detalle</button>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="carousel-card">
+              <div class="product-image-placeholder">
+                <svg viewBox="0 0 80 80" fill="none" stroke="#FF3126" stroke-width="2" stroke-linecap="round">
+                  <ellipse cx="40" cy="40" rx="28" ry="16"/>
+                  <path d="M12 40 Q40 16 68 40"/>
+                  <path d="M20 34 Q40 26 60 34"/>
+                  <circle cx="40" cy="40" r="5" fill="#FF3126"/>
+                </svg>
+              </div>
+              <div class="product-badge-tag">Extra Fuerza</div>
+              <div class="product-name">Tira Max</div>
+              <div class="product-desc">Mayor apertura nasal. Perfecta para congestión fuerte o ronquido intenso.</div>
+              <div class="product-price">S/ 44.90 <span>/ 30 tiras</span></div>
+              <button class="card-btn" onclick="document.getElementById('productos').scrollIntoView({behavior:'smooth'})">Ver detalle</button>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="carousel-card">
+              <div class="product-image-placeholder">
+                <svg viewBox="0 0 80 80" fill="none" stroke="#FF3126" stroke-width="2" stroke-linecap="round">
+                  <ellipse cx="40" cy="38" rx="24" ry="13"/>
+                  <path d="M16 38 Q40 18 64 38"/>
+                  <path d="M30 46 Q40 52 50 46"/>
+                  <circle cx="40" cy="38" r="4" fill="#FF3126"/>
+                </svg>
+              </div>
+              <div class="product-badge-tag">Para Deportistas</div>
+              <div class="product-name">Tira Sport</div>
+              <div class="product-desc">Diseñada para el ejercicio. Mayor flujo de aire y adhesión durante el sudor.</div>
+              <div class="product-price">S/ 52.90 <span>/ 30 tiras</span></div>
+              <button class="card-btn" onclick="document.getElementById('productos').scrollIntoView({behavior:'smooth'})">Ver detalle</button>
+            </div>
+
+          </div><!-- /carousel-track -->
+          <div class="carousel-dots">
+            <div class="dot active" onclick="goToSlide(0)"></div>
+            <div class="dot" onclick="goToSlide(1)"></div>
+            <div class="dot" onclick="goToSlide(2)"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ NOSOTROS ══ -->
+  <section id="nosotros">
+    <div class="section-inner">
+      <div class="section-label reveal">Nuestra historia</div>
+      <h2 class="section-title reveal">Nacimos para que<br />respires mejor</h2>
+      <div class="nosotros-grid">
+        <div class="nosotros-visual reveal">
+          <div class="nosotros-visual-icon">
+            <svg viewBox="0 0 120 120" fill="none" stroke="#FF3126" stroke-width="1.5" stroke-linecap="round">
+              <ellipse cx="60" cy="60" rx="36" ry="22"/>
+              <path d="M24 60 Q60 28 96 60"/>
+              <path d="M38 72 Q60 82 82 72"/>
+              <circle cx="60" cy="60" r="7" fill="rgba(255,49,38,.4)"/>
+            </svg>
+          </div>
+        </div>
+        <div class="reveal">
+          <p class="section-sub" style="max-width:100%;margin-bottom:1.2rem;">
+            EDYCACE STORE nació de una necesidad real: encontrar una solución sencilla y efectiva para quienes sufren de congestión nasal o dificultades para respirar durante el sueño.
+          </p>
+          <p class="section-sub" style="max-width:100%;margin-bottom:2rem;">
+            Creemos que dormir bien es un derecho, no un lujo. Por eso desarrollamos tiras nasales fabricadas con materiales hipoalergénicos, con una adhesión óptima y un diseño que se adapta a todo tipo de nariz. Cada producto pasa por rigurosos controles de calidad antes de llegar a tus manos.
+          </p>
+          <div class="stats">
+            <div class="stat reveal">
+              <div class="stat-num">+5K<span>+</span></div>
+              <div class="stat-label">Clientes satisfechos</div>
+            </div>
+            <div class="stat reveal">
+              <div class="stat-num">3<span>+</span></div>
+              <div class="stat-label">Años en el mercado</div>
+            </div>
+            <div class="stat reveal">
+              <div class="stat-num">98<span>%</span></div>
+              <div class="stat-label">Tasa de satisfacción</div>
+            </div>
+            <div class="stat reveal">
+              <div class="stat-num">0</div>
+              <div class="stat-label">Ingredientes dañinos</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PRODUCTOS ══ -->
+  <section id="productos">
+    <div class="section-inner">
+      <div class="section-label reveal">Nuestros productos</div>
+      <h2 class="section-title reveal">Elige la tira<br />ideal para ti</h2>
+      <p class="section-sub reveal">Tres formatos pensados para distintas necesidades. Todos sin látex, hipoalergénicos y de uso nocturno o deportivo.</p>
+      <div class="productos-grid">
+
+        <div class="product-card reveal">
+          <div class="product-card-img">
+            <svg viewBox="0 0 90 90" fill="none" stroke="rgba(255,49,38,.55)" stroke-width="1.8" stroke-linecap="round">
+              <ellipse cx="45" cy="45" rx="26" ry="14"/>
+              <path d="M19 45 Q45 25 71 45"/>
+              <circle cx="45" cy="45" r="4" fill="rgba(255,49,38,.3)"/>
+            </svg>
+          </div>
+          <div class="product-card-body">
+            <div class="product-card-tag">Uso diario</div>
+            <div class="product-card-name">Tira Clásica</div>
+            <p class="product-card-desc">Apertura nasal suave y confortable. Material flexible que se adapta perfectamente al puente de la nariz sin causar irritación.</p>
+            <div class="product-card-footer">
+              <div class="product-card-price">S/ 33.90 <small>/ 30 tiras</small></div>
+              <button class="btn-card">Comprar</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal">
+          <div class="product-card-img">
+            <svg viewBox="0 0 90 90" fill="none" stroke="rgba(255,49,38,.55)" stroke-width="1.8" stroke-linecap="round">
+              <ellipse cx="45" cy="45" rx="30" ry="17"/>
+              <path d="M15 45 Q45 22 75 45"/>
+              <path d="M24 38 Q45 30 66 38"/>
+              <circle cx="45" cy="45" r="5" fill="rgba(255,49,38,.3)"/>
+            </svg>
+          </div>
+          <div class="product-card-body">
+            <div class="product-card-tag">Más popular</div>
+            <div class="product-card-name">Tira Max</div>
+            <p class="product-card-desc">Mayor nivel de apertura para casos de congestión severa o ronquido intenso. Tecnología de doble resorte interno.</p>
+            <div class="product-card-footer">
+              <div class="product-card-price">S/ 44.90 <small>/ 30 tiras</small></div>
+              <button class="btn-card">Comprar</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal">
+          <div class="product-card-img">
+            <svg viewBox="0 0 90 90" fill="none" stroke="rgba(255,49,38,.55)" stroke-width="1.8" stroke-linecap="round">
+              <ellipse cx="45" cy="43" rx="24" ry="13"/>
+              <path d="M21 43 Q45 23 69 43"/>
+              <path d="M33 53 Q45 60 57 53"/>
+              <circle cx="45" cy="43" r="4" fill="rgba(255,49,38,.3)"/>
+            </svg>
+          </div>
+          <div class="product-card-body">
+            <div class="product-card-tag">Deportistas</div>
+            <div class="product-card-name">Tira Sport</div>
+            <p class="product-card-desc">Resistente al sudor con adhesivo reforzado. Maximiza el flujo de aire durante la actividad física intensa.</p>
+            <div class="product-card-footer">
+              <div class="product-card-price">S/ 52.90 <small>/ 30 tiras</small></div>
+              <button class="btn-card">Comprar</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ TESTIMONIOS ══ -->
+  <section id="testimonios">
+    <div class="section-inner">
+      <div class="section-label reveal">Lo que dicen</div>
+      <h2 class="section-title reveal">Clientes que ya<br />respiran mejor</h2>
+      <div class="testimonios-grid">
+
+        <div class="testimonial-card reveal">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"Llevaba años despertándome cansado. Desde que uso las Tiras Max de EDYCACE STORE, duermo de corrido y mi pareja ya no se queja del ronquido. Un cambio increíble."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">CM</div>
+            <div>
+              <div class="author-name">Carlos M.</div>
+              <div class="author-role">Cliente verificado · Bogotá</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card reveal">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"Las uso durante mis entrenamientos de crossfit. La adhesión es brutal, no se despegan ni con el sudor. El flujo de aire mejora notablemente mi rendimiento."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">LV</div>
+            <div>
+              <div class="author-name">Laura V.</div>
+              <div class="author-role">Atleta · Medellín</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card reveal">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"Sufría de congestión crónica. Las Tiras Clásicas me dan el alivio que necesito para dormir sin medicamentos. Las recomiendo a toda mi familia."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">AP</div>
+            <div>
+              <div class="author-name">Andrea P.</div>
+              <div class="author-role">Cliente verificada · Cali</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FAQ ══ -->
+  <section id="faq">
+    <div class="section-inner">
+      <div class="section-label reveal">Dudas comunes</div>
+      <h2 class="section-title reveal">Preguntas<br />frecuentes</h2>
+      <div class="faq-list">
+
+        <div class="faq-item reveal">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            ¿Cómo se usa correctamente una tira nasal?
+            <div class="faq-icon">
+              <svg viewBox="0 0 14 14" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round">
+                <line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/>
+              </svg>
+            </div>
+          </button>
+          <div class="faq-answer"><p>Limpia y seca bien el puente de la nariz. Retira el protector adhesivo y aplica la tira centrada sobre el puente nasal, presionando suavemente los extremos. La tira actúa como un resorte que levanta los laterales de la nariz para abrir las fosas nasales.</p></div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            ¿Son seguras para pieles sensibles?
+            <div class="faq-icon">
+              <svg viewBox="0 0 14 14" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round">
+                <line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/>
+              </svg>
+            </div>
+          </button>
+          <div class="faq-answer"><p>Sí. Todas nuestras tiras están fabricadas con materiales hipoalergénicos, libres de látex y dermatológicamente probados. Si tienes una alergia específica, revisa la lista completa de componentes en el empaque o contáctanos.</p></div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            ¿Cuántas horas puedo usar la tira?
+            <div class="faq-icon">
+              <svg viewBox="0 0 14 14" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round">
+                <line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/>
+              </svg>
+            </div>
+          </button>
+          <div class="faq-answer"><p>Las tiras están diseñadas para uso de hasta 12 horas continuas. Son de un solo uso: después de retirarlas, deséchelas. No se recomienda reutilizarlas ya que el adhesivo pierde eficacia y la higiene no puede garantizarse.</p></div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            ¿Cómo hago mi pedido?
+            <div class="faq-icon">
+              <svg viewBox="0 0 14 14" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round">
+                <line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/>
+              </svg>
+            </div>
+          </button>
+          <div class="faq-answer"><p>Puedes contactarnos directamente a través del formulario de contacto de esta página o escribirnos por WhatsApp. Te responderemos en menos de 24 horas con disponibilidad, precios y opciones de envío a tu ciudad.</p></div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            ¿Hacen envíos a todo el país?
+            <div class="faq-icon">
+              <svg viewBox="0 0 14 14" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round">
+                <line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/>
+              </svg>
+            </div>
+          </button>
+          <div class="faq-answer"><p>Sí, realizamos envíos a todo el territorio nacional. El tiempo de entrega varía entre 2 y 5 días hábiles dependiendo de tu ubicación. Los pedidos superiores a cierto monto tienen envío gratis. Consulta la promoción vigente al momento de tu compra.</p></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CONTACTO ══ -->
+  <section id="contacto">
+    <div class="section-inner">
+      <div class="section-label reveal">Escríbenos</div>
+      <h2 class="section-title reveal">¿Tienes alguna<br />pregunta?</h2>
+      <div class="contacto-grid">
+        <div class="contacto-info reveal">
+          <p class="section-sub">Estamos aquí para ayudarte. Responderemos tu mensaje en menos de 24 horas.</p>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-item-label">Email</div>
+              <div class="contact-item-val">contacto@edycacestore.com</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.02 1.18 2 2 0 012 .02h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-item-label">WhatsApp</div>
+              <div class="contact-item-val">+57 300 000 0000</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-item-label">Horario de atención</div>
+              <div class="contact-item-val">Lun – Vie: 8:00 am – 6:00 pm</div>
+            </div>
+          </div>
+        </div>
+
+        <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nombre</label>
+              <input type="text" placeholder="Tu nombre" required />
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="tu@email.com" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Asunto</label>
+            <input type="text" placeholder="¿En qué te podemos ayudar?" />
+          </div>
+          <div class="form-group">
+            <label>Mensaje</label>
+            <textarea placeholder="Escribe tu mensaje aquí..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Enviar mensaje →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <div class="footer-brand">EDYCACE<span>·</span>STORE</div>
+    <p>Tiras nasales premium para una mejor respiración</p>
+    <div class="footer-links">
+      <a href="#nosotros">Nosotros</a>
+      <a href="#productos">Productos</a>
+      <a href="#testimonios">Testimonios</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    <div class="footer-copy">© 2024 EDYCACE STORE. Todos los derechos reservados.</div>
+  </footer>
+
+  <a
+    href="https://wa.link/fzkfna"
+    class="wa-float"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Escríbenos por WhatsApp"
+    title="WhatsApp"
+  >
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <!-- ══ JS ══ -->
+  <script>
+    /* ── Carousel ── */
+    const cards = document.querySelectorAll('.carousel-card');
+    const dots  = document.querySelectorAll('.dot');
+    let current = 0;
+    let timer;
+
+    function goToSlide(n) {
+      cards[current].classList.remove('active');
+      cards[current].classList.add('exit');
+      dots[current].classList.remove('active');
+      setTimeout(() => cards[current].classList.remove('exit'), 600);
+      current = n;
+      cards[current].classList.add('active');
+      dots[current].classList.add('active');
+      resetTimer();
+    }
+
+    function next() { goToSlide((current + 1) % cards.length); }
+
+    function resetTimer() {
+      clearInterval(timer);
+      timer = setInterval(next, 3000);
+    }
+
+    timer = setInterval(next, 3000);
+
+    /* ── FAQ accordion ── */
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    /* ── Contact form ── */
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.btn-submit');
+      btn.textContent = '¡Mensaje enviado! ✓';
+      btn.style.background = 'var(--mint2)';
+      setTimeout(() => {
+        btn.textContent = 'Enviar mensaje →';
+        btn.style.background = '';
+        e.target.reset();
+      }, 3000);
+    }
+
+    /* ── Scroll reveal ── */
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer  = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+    /* ── Mobile nav ── */
+    document.getElementById('hamburger').addEventListener('click', () => {
+      const links = document.querySelector('.nav-links');
+      if (links.style.display === 'flex') {
+        links.style.display = 'none';
+      } else {
+        links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:72px;left:0;right:0;background:rgba(255,49,38,.98);padding:2rem 5%;gap:1.5rem;backdrop-filter:blur(14px);z-index:99;';
+      }
+    });
+  </script>
+</body>
+</html>
