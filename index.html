@@ -55,26 +55,27 @@
       display: flex;
       align-items: center;
       flex-shrink: 0;
-      border-radius: 12px;
-      padding: 4px 6px;
-      background: rgba(255, 255, 255, 0.98);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      padding: 0;
+      background: transparent;
+      border-radius: 0;
+      box-shadow: none;
+      transition: transform 0.2s ease;
     }
     .nav-brand:hover {
-      transform: scale(1.03);
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+      transform: scale(1.05);
     }
     .nav-brand:focus-visible {
       outline: 3px solid var(--white);
       outline-offset: 3px;
+      border-radius: 50%;
     }
     .nav-logo-img {
-      height: 40px;
-      width: auto;
-      max-width: 120px;
+      height: 68px;
+      width: 68px;
+      max-width: none;
       object-fit: contain;
       display: block;
+      background: transparent;
     }
     .nav-links {
       display: flex;
@@ -304,6 +305,26 @@
       color: var(--mint);
     }
     .product-price span { font-size: 1rem; font-family: 'DM Sans', sans-serif; color: rgba(255,255,255,.5); }
+    .free-ship-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      background: rgba(37, 211, 102, .18);
+      border: 1px solid rgba(37, 211, 102, .55);
+      color: #4ade80;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .3rem .75rem;
+      border-radius: 100px;
+    }
+    .free-ship-pill svg { width: 14px; height: 14px; }
+    .free-ship-pill--solid {
+      background: #25D366;
+      color: #fff;
+      border-color: #25D366;
+    }
     .card-btn {
       background: var(--mint);
       color: var(--white);
@@ -471,6 +492,26 @@
       color: var(--mint);
     }
     .product-card-price small { font-family: 'DM Sans',sans-serif; font-size: .75rem; color: var(--gray); }
+    .product-card-ship {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      background: rgba(37, 211, 102, .14);
+      border: 1px solid rgba(37, 211, 102, .45);
+      color: #16a34a;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: .3rem .65rem;
+      border-radius: 100px;
+      margin-bottom: .9rem;
+    }
+    .product-card-ship svg { width: 13px; height: 13px; }
+    .product-card.is-featured {
+      border: 2px solid var(--mint);
+      box-shadow: 0 12px 36px rgba(255, 49, 38, .18);
+    }
     .btn-card {
       background: var(--navy);
       color: var(--white);
@@ -726,28 +767,40 @@
       .hamburger { display: flex; }
       .hero-inner {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 2.25rem;
+        display: flex;
+        flex-direction: column;
       }
-      /* Móvil: primero CTAs (Ver productos), luego copy; después el carrusel */
+      /* Móvil: 1) frase (badge + título + sub + botones), 2) carrusel */
       .hero-left {
-        gap: 1.25rem;
+        order: 1;
+        gap: 1.1rem;
+        align-items: stretch;
+        text-align: left;
       }
+      .hero-right {
+        order: 2;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+      .hero-badge { align-self: flex-start; }
       .hero-actions {
-        order: -1;
         flex-direction: column;
         width: 100%;
+        gap: .7rem;
+        margin-top: .25rem;
       }
       .hero-actions .btn-primary,
       .hero-actions .btn-outline {
         width: 100%;
-        text-align: center;
-        justify-content: center;
         min-height: 48px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        text-align: center;
       }
-      .carousel-wrapper { max-width: min(100%, 360px); }
+      .carousel-wrapper { width: 100%; max-width: min(100%, 360px); margin: 0 auto; }
       .carousel-track { height: min(420px, 78vh); }
       .nosotros-grid,
       .contacto-grid { grid-template-columns: 1fr; gap: 3rem; }
@@ -774,7 +827,8 @@
         height: 64px;
       }
       .nav-logo-img {
-        height: 36px;
+        height: 40px;
+        width: 40px;
       }
       section {
         padding: 56px 4%;
@@ -803,6 +857,172 @@
       transition: opacity .7s ease, transform .7s ease;
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Modal de pedido ── */
+    .order-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .55);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 1.5rem;
+      opacity: 0;
+      transition: opacity .25s ease;
+    }
+    .order-modal.open { display: flex; opacity: 1; }
+    .order-modal-card {
+      background: var(--white);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 460px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .25);
+      transform: translateY(20px) scale(.97);
+      transition: transform .3s ease;
+      position: relative;
+    }
+    .order-modal.open .order-modal-card { transform: translateY(0) scale(1); }
+    .order-modal-header {
+      background: var(--mint);
+      color: var(--white);
+      padding: 1.6rem 1.8rem 1.4rem;
+      border-radius: 20px 20px 0 0;
+      position: relative;
+    }
+    .order-modal-title {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 1.7rem;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: .3rem;
+    }
+    .order-modal-subtitle {
+      font-size: .9rem;
+      opacity: .9;
+      font-weight: 400;
+    }
+    .order-modal-product {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1.8rem;
+      background: var(--offwhite);
+      border-bottom: 1px solid var(--border);
+      font-size: .9rem;
+    }
+    .order-modal-product strong { color: var(--text); font-weight: 600; }
+    .order-modal-product .price-pill {
+      background: var(--mint);
+      color: var(--white);
+      padding: .3rem .8rem;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: .85rem;
+    }
+    .order-modal-shipping {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      background: rgba(37, 211, 102, .12);
+      border-bottom: 1px solid rgba(37, 211, 102, .35);
+      color: #16a34a;
+      font-size: .85rem;
+      font-weight: 600;
+      padding: .7rem 1.8rem;
+    }
+    .order-modal-shipping[hidden] { display: none; }
+    .order-modal-shipping svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .order-modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .25);
+      color: var(--white);
+      border: none;
+      font-size: 1.3rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s;
+    }
+    .order-modal-close:hover { background: rgba(255, 255, 255, .4); }
+    .order-modal-body { padding: 1.6rem 1.8rem 1.8rem; }
+    .order-form .form-row { display: flex; gap: .9rem; }
+    .order-form .form-group { margin-bottom: 1rem; flex: 1; }
+    .order-form label {
+      display: block;
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: .35rem;
+      letter-spacing: .02em;
+    }
+    .order-form input,
+    .order-form textarea,
+    .order-form select {
+      width: 100%;
+      padding: .75rem .9rem;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .95rem;
+      color: var(--text);
+      background: var(--white);
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .order-form input:focus,
+    .order-form textarea:focus,
+    .order-form select:focus {
+      outline: none;
+      border-color: var(--mint);
+      box-shadow: 0 0 0 3px rgba(255, 49, 38, .12);
+    }
+    .order-form textarea { resize: vertical; min-height: 70px; }
+    .btn-whatsapp {
+      width: 100%;
+      margin-top: .5rem;
+      padding: .95rem 1.2rem;
+      background: #25D366;
+      color: var(--white);
+      border: none;
+      border-radius: 100px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .55rem;
+      transition: background .2s, transform .2s;
+    }
+    .btn-whatsapp:hover { background: #1DAE53; transform: translateY(-1px); }
+    .btn-whatsapp svg { width: 20px; height: 20px; }
+    .order-form-hint {
+      font-size: .78rem;
+      color: var(--gray);
+      text-align: center;
+      margin-top: .8rem;
+      line-height: 1.45;
+    }
+    @media (max-width: 480px) {
+      .order-form .form-row { flex-direction: column; gap: 0; }
+      .order-modal-header { padding: 1.3rem 1.4rem 1.2rem; }
+      .order-modal-product { padding: .85rem 1.4rem; }
+      .order-modal-body { padding: 1.3rem 1.4rem 1.5rem; }
+      .order-modal-title { font-size: 1.45rem; }
+    }
   </style>
 </head>
 <body>
@@ -848,54 +1068,58 @@
         <div class="carousel-wrapper">
           <div class="carousel-track" id="carouselTrack">
 
-            <!-- Card 1 -->
+            <!-- Card 1 — Pack x3 -->
             <div class="carousel-card active">
               <div class="product-image-placeholder">
-                <svg viewBox="0 0 80 80" fill="none" stroke="#FF3126" stroke-width="2" stroke-linecap="round">
-                  <ellipse cx="40" cy="40" rx="26" ry="14"/>
-                  <path d="M14 40 Q40 20 66 40"/>
-                  <circle cx="40" cy="40" r="4" fill="#FF3126"/>
+                <svg viewBox="0 0 80 80" fill="none" stroke="#FF3126" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="12" y="22" width="18" height="36" rx="2"/>
+                  <rect x="31" y="22" width="18" height="36" rx="2"/>
+                  <rect x="50" y="22" width="18" height="36" rx="2"/>
+                  <path d="M16 32h10M35 32h10M54 32h10"/>
                 </svg>
               </div>
-              <div class="product-badge-tag">Más Vendido</div>
-              <div class="product-name">Tira Clásica</div>
-              <div class="product-desc">Ideal para uso diario. Apertura nasal suave y cómoda durante toda la noche.</div>
-              <div class="product-price">S/ 33.90 <span>/ 30 tiras</span></div>
-              <button class="card-btn" onclick="document.getElementById('productos').scrollIntoView({behavior:'smooth'})">Ver detalle</button>
+              <div class="product-badge-tag">Más Popular</div>
+              <div class="product-name">Pack x3</div>
+              <div class="product-desc">3 packs · 90 tiras en total. La opción más completa para más de un mes de uso.</div>
+              <div class="product-price">S/ 50 <span>/ 3 packs · 90 tiras</span></div>
+              <div class="free-ship-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>
+                </svg>
+                Envío gratis
+              </div>
+              <button class="card-btn" onclick="openOrderModal('Pack x3 (3 packs · 90 tiras)','S/ 50', true)">Comprar</button>
             </div>
 
-            <!-- Card 2 -->
+            <!-- Card 2 — Pack x2 -->
             <div class="carousel-card">
               <div class="product-image-placeholder">
-                <svg viewBox="0 0 80 80" fill="none" stroke="#FF3126" stroke-width="2" stroke-linecap="round">
-                  <ellipse cx="40" cy="40" rx="28" ry="16"/>
-                  <path d="M12 40 Q40 16 68 40"/>
-                  <path d="M20 34 Q40 26 60 34"/>
-                  <circle cx="40" cy="40" r="5" fill="#FF3126"/>
+                <svg viewBox="0 0 80 80" fill="none" stroke="#FF3126" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="20" y="22" width="18" height="36" rx="2"/>
+                  <rect x="42" y="22" width="18" height="36" rx="2"/>
+                  <path d="M24 32h10M46 32h10"/>
                 </svg>
               </div>
-              <div class="product-badge-tag">Extra Fuerza</div>
-              <div class="product-name">Tira Max</div>
-              <div class="product-desc">Mayor apertura nasal. Perfecta para congestión fuerte o ronquido intenso.</div>
-              <div class="product-price">S/ 44.90 <span>/ 30 tiras</span></div>
-              <button class="card-btn" onclick="document.getElementById('productos').scrollIntoView({behavior:'smooth'})">Ver detalle</button>
+              <div class="product-badge-tag">Ahorra</div>
+              <div class="product-name">Pack x2</div>
+              <div class="product-desc">2 packs · 60 tiras. Lo justo para varias semanas con un buen ahorro frente al pack individual.</div>
+              <div class="product-price">S/ 35 <span>/ 2 packs · 60 tiras</span></div>
+              <button class="card-btn" onclick="openOrderModal('Pack x2 (2 packs · 60 tiras)','S/ 35', false)">Comprar</button>
             </div>
 
-            <!-- Card 3 -->
+            <!-- Card 3 — Pack Individual -->
             <div class="carousel-card">
               <div class="product-image-placeholder">
-                <svg viewBox="0 0 80 80" fill="none" stroke="#FF3126" stroke-width="2" stroke-linecap="round">
-                  <ellipse cx="40" cy="38" rx="24" ry="13"/>
-                  <path d="M16 38 Q40 18 64 38"/>
-                  <path d="M30 46 Q40 52 50 46"/>
-                  <circle cx="40" cy="38" r="4" fill="#FF3126"/>
+                <svg viewBox="0 0 80 80" fill="none" stroke="#FF3126" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="30" y="22" width="20" height="36" rx="2"/>
+                  <path d="M34 32h12M34 38h12"/>
                 </svg>
               </div>
-              <div class="product-badge-tag">Para Deportistas</div>
-              <div class="product-name">Tira Sport</div>
-              <div class="product-desc">Diseñada para el ejercicio. Mayor flujo de aire y adhesión durante el sudor.</div>
-              <div class="product-price">S/ 52.90 <span>/ 30 tiras</span></div>
-              <button class="card-btn" onclick="document.getElementById('productos').scrollIntoView({behavior:'smooth'})">Ver detalle</button>
+              <div class="product-badge-tag">Para Probar</div>
+              <div class="product-name">Pack Individual</div>
+              <div class="product-desc">1 pack · 30 tiras. Ideal para conocer la calidad de nuestras tiras nasales.</div>
+              <div class="product-price">S/ 20 <span>/ 1 pack · 30 tiras</span></div>
+              <button class="card-btn" onclick="openOrderModal('Pack Individual (1 pack · 30 tiras)','S/ 20', false)">Comprar</button>
             </div>
 
           </div><!-- /carousel-track -->
@@ -958,66 +1182,73 @@
   <!-- ══ PRODUCTOS ══ -->
   <section id="productos">
     <div class="section-inner">
-      <div class="section-label reveal">Nuestros productos</div>
-      <h2 class="section-title reveal">Elige la tira<br />ideal para ti</h2>
-      <p class="section-sub reveal">Tres formatos pensados para distintas necesidades. Todos sin látex, hipoalergénicos y de uso nocturno o deportivo.</p>
+      <div class="section-label reveal">Nuestras ofertas</div>
+      <h2 class="section-title reveal">Elige el pack<br />ideal para ti</h2>
+      <p class="section-sub reveal">Tres formatos para que ahorres más mientras más compras. Cada pack incluye 30 tiras nasales hipoalergénicas y sin látex.</p>
       <div class="productos-grid">
 
-        <div class="product-card reveal">
+        <!-- Pack x3 -->
+        <div class="product-card reveal is-featured">
           <div class="product-card-img">
-            <svg viewBox="0 0 90 90" fill="none" stroke="rgba(255,49,38,.55)" stroke-width="1.8" stroke-linecap="round">
-              <ellipse cx="45" cy="45" rx="26" ry="14"/>
-              <path d="M19 45 Q45 25 71 45"/>
-              <circle cx="45" cy="45" r="4" fill="rgba(255,49,38,.3)"/>
-            </svg>
-          </div>
-          <div class="product-card-body">
-            <div class="product-card-tag">Uso diario</div>
-            <div class="product-card-name">Tira Clásica</div>
-            <p class="product-card-desc">Apertura nasal suave y confortable. Material flexible que se adapta perfectamente al puente de la nariz sin causar irritación.</p>
-            <div class="product-card-footer">
-              <div class="product-card-price">S/ 33.90 <small>/ 30 tiras</small></div>
-              <button class="btn-card">Comprar</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal">
-          <div class="product-card-img">
-            <svg viewBox="0 0 90 90" fill="none" stroke="rgba(255,49,38,.55)" stroke-width="1.8" stroke-linecap="round">
-              <ellipse cx="45" cy="45" rx="30" ry="17"/>
-              <path d="M15 45 Q45 22 75 45"/>
-              <path d="M24 38 Q45 30 66 38"/>
-              <circle cx="45" cy="45" r="5" fill="rgba(255,49,38,.3)"/>
+            <svg viewBox="0 0 90 90" fill="none" stroke="rgba(255,49,38,.6)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="14" y="24" width="20" height="42" rx="2"/>
+              <rect x="35" y="24" width="20" height="42" rx="2"/>
+              <rect x="56" y="24" width="20" height="42" rx="2"/>
+              <path d="M18 36h12M39 36h12M60 36h12" stroke-width="1.5"/>
             </svg>
           </div>
           <div class="product-card-body">
             <div class="product-card-tag">Más popular</div>
-            <div class="product-card-name">Tira Max</div>
-            <p class="product-card-desc">Mayor nivel de apertura para casos de congestión severa o ronquido intenso. Tecnología de doble resorte interno.</p>
+            <div class="product-card-name">Pack x3 — 90 tiras</div>
+            <p class="product-card-desc">3 packs de 30 tiras (90 tiras en total). La mejor relación calidad‑precio. Suficiente para más de un mes de uso continuo.</p>
+            <div class="product-card-ship">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>
+              </svg>
+              Envío gratis incluido
+            </div>
             <div class="product-card-footer">
-              <div class="product-card-price">S/ 44.90 <small>/ 30 tiras</small></div>
-              <button class="btn-card">Comprar</button>
+              <div class="product-card-price">S/ 50 <small>/ 3 packs</small></div>
+              <button class="btn-card" onclick="openOrderModal('Pack x3 (3 packs · 90 tiras)','S/ 50', true)">Comprar</button>
             </div>
           </div>
         </div>
 
+        <!-- Pack x2 -->
         <div class="product-card reveal">
           <div class="product-card-img">
-            <svg viewBox="0 0 90 90" fill="none" stroke="rgba(255,49,38,.55)" stroke-width="1.8" stroke-linecap="round">
-              <ellipse cx="45" cy="43" rx="24" ry="13"/>
-              <path d="M21 43 Q45 23 69 43"/>
-              <path d="M33 53 Q45 60 57 53"/>
-              <circle cx="45" cy="43" r="4" fill="rgba(255,49,38,.3)"/>
+            <svg viewBox="0 0 90 90" fill="none" stroke="rgba(255,49,38,.55)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="22" y="24" width="20" height="42" rx="2"/>
+              <rect x="48" y="24" width="20" height="42" rx="2"/>
+              <path d="M26 36h12M52 36h12" stroke-width="1.5"/>
             </svg>
           </div>
           <div class="product-card-body">
-            <div class="product-card-tag">Deportistas</div>
-            <div class="product-card-name">Tira Sport</div>
-            <p class="product-card-desc">Resistente al sudor con adhesivo reforzado. Maximiza el flujo de aire durante la actividad física intensa.</p>
+            <div class="product-card-tag">Ahorra</div>
+            <div class="product-card-name">Pack x2 — 60 tiras</div>
+            <p class="product-card-desc">2 packs de 30 tiras (60 tiras en total). Lo justo para varias semanas de uso, con un buen ahorro frente al pack individual.</p>
             <div class="product-card-footer">
-              <div class="product-card-price">S/ 52.90 <small>/ 30 tiras</small></div>
-              <button class="btn-card">Comprar</button>
+              <div class="product-card-price">S/ 35 <small>/ 2 packs</small></div>
+              <button class="btn-card" onclick="openOrderModal('Pack x2 (2 packs · 60 tiras)','S/ 35', false)">Comprar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pack Individual -->
+        <div class="product-card reveal">
+          <div class="product-card-img">
+            <svg viewBox="0 0 90 90" fill="none" stroke="rgba(255,49,38,.55)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="33" y="24" width="24" height="42" rx="2"/>
+              <path d="M37 36h16M37 44h16" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="product-card-body">
+            <div class="product-card-tag">Para probar</div>
+            <div class="product-card-name">Pack Individual — 30 tiras</div>
+            <p class="product-card-desc">1 pack de 30 tiras. Ideal para conocer la calidad de nuestras tiras nasales antes de pasar a un pack más grande.</p>
+            <div class="product-card-footer">
+              <div class="product-card-price">S/ 20 <small>/ 1 pack</small></div>
+              <button class="btn-card" onclick="openOrderModal('Pack Individual (1 pack · 30 tiras)','S/ 20', false)">Comprar</button>
             </div>
           </div>
         </div>
@@ -1040,7 +1271,7 @@
             <div class="author-avatar">CM</div>
             <div>
               <div class="author-name">Carlos M.</div>
-              <div class="author-role">Cliente verificado · Bogotá</div>
+              <div class="author-role">Cliente verificado · Lima</div>
             </div>
           </div>
         </div>
@@ -1052,7 +1283,7 @@
             <div class="author-avatar">LV</div>
             <div>
               <div class="author-name">Laura V.</div>
-              <div class="author-role">Atleta · Medellín</div>
+              <div class="author-role">Atleta · Lima</div>
             </div>
           </div>
         </div>
@@ -1064,7 +1295,7 @@
             <div class="author-avatar">AP</div>
             <div>
               <div class="author-name">Andrea P.</div>
-              <div class="author-role">Cliente verificada · Cali</div>
+              <div class="author-role">Cliente verificada · Lima</div>
             </div>
           </div>
         </div>
@@ -1160,7 +1391,7 @@
             </div>
             <div>
               <div class="contact-item-label">Email</div>
-              <div class="contact-item-val">contacto@edycacestore.com</div>
+              <div class="contact-item-val">edycace.importaciones@gmail.com</div>
             </div>
           </div>
           <div class="contact-item">
@@ -1171,7 +1402,7 @@
             </div>
             <div>
               <div class="contact-item-label">WhatsApp</div>
-              <div class="contact-item-val">+57 300 000 0000</div>
+              <div class="contact-item-val">+51 912370223</div>
             </div>
           </div>
           <div class="contact-item">
@@ -1226,6 +1457,63 @@
     <div class="footer-copy">© 2024 EDYCACE STORE. Todos los derechos reservados.</div>
   </footer>
 
+  <!-- ══ MODAL DE PEDIDO ══ -->
+  <div class="order-modal" id="orderModal" role="dialog" aria-modal="true" aria-labelledby="orderModalTitle" onclick="if(event.target===this) closeOrderModal()">
+    <div class="order-modal-card">
+      <div class="order-modal-header">
+        <button class="order-modal-close" type="button" aria-label="Cerrar" onclick="closeOrderModal()">×</button>
+        <div class="order-modal-title" id="orderModalTitle">Hacer pedido</div>
+        <div class="order-modal-subtitle">Completa tus datos y te contactamos por WhatsApp</div>
+      </div>
+
+      <div class="order-modal-product">
+        <div>Producto: <strong id="orderProductName">—</strong></div>
+        <div class="price-pill" id="orderProductPrice">—</div>
+      </div>
+
+      <div class="order-modal-shipping" id="orderShippingBanner" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>
+        </svg>
+        Envío gratis incluido en esta promo
+      </div>
+
+      <div class="order-modal-body">
+        <form class="order-form" id="orderForm" onsubmit="sendWhatsAppOrder(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="orderFirstName">Nombre</label>
+              <input type="text" id="orderFirstName" placeholder="Tu nombre" required />
+            </div>
+            <div class="form-group">
+              <label for="orderLastName">Apellido</label>
+              <input type="text" id="orderLastName" placeholder="Tu apellido" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="orderPhone">Teléfono</label>
+            <input type="tel" id="orderPhone" placeholder="999 999 999" required />
+          </div>
+
+          <div class="form-group">
+            <label for="orderNotes">Dirección / Notas</label>
+            <textarea id="orderNotes" placeholder="Distrito, dirección de envío, referencia..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-whatsapp">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Hacer pedido por WhatsApp
+          </button>
+
+          <div class="order-form-hint">Al enviar, se abrirá WhatsApp con tu pedido prellenado para confirmar disponibilidad y pago.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <a
     href="https://wa.link/fzkfna"
     class="wa-float"
@@ -1273,6 +1561,86 @@
       const isOpen = item.classList.contains('open');
       document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
       if (!isOpen) item.classList.add('open');
+    }
+
+    /* ── Modal de pedido + WhatsApp ── */
+    // Número de WhatsApp para recibir pedidos (formato internacional sin "+", ej. Perú: 51XXXXXXXXX)
+    const WHATSAPP_NUMBER = '573000000000';
+
+    // Estado actual del pedido (para incluir info en el mensaje de WhatsApp)
+    let currentOrder = { product: '', price: '', freeShipping: false };
+
+    function openOrderModal(productName, productPrice, freeShipping) {
+      const modal = document.getElementById('orderModal');
+      currentOrder = {
+        product: productName || '—',
+        price: productPrice || '',
+        freeShipping: !!freeShipping
+      };
+      document.getElementById('orderProductName').textContent = currentOrder.product;
+      document.getElementById('orderProductPrice').textContent = currentOrder.price;
+      const banner = document.getElementById('orderShippingBanner');
+      if (currentOrder.freeShipping) banner.removeAttribute('hidden');
+      else banner.setAttribute('hidden', '');
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      // Foco en el primer campo
+      setTimeout(() => document.getElementById('orderFirstName').focus(), 80);
+    }
+
+    function closeOrderModal() {
+      const modal = document.getElementById('orderModal');
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // Cerrar con tecla ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeOrderModal();
+    });
+
+    function sendWhatsAppOrder(e) {
+      e.preventDefault();
+      const firstName = document.getElementById('orderFirstName').value.trim();
+      const lastName  = document.getElementById('orderLastName').value.trim();
+      const phone     = document.getElementById('orderPhone').value.trim();
+      const notes     = document.getElementById('orderNotes').value.trim();
+      const product   = currentOrder.product;
+      const price     = currentOrder.price;
+      const freeShip  = currentOrder.freeShipping;
+
+      const lines = [
+        '¡Hola! Quiero hacer un pedido 🛒',
+        '',
+        '*Promo:* ' + product,
+        '*Total:* ' + price + (freeShip ? ' (envío gratis incluido 🚚)' : ''),
+        '',
+        '*Nombre:* ' + firstName + ' ' + lastName,
+        '*Teléfono:* ' + phone
+      ];
+      if (notes) {
+        lines.push('*Dirección / Notas:* ' + notes);
+      }
+      if (!freeShip) {
+        lines.push('', '_(Por favor confírmame el costo de envío a mi distrito)_');
+      }
+      lines.push('', 'Gracias 🙌');
+
+      const text = encodeURIComponent(lines.join('\n'));
+      const url  = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + text;
+      window.open(url, '_blank', 'noopener,noreferrer');
+
+      // Pequeña confirmación visual y reset
+      const btn = e.target.querySelector('.btn-whatsapp');
+      const original = btn.innerHTML;
+      btn.innerHTML = '✓ Abriendo WhatsApp…';
+      btn.style.background = '#1DAE53';
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.style.background = '';
+        e.target.reset();
+        closeOrderModal();
+      }, 1400);
     }
 
     /* ── Contact form ── */
