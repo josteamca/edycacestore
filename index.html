@@ -841,24 +841,65 @@
 
     /* ── Responsive ── */
     @media (max-width: 900px) {
-      .nav-links { display: none; }
+      .nav-links {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: min(78vw, 320px);
+        background: rgba(255, 49, 38, 0.98);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        padding: calc(72px + 1.25rem) 1.6rem 2rem;
+        gap: .25rem;
+        z-index: 110;
+        overflow-y: auto;
+        transform: translateX(100%);
+        transition: transform .32s ease;
+        box-shadow: -10px 0 32px rgba(0, 0, 0, 0.25);
+      }
+      .nav-links.open { transform: translateX(0); }
+      .nav-links li { width: 100%; }
       .nav-links a {
-        padding: 0.65rem 0;
+        padding: 0.85rem 0.4rem;
         min-height: 48px;
         display: flex;
         align-items: center;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-        color: rgba(255, 255, 255, 0.92);
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+        color: rgba(255, 255, 255, 0.95);
+        font-weight: 600;
+        font-size: .92rem;
       }
-      .nav-links a:last-child {
+      .nav-links li:last-child a {
         border-bottom: none;
       }
       .nav-links .nav-cta {
-        margin-top: 0.5rem;
+        margin-top: .9rem;
         justify-content: center;
         border-bottom: none;
+        background: var(--white);
+        color: var(--mint) !important;
       }
-      .hamburger { display: flex; }
+      .nav-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .25s ease;
+        z-index: 105;
+      }
+      .nav-backdrop.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .hamburger { display: flex; position: relative; z-index: 120; }
+      .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      .hamburger.open span:nth-child(2) { opacity: 0; }
+      .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
       .hero-inner {
         grid-template-columns: 1fr;
         gap: 2.25rem;
@@ -1853,19 +1894,54 @@
     }, { threshold: 0.12 });
     revealEls.forEach(el => observer.observe(el));
 
-    /* ── Mobile nav ── */
-    document.getElementById('hamburger').addEventListener('click', () => {
-      const links = document.querySelector('.nav-links');
-      const navH = document.querySelector('nav').offsetHeight;
-      if (links.style.display === 'flex') {
-        links.style.display = 'none';
-      } else {
-        links.style.cssText =
-          'display:flex;flex-direction:column;position:fixed;top:' +
-          navH +
-          'px;left:0;right:0;bottom:0;background:rgba(255,49,38,.98);padding:2rem 5%;gap:1.25rem;backdrop-filter:blur(14px);z-index:99;overflow-y:auto;';
+    /* ── Mobile nav (drawer lateral derecho) ── */
+    (function () {
+      const hamburger = document.getElementById('hamburger');
+      const navLinks  = document.querySelector('.nav-links');
+      if (!hamburger || !navLinks) return;
+
+      // Backdrop semitransparente para cerrar el menú al tocar fuera
+      const backdrop = document.createElement('div');
+      backdrop.className = 'nav-backdrop';
+      document.body.appendChild(backdrop);
+
+      function openMenu() {
+        navLinks.classList.add('open');
+        backdrop.classList.add('open');
+        hamburger.classList.add('open');
+        hamburger.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
       }
-    });
+      function closeMenu() {
+        navLinks.classList.remove('open');
+        backdrop.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+
+      hamburger.addEventListener('click', () => {
+        if (navLinks.classList.contains('open')) closeMenu();
+        else openMenu();
+      });
+
+      backdrop.addEventListener('click', closeMenu);
+
+      // Cerrar al pulsar cualquier enlace del menú
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+      });
+
+      // Cerrar con tecla Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navLinks.classList.contains('open')) closeMenu();
+      });
+
+      // Si la pantalla se agranda y dejamos el modo móvil, garantizamos cierre
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 900 && navLinks.classList.contains('open')) closeMenu();
+      });
+    })();
   </script>
 </body>
 </html>
