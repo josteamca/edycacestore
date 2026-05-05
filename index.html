@@ -274,6 +274,19 @@
       flex-shrink: 0;
     }
     .product-image-placeholder svg { width: 80px; height: 80px; opacity: .7; }
+    .product-image-placeholder.has-photo {
+      background: #FFFFFF;
+      border: 1px solid rgba(255, 49, 38, 0.18);
+      overflow: hidden;
+      padding: 10px;
+    }
+    .product-image-placeholder.has-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 50%;
+      display: block;
+    }
     .product-badge-tag {
       font-size: .72rem;
       font-weight: 600;
@@ -413,6 +426,58 @@
     }
     .nosotros-visual-icon { position: relative; z-index: 1; }
     .nosotros-visual-icon svg { width: 120px; height: 120px; opacity: .6; }
+    .nosotros-visual.has-video { padding: 0; }
+    .nosotros-visual.has-video::before { display: none; }
+    .nosotros-visual video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      position: relative;
+      z-index: 1;
+      border-radius: 24px;
+    }
+    .nosotros-evidence {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 3.5rem;
+    }
+    .nosotros-evidence figure {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+      display: flex;
+      flex-direction: column;
+    }
+    .nosotros-evidence-img-wrap {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      background: var(--offwhite);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .nosotros-evidence img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .nosotros-evidence figcaption {
+      padding: .9rem 1rem;
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--navy);
+      text-align: center;
+      border-top: 1px solid var(--border);
+      background: var(--white);
+    }
     .stats {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -458,6 +523,18 @@
       justify-content: center;
     }
     .product-card-img svg { width: 90px; height: 90px; opacity: .5; }
+    .product-card-img.has-photo {
+      background: linear-gradient(135deg, #FFFFFF 0%, var(--offwhite) 100%);
+      padding: 1.25rem;
+    }
+    .product-card-img.has-photo img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 18px rgba(0,0,0,.18));
+    }
     .product-card-body { padding: 1.8rem 1.6rem; }
     .product-card-tag {
       font-size: .7rem;
@@ -577,6 +654,17 @@
       font-weight: 700;
       color: var(--white);
       flex-shrink: 0;
+    }
+    .author-avatar.has-photo {
+      background: none;
+      overflow: hidden;
+      border: 2px solid rgba(255, 49, 38, 0.55);
+    }
+    .author-avatar.has-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
     .author-name { font-weight: 600; font-size: .9rem; color: var(--white); }
     .author-role { font-size: .78rem; color: rgba(255,255,255,.45); margin-top: .1rem; }
@@ -801,7 +889,13 @@
         text-align: center;
       }
       .carousel-wrapper { width: 100%; max-width: min(100%, 360px); margin: 0 auto; }
-      .carousel-track { height: min(420px, 78vh); }
+      .carousel-track { height: 560px; }
+      .carousel-card {
+        padding: 2rem 1.5rem;
+        gap: 1.1rem;
+        justify-content: center;
+      }
+      .product-image-placeholder { width: 150px; height: 150px; }
       .nosotros-grid,
       .contacto-grid { grid-template-columns: 1fr; gap: 3rem; }
       .productos-grid,
@@ -839,15 +933,34 @@
       .section-title {
         font-size: clamp(1.65rem, 6.5vw, 2.4rem);
       }
+      .carousel-track { height: 580px; }
       .carousel-card {
-        padding: 1.75rem 1.25rem;
+        padding: 1.85rem 1.25rem;
+        gap: 1rem;
+        justify-content: center;
       }
+      .product-image-placeholder { width: 140px; height: 140px; }
       .product-name {
-        font-size: 1.45rem;
+        font-size: 1.4rem;
+        margin-top: .1rem;
+      }
+      .product-desc {
+        font-size: .85rem;
+        line-height: 1.5;
       }
       .product-price {
-        font-size: 1.85rem;
+        font-size: 1.75rem;
+        margin-top: .15rem;
       }
+      .card-btn {
+        margin-top: .55rem;
+        padding: .8rem 2.2rem;
+        font-size: .9rem;
+      }
+      .free-ship-pill {
+        margin-top: .15rem;
+      }
+      .nosotros-evidence { grid-template-columns: 1fr; gap: 1.25rem; margin-top: 2.5rem; }
     }
 
     /* ── Reveal animation ── */
@@ -1070,13 +1183,8 @@
 
             <!-- Card 1 — Pack x3 -->
             <div class="carousel-card active">
-              <div class="product-image-placeholder">
-                <svg viewBox="0 0 80 80" fill="none" stroke="#FF3126" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="12" y="22" width="18" height="36" rx="2"/>
-                  <rect x="31" y="22" width="18" height="36" rx="2"/>
-                  <rect x="50" y="22" width="18" height="36" rx="2"/>
-                  <path d="M16 32h10M35 32h10M54 32h10"/>
-                </svg>
+              <div class="product-image-placeholder has-photo">
+                <img src="assets/3xpro.png" alt="Pack x3 — 90 tiras nasales" loading="lazy" />
               </div>
               <div class="product-badge-tag">Más Popular</div>
               <div class="product-name">Pack x3</div>
@@ -1093,12 +1201,8 @@
 
             <!-- Card 2 — Pack x2 -->
             <div class="carousel-card">
-              <div class="product-image-placeholder">
-                <svg viewBox="0 0 80 80" fill="none" stroke="#FF3126" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="20" y="22" width="18" height="36" rx="2"/>
-                  <rect x="42" y="22" width="18" height="36" rx="2"/>
-                  <path d="M24 32h10M46 32h10"/>
-                </svg>
+              <div class="product-image-placeholder has-photo">
+                <img src="assets/2xpro.png" alt="Pack x2 — 60 tiras nasales" loading="lazy" />
               </div>
               <div class="product-badge-tag">Ahorra</div>
               <div class="product-name">Pack x2</div>
@@ -1109,11 +1213,8 @@
 
             <!-- Card 3 — Pack Individual -->
             <div class="carousel-card">
-              <div class="product-image-placeholder">
-                <svg viewBox="0 0 80 80" fill="none" stroke="#FF3126" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="30" y="22" width="20" height="36" rx="2"/>
-                  <path d="M34 32h12M34 38h12"/>
-                </svg>
+              <div class="product-image-placeholder has-photo">
+                <img src="assets/1xpro.png" alt="Pack Individual — 30 tiras nasales" loading="lazy" />
               </div>
               <div class="product-badge-tag">Para Probar</div>
               <div class="product-name">Pack Individual</div>
@@ -1139,15 +1240,11 @@
       <div class="section-label reveal">Nuestra historia</div>
       <h2 class="section-title reveal">Nacimos para que<br />respires mejor</h2>
       <div class="nosotros-grid">
-        <div class="nosotros-visual reveal">
-          <div class="nosotros-visual-icon">
-            <svg viewBox="0 0 120 120" fill="none" stroke="#FF3126" stroke-width="1.5" stroke-linecap="round">
-              <ellipse cx="60" cy="60" rx="36" ry="22"/>
-              <path d="M24 60 Q60 28 96 60"/>
-              <path d="M38 72 Q60 82 82 72"/>
-              <circle cx="60" cy="60" r="7" fill="rgba(255,49,38,.4)"/>
-            </svg>
-          </div>
+        <div class="nosotros-visual has-video reveal">
+          <video autoplay muted loop playsinline controls preload="metadata">
+            <source src="assets/dejandopedidos1.mp4" type="video/mp4" />
+            Tu navegador no soporta video HTML5.
+          </video>
         </div>
         <div class="reveal">
           <p class="section-sub" style="max-width:100%;margin-bottom:1.2rem;">
@@ -1176,6 +1273,21 @@
           </div>
         </div>
       </div>
+
+      <div class="nosotros-evidence">
+        <figure class="reveal">
+          <div class="nosotros-evidence-img-wrap">
+            <img src="assets/consolidadopedidos.png" alt="Consolidado de pedidos" loading="lazy" />
+          </div>
+          <figcaption>Consolidado de pedidos</figcaption>
+        </figure>
+        <figure class="reveal">
+          <div class="nosotros-evidence-img-wrap">
+            <img src="assets/envios.png" alt="Envíos a todo el país" loading="lazy" />
+          </div>
+          <figcaption>Envíos a todo el país</figcaption>
+        </figure>
+      </div>
     </div>
   </section>
 
@@ -1189,13 +1301,8 @@
 
         <!-- Pack x3 -->
         <div class="product-card reveal is-featured">
-          <div class="product-card-img">
-            <svg viewBox="0 0 90 90" fill="none" stroke="rgba(255,49,38,.6)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="14" y="24" width="20" height="42" rx="2"/>
-              <rect x="35" y="24" width="20" height="42" rx="2"/>
-              <rect x="56" y="24" width="20" height="42" rx="2"/>
-              <path d="M18 36h12M39 36h12M60 36h12" stroke-width="1.5"/>
-            </svg>
+          <div class="product-card-img has-photo">
+            <img src="assets/3xpro.png" alt="Pack x3 — 90 tiras" loading="lazy" />
           </div>
           <div class="product-card-body">
             <div class="product-card-tag">Más popular</div>
@@ -1216,12 +1323,8 @@
 
         <!-- Pack x2 -->
         <div class="product-card reveal">
-          <div class="product-card-img">
-            <svg viewBox="0 0 90 90" fill="none" stroke="rgba(255,49,38,.55)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="22" y="24" width="20" height="42" rx="2"/>
-              <rect x="48" y="24" width="20" height="42" rx="2"/>
-              <path d="M26 36h12M52 36h12" stroke-width="1.5"/>
-            </svg>
+          <div class="product-card-img has-photo">
+            <img src="assets/2xpro.png" alt="Pack x2 — 60 tiras" loading="lazy" />
           </div>
           <div class="product-card-body">
             <div class="product-card-tag">Ahorra</div>
@@ -1236,11 +1339,8 @@
 
         <!-- Pack Individual -->
         <div class="product-card reveal">
-          <div class="product-card-img">
-            <svg viewBox="0 0 90 90" fill="none" stroke="rgba(255,49,38,.55)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="33" y="24" width="24" height="42" rx="2"/>
-              <path d="M37 36h16M37 44h16" stroke-width="1.5"/>
-            </svg>
+          <div class="product-card-img has-photo">
+            <img src="assets/1xpro.png" alt="Pack Individual — 30 tiras" loading="lazy" />
           </div>
           <div class="product-card-body">
             <div class="product-card-tag">Para probar</div>
@@ -1268,7 +1368,9 @@
           <div class="stars">★★★★★</div>
           <p class="testimonial-text">"Llevaba años despertándome cansado. Desde que uso las Tiras Max de EDYCACE STORE, duermo de corrido y mi pareja ya no se queja del ronquido. Un cambio increíble."</p>
           <div class="testimonial-author">
-            <div class="author-avatar">CM</div>
+            <div class="author-avatar has-photo">
+              <img src="assets/cliente1.jpeg" alt="Carlos M." loading="lazy" />
+            </div>
             <div>
               <div class="author-name">Carlos M.</div>
               <div class="author-role">Cliente verificado · Lima</div>
@@ -1280,7 +1382,9 @@
           <div class="stars">★★★★★</div>
           <p class="testimonial-text">"Las uso durante mis entrenamientos de crossfit. La adhesión es brutal, no se despegan ni con el sudor. El flujo de aire mejora notablemente mi rendimiento."</p>
           <div class="testimonial-author">
-            <div class="author-avatar">LV</div>
+            <div class="author-avatar has-photo">
+              <img src="assets/cliente2.jpeg" alt="Laura V." loading="lazy" />
+            </div>
             <div>
               <div class="author-name">Laura V.</div>
               <div class="author-role">Atleta · Lima</div>
@@ -1292,7 +1396,9 @@
           <div class="stars">★★★★★</div>
           <p class="testimonial-text">"Sufría de congestión crónica. Las Tiras Clásicas me dan el alivio que necesito para dormir sin medicamentos. Las recomiendo a toda mi familia."</p>
           <div class="testimonial-author">
-            <div class="author-avatar">AP</div>
+            <div class="author-avatar has-photo">
+              <img src="assets/cliente3.png" alt="Andrea P." loading="lazy" />
+            </div>
             <div>
               <div class="author-name">Andrea P.</div>
               <div class="author-role">Cliente verificada · Lima</div>
@@ -1402,7 +1508,7 @@
             </div>
             <div>
               <div class="contact-item-label">WhatsApp</div>
-              <div class="contact-item-val">+51 912370223</div>
+              <div class="contact-item-val">+51 912 370 223</div>
             </div>
           </div>
           <div class="contact-item">
@@ -1565,7 +1671,9 @@
 
     /* ── Modal de pedido + WhatsApp ── */
     // Número de WhatsApp para recibir pedidos (formato internacional sin "+", ej. Perú: 51XXXXXXXXX)
-    const WHATSAPP_NUMBER = '573000000000';
+    const WHATSAPP_NUMBER = '51912370223';
+    // Enlace corto alternativo de WhatsApp (wa.link) provisto por la marca
+    const WHATSAPP_SHORT_LINK = 'https://wa.link/fzkfna';
 
     // Estado actual del pedido (para incluir info en el mensaje de WhatsApp)
     let currentOrder = { product: '', price: '', freeShipping: false };
