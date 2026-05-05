@@ -351,6 +351,43 @@
     }
     .card-btn:hover { background: var(--mint2); }
 
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--mint);
+      border: 1px solid rgba(255, 49, 38, 0.25);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      transition: background .2s, transform .15s, color .2s;
+      padding: 0;
+    }
+    .carousel-arrow:hover {
+      background: var(--mint);
+      color: var(--white);
+      transform: translateY(-50%) scale(1.06);
+    }
+    .carousel-arrow:focus-visible {
+      outline: 3px solid var(--mint);
+      outline-offset: 3px;
+    }
+    .carousel-arrow svg { width: 20px; height: 20px; }
+    .carousel-arrow.prev { left: -10px; }
+    .carousel-arrow.next { right: -10px; }
+    .carousel-track {
+      touch-action: pan-y;
+      cursor: grab;
+      user-select: none;
+    }
+    .carousel-track.is-dragging { cursor: grabbing; }
     .carousel-dots {
       display: flex;
       justify-content: center;
@@ -889,6 +926,9 @@
         text-align: center;
       }
       .carousel-wrapper { width: 100%; max-width: min(100%, 360px); margin: 0 auto; }
+      .carousel-arrow.prev { left: 4px; }
+      .carousel-arrow.next { right: 4px; }
+      .carousel-arrow { width: 40px; height: 40px; }
       .carousel-track { height: 560px; }
       .carousel-card {
         padding: 2rem 1.5rem;
@@ -1179,6 +1219,16 @@
 
       <div class="hero-right">
         <div class="carousel-wrapper">
+          <button type="button" class="carousel-arrow prev" id="carouselPrev" aria-label="Producto anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+          </button>
+          <button type="button" class="carousel-arrow next" id="carouselNext" aria-label="Siguiente producto">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
           <div class="carousel-track" id="carouselTrack">
 
             <!-- Card 1 — Pack x3 -->
@@ -1225,9 +1275,9 @@
 
           </div><!-- /carousel-track -->
           <div class="carousel-dots">
-            <div class="dot active" onclick="goToSlide(0)"></div>
-            <div class="dot" onclick="goToSlide(1)"></div>
-            <div class="dot" onclick="goToSlide(2)"></div>
+            <div class="dot active" onclick="goToSlide(0, {fromUser:true})" role="button" aria-label="Ver Pack x3"></div>
+            <div class="dot" onclick="goToSlide(1, {fromUser:true})" role="button" aria-label="Ver Pack x2"></div>
+            <div class="dot" onclick="goToSlide(2, {fromUser:true})" role="button" aria-label="Ver Pack Individual"></div>
           </div>
         </div>
       </div>
@@ -1638,28 +1688,110 @@
     /* ── Carousel ── */
     const cards = document.querySelectorAll('.carousel-card');
     const dots  = document.querySelectorAll('.dot');
+    const carouselTrack = document.getElementById('carouselTrack');
+    const carouselPrev  = document.getElementById('carouselPrev');
+    const carouselNext  = document.getElementById('carouselNext');
     let current = 0;
     let timer;
+    let autoplayPaused = false;
+    const AUTOPLAY_MS = 4500;
 
-    function goToSlide(n) {
+    function goToSlide(n, opts) {
+      const total = cards.length;
+      const target = ((n % total) + total) % total;
+      if (target === current) return;
       cards[current].classList.remove('active');
       cards[current].classList.add('exit');
       dots[current].classList.remove('active');
-      setTimeout(() => cards[current].classList.remove('exit'), 600);
-      current = n;
+      const previous = current;
+      setTimeout(() => cards[previous].classList.remove('exit'), 600);
+      current = target;
       cards[current].classList.add('active');
       dots[current].classList.add('active');
-      resetTimer();
+      if (opts && opts.fromUser) {
+        pauseAutoplay();
+      } else {
+        resetTimer();
+      }
     }
 
-    function next() { goToSlide((current + 1) % cards.length); }
+    function next() { goToSlide(current + 1); }
+    function prev() { goToSlide(current - 1); }
 
     function resetTimer() {
       clearInterval(timer);
-      timer = setInterval(next, 3000);
+      if (!autoplayPaused) {
+        timer = setInterval(next, AUTOPLAY_MS);
+      }
     }
 
-    timer = setInterval(next, 3000);
+    function pauseAutoplay() {
+      autoplayPaused = true;
+      clearInterval(timer);
+    }
+
+    timer = setInterval(next, AUTOPLAY_MS);
+
+    /* Flechas prev/next */
+    if (carouselPrev) carouselPrev.addEventListener('click', () => goToSlide(current - 1, { fromUser: true }));
+    if (carouselNext) carouselNext.addEventListener('click', () => goToSlide(current + 1, { fromUser: true }));
+
+    /* Pausar autoplay si el cursor está sobre el carrusel */
+    if (carouselTrack) {
+      carouselTrack.addEventListener('mouseenter', () => clearInterval(timer));
+      carouselTrack.addEventListener('mouseleave', () => { if (!autoplayPaused) resetTimer(); });
+    }
+
+    /* Navegación con teclado (flechas) cuando el carrusel está enfocado */
+    document.addEventListener('keydown', (e) => {
+      const heroVisible = document.getElementById('hero').getBoundingClientRect().bottom > 0;
+      if (!heroVisible) return;
+      if (e.key === 'ArrowLeft')  { goToSlide(current - 1, { fromUser: true }); }
+      if (e.key === 'ArrowRight') { goToSlide(current + 1, { fromUser: true }); }
+    });
+
+    /* Swipe / drag (táctil + ratón) */
+    if (carouselTrack) {
+      let dragStartX = 0;
+      let dragDelta  = 0;
+      let dragging   = false;
+      let pointerId  = null;
+      const SWIPE_THRESHOLD = 45;
+
+      const onPointerDown = (e) => {
+        if (e.target.closest('.card-btn')) return; // no interferir con el botón Comprar
+        dragging = true;
+        dragStartX = e.clientX;
+        dragDelta = 0;
+        pointerId = e.pointerId;
+        carouselTrack.classList.add('is-dragging');
+        try { carouselTrack.setPointerCapture(pointerId); } catch (_) {}
+      };
+      const onPointerMove = (e) => {
+        if (!dragging) return;
+        dragDelta = e.clientX - dragStartX;
+      };
+      const onPointerEnd = () => {
+        if (!dragging) return;
+        dragging = false;
+        carouselTrack.classList.remove('is-dragging');
+        if (pointerId !== null) {
+          try { carouselTrack.releasePointerCapture(pointerId); } catch (_) {}
+          pointerId = null;
+        }
+        if (Math.abs(dragDelta) > SWIPE_THRESHOLD) {
+          if (dragDelta < 0) goToSlide(current + 1, { fromUser: true });
+          else               goToSlide(current - 1, { fromUser: true });
+        }
+        dragDelta = 0;
+      };
+
+      carouselTrack.addEventListener('pointerdown',   onPointerDown);
+      carouselTrack.addEventListener('pointermove',   onPointerMove);
+      carouselTrack.addEventListener('pointerup',     onPointerEnd);
+      carouselTrack.addEventListener('pointercancel', onPointerEnd);
+      carouselTrack.addEventListener('pointerleave',  onPointerEnd);
+    }
 
     /* ── FAQ accordion ── */
     function toggleFaq(btn) {
