@@ -48,7 +48,6 @@
       padding: 0 5%;
       height: 72px;
       background: var(--mint);
-      backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.18);
     }
     .nav-brand {
@@ -1896,9 +1895,27 @@
 
     /* ── Mobile nav (drawer lateral derecho) ── */
     (function () {
+      const navEl     = document.querySelector('nav');
       const hamburger = document.getElementById('hamburger');
       const navLinks  = document.querySelector('.nav-links');
-      if (!hamburger || !navLinks) return;
+      if (!navEl || !hamburger || !navLinks) return;
+
+      // Mover .nav-links según el viewport: en móvil → <body>, en escritorio → dentro del <nav>
+      // Esto evita cualquier "containing block" creado por filtros/transforms en ancestros que recortaría el drawer.
+      function placeNavLinks() {
+        const isMobile = window.matchMedia('(max-width: 900px)').matches;
+        if (isMobile) {
+          if (navLinks.parentNode !== document.body) {
+            document.body.appendChild(navLinks);
+          }
+        } else {
+          if (navLinks.parentNode !== navEl) {
+            navEl.insertBefore(navLinks, hamburger);
+          }
+        }
+      }
+      placeNavLinks();
+      window.addEventListener('resize', placeNavLinks);
 
       // Backdrop semitransparente para cerrar el menú al tocar fuera
       const backdrop = document.createElement('div');
