@@ -1681,6 +1681,33 @@
 
   <!-- ══ JS ══ -->
   <script>
+    /* ── Reset al inicio en cada carga / recarga ──
+       Evita que el navegador salte a una sección (#testimonios, #productos, etc.)
+       o que restaure la posición previa de scroll cuando se recarga la página. */
+    (function () {
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+      // Si hay un hash en la URL (por una navegación previa o un enlace), lo limpiamos
+      if (window.location.hash) {
+        try {
+          history.replaceState(null, '', window.location.pathname + window.location.search);
+        } catch (_) {}
+      }
+      function scrollTop() {
+        // Forzamos scroll instantáneo al tope, sin animación
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+      }
+      // Ejecutamos en el momento más temprano posible, y de nuevo en DOMContentLoaded y load
+      scrollTop();
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', scrollTop);
+      }
+      window.addEventListener('load', scrollTop);
+      // Y una vez más justo después, por si el navegador intentó saltar al hash
+      setTimeout(scrollTop, 0);
+    })();
+
     /* ── Carousel ── */
     const cards = document.querySelectorAll('.carousel-card');
     const dots  = document.querySelectorAll('.dot');
