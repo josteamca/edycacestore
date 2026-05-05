@@ -351,37 +351,6 @@
     }
     .card-btn:hover { background: var(--mint2); }
 
-    .carousel-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.92);
-      color: var(--mint);
-      border: 1px solid rgba(255, 49, 38, 0.25);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 5;
-      transition: background .2s, transform .15s, color .2s;
-      padding: 0;
-    }
-    .carousel-arrow:hover {
-      background: var(--mint);
-      color: var(--white);
-      transform: translateY(-50%) scale(1.06);
-    }
-    .carousel-arrow:focus-visible {
-      outline: 3px solid var(--mint);
-      outline-offset: 3px;
-    }
-    .carousel-arrow svg { width: 20px; height: 20px; }
-    .carousel-arrow.prev { left: -10px; }
-    .carousel-arrow.next { right: -10px; }
     .carousel-track {
       touch-action: pan-y;
       cursor: grab;
@@ -926,9 +895,6 @@
         text-align: center;
       }
       .carousel-wrapper { width: 100%; max-width: min(100%, 360px); margin: 0 auto; }
-      .carousel-arrow.prev { left: 4px; }
-      .carousel-arrow.next { right: 4px; }
-      .carousel-arrow { width: 40px; height: 40px; }
       .carousel-track { height: 560px; }
       .carousel-card {
         padding: 2rem 1.5rem;
@@ -1219,16 +1185,6 @@
 
       <div class="hero-right">
         <div class="carousel-wrapper">
-          <button type="button" class="carousel-arrow prev" id="carouselPrev" aria-label="Producto anterior">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polyline points="15 18 9 12 15 6"/>
-            </svg>
-          </button>
-          <button type="button" class="carousel-arrow next" id="carouselNext" aria-label="Siguiente producto">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polyline points="9 18 15 12 9 6"/>
-            </svg>
-          </button>
           <div class="carousel-track" id="carouselTrack">
 
             <!-- Card 1 — Pack x3 -->
@@ -1689,8 +1645,6 @@
     const cards = document.querySelectorAll('.carousel-card');
     const dots  = document.querySelectorAll('.dot');
     const carouselTrack = document.getElementById('carouselTrack');
-    const carouselPrev  = document.getElementById('carouselPrev');
-    const carouselNext  = document.getElementById('carouselNext');
     let current = 0;
     let timer;
     let autoplayPaused = false;
@@ -1731,10 +1685,6 @@
     }
 
     timer = setInterval(next, AUTOPLAY_MS);
-
-    /* Flechas prev/next */
-    if (carouselPrev) carouselPrev.addEventListener('click', () => goToSlide(current - 1, { fromUser: true }));
-    if (carouselNext) carouselNext.addEventListener('click', () => goToSlide(current + 1, { fromUser: true }));
 
     /* Pausar autoplay si el cursor está sobre el carrusel */
     if (carouselTrack) {
