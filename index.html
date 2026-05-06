@@ -776,6 +776,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center 20%;
     }
     .testimonial-name {
       font-weight: 600;
@@ -1402,10 +1403,19 @@
     @media (max-width: 900px) {
       .nav-links { display: none; }
       .hamburger { display: inline-flex; }
+      .nav { position: relative; }
       .nav-left { flex: 0 0 auto; }
       .nav-right { flex: 0 0 auto; }
-      .nav-center { flex: 1; justify-content: center; }
+      .nav-center {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        flex: 0 0 auto;
+      }
       .brand img { height: 32px; }
+      /* Ocultar el icono de WhatsApp en el header móvil */
+      .icon-btn-wa { display: none; }
       .benefits-inner { grid-template-columns: 1fr 1fr; gap: 1.4rem; }
       .products-grid, .testimonials-grid, .evidence-grid { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -1472,7 +1482,7 @@
         </a>
       </div>
       <div class="nav-right">
-        <a class="icon-btn" href="https://wa.link/fzkfna" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
+        <a class="icon-btn icon-btn-wa" href="https://wa.link/fzkfna" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         </a>
         <a class="icon-btn" href="#productos" aria-label="Comprar">
@@ -1507,8 +1517,8 @@
           Tiras nasales hipoalergénicas que abren tus fosas en segundos. Reduce el ronquido, mejora tu descanso y siéntete con más energía cada día.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#productos">Ver productos</a>
-          <a class="btn btn-outline-dark" href="#nosotros">Conoce más</a>
+          <button class="btn btn-primary" type="button" onclick="openOrderModal('Pack x3 (3 packs · 90 tiras)','S/ 50', true)">Comprar ahora</button>
+          <a class="btn btn-outline-dark" href="#productos">Ver productos</a>
         </div>
         <div class="hero-trust">
           <span class="hero-trust-stars" aria-hidden="true">★★★★★</span>
@@ -1538,7 +1548,7 @@
         </div>
         <div class="benefit-text">
           <strong>Envío a todo el Perú</strong>
-          <span>2 a 5 días hábiles</span>
+          <span>1 día hábil</span>
         </div>
       </div>
       <div class="benefit">
@@ -1581,19 +1591,27 @@
       </div>
       <div class="products-grid">
 
-        <!-- Pack Individual -->
-        <article class="product-card reveal">
+        <!-- Pack x3 -->
+        <article class="product-card reveal featured">
+          <div class="product-badge">Más popular</div>
           <div class="product-image">
-            <img src="assets/1xpro.png" alt="Pack Individual — 30 tiras nasales" loading="lazy" />
+            <img src="assets/3xpro.png" alt="Pack x3 — 90 tiras nasales" loading="lazy" />
           </div>
           <div class="product-options" aria-label="Variantes disponibles">
             <span class="opt opt-black" title="Negro"></span>
           </div>
-          <h3 class="product-name">Pack Individual</h3>
-          <div class="product-meta">1 pack · 30 tiras</div>
+          <h3 class="product-name">Pack x3</h3>
+          <div class="product-meta">3 packs · 90 tiras</div>
+          <div class="ship-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+            Envío gratis
+          </div>
           <div class="product-bottom">
-            <div class="product-price">S/ 20<small>1 pack</small></div>
-            <button class="product-buy" type="button" onclick="openOrderModal('Pack Individual (1 pack · 30 tiras)','S/ 20', false)">Comprar</button>
+            <div class="product-price">
+              <del>S/ 60</del>S/ 50
+              <small>3 packs</small>
+            </div>
+            <button class="product-buy" type="button" onclick="openOrderModal('Pack x3 (3 packs · 90 tiras)','S/ 50', true)">Comprar</button>
           </div>
         </article>
 
@@ -1616,27 +1634,19 @@
           </div>
         </article>
 
-        <!-- Pack x3 -->
-        <article class="product-card reveal featured">
-          <div class="product-badge">Más popular</div>
+        <!-- Pack Individual -->
+        <article class="product-card reveal">
           <div class="product-image">
-            <img src="assets/3xpro.png" alt="Pack x3 — 90 tiras nasales" loading="lazy" />
+            <img src="assets/1xpro.png" alt="Pack Individual — 30 tiras nasales" loading="lazy" />
           </div>
           <div class="product-options" aria-label="Variantes disponibles">
             <span class="opt opt-black" title="Negro"></span>
           </div>
-          <h3 class="product-name">Pack x3</h3>
-          <div class="product-meta">3 packs · 90 tiras</div>
-          <div class="ship-tag">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
-            Envío gratis
-          </div>
+          <h3 class="product-name">Pack Individual</h3>
+          <div class="product-meta">1 pack · 30 tiras</div>
           <div class="product-bottom">
-            <div class="product-price">
-              <del>S/ 60</del>S/ 50
-              <small>3 packs</small>
-            </div>
-            <button class="product-buy" type="button" onclick="openOrderModal('Pack x3 (3 packs · 90 tiras)','S/ 50', true)">Comprar</button>
+            <div class="product-price">S/ 20<small>1 pack</small></div>
+            <button class="product-buy" type="button" onclick="openOrderModal('Pack Individual (1 pack · 30 tiras)','S/ 20', false)">Comprar</button>
           </div>
         </article>
 
@@ -1711,10 +1721,10 @@
           <p class="testimonial-quote">"Las uso en mis entrenamientos de crossfit. La adhesión es brutal, no se despegan ni con el sudor. Mi rendimiento mejoró notablemente."</p>
           <div class="testimonial-product">Pack x2</div>
           <div class="testimonial-author">
-            <div class="testimonial-avatar"><img src="assets/cliente2.jpeg" alt="Laura V." loading="lazy" /></div>
+            <div class="testimonial-avatar"><img src="assets/cliente2.jpeg" alt="Michael B." loading="lazy" /></div>
             <div>
-              <div class="testimonial-name">Laura V.</div>
-              <div class="testimonial-role">Lima · Atleta</div>
+              <div class="testimonial-name">Michael B.</div>
+              <div class="testimonial-role">Lima · Cliente atleta</div>
             </div>
           </div>
         </article>
@@ -1724,7 +1734,7 @@
           <p class="testimonial-quote">"Sufría de congestión crónica. Estas tiras me dan el alivio que necesito para dormir sin medicamentos. Las recomiendo a toda mi familia."</p>
           <div class="testimonial-product">Pack Individual</div>
           <div class="testimonial-author">
-            <div class="testimonial-avatar"><img src="assets/cliente3.png" alt="Andrea P." loading="lazy" /></div>
+            <div class="testimonial-avatar"><img src="assets/cliente3.png" alt="Andrea P." loading="lazy" style="object-position: center 15%;" /></div>
             <div>
               <div class="testimonial-name">Andrea P.</div>
               <div class="testimonial-role">Lima · Cliente verificada</div>
@@ -1805,38 +1815,6 @@
     </div>
   </section>
 
-  <!-- ═══════════════ Partners (placeholder) ═══════════════ -->
-  <section class="partners" aria-label="Aliados">
-    <div class="partners-inner">
-      <div class="partners-label">Nos eligen</div>
-      <div class="partners-row">
-        <span class="partner-slot">Aliado 1</span>
-        <span class="partner-slot">Aliado 2</span>
-        <span class="partner-slot">Aliado 3</span>
-        <span class="partner-slot">Aliado 4</span>
-        <span class="partner-slot">Aliado 5</span>
-        <span class="partner-slot">Aliado 6</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════ Stores (placeholder) ═══════════════ -->
-  <section class="stores">
-    <div class="stores-banner">
-      <div class="stores-visual reveal" aria-hidden="true">
-        <span>Foto de tienda — próximamente</span>
-      </div>
-      <div class="reveal">
-        <div class="section-eyebrow">Próximamente</div>
-        <h2 class="section-title" style="text-align:left;margin-bottom:1.2rem">También en <em>tiendas físicas</em></h2>
-        <p class="section-sub" style="text-align:left;margin-bottom:1.6rem">
-          Estamos llevando EDYCACE STORE a más puntos físicos en Lima y provincias. Si tienes una tienda y quieres distribuirnos, escríbenos por WhatsApp.
-        </p>
-        <a class="btn btn-outline-dark" href="https://wa.link/fzkfna" target="_blank" rel="noopener noreferrer">Quiero distribuirlas</a>
-      </div>
-    </div>
-  </section>
-
   <!-- ═══════════════ FAQ ═══════════════ -->
   <section class="faq" id="faq">
     <div class="section-inner">
@@ -1883,7 +1861,7 @@
             ¿Hacen envíos a todo el Perú?
             <span class="faq-icon" aria-hidden="true"></span>
           </button>
-          <div class="faq-answer"><p>Sí, enviamos a todo el territorio nacional. Tiempo de entrega: 2 a 5 días hábiles según ciudad. El Pack x3 incluye envío gratis a todo el país.</p></div>
+          <div class="faq-answer"><p>Sí, enviamos a todo el territorio nacional. Tiempo de entrega: desde 1 día hábil. El Pack x3 incluye envío gratis a todo el país.</p></div>
         </div>
 
       </div>
