@@ -3,1223 +3,1355 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EDYCACE STORE – Tiras Nasales</title>
+  <title>EDYCACE STORE — Tiras Nasales Premium</title>
+  <meta name="description" content="Tiras nasales premium para mejorar tu respiración, reducir el ronquido y dormir mejor. Envíos a todo el Perú." />
+  <link rel="icon" href="assets/logo.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
-    /* ── Variables ── */
+    /* ───────────────────────── Tokens ───────────────────────── */
     :root {
-      /* Marca: rojo #FF3126, blanco, negros armonizados */
-      --navy:   #1A1A1A;
-      --navy2:  #2A2A2A;
-      --mint:   #FF3126;
-      --mint2:  #E62A21;
-      --white:  #FFFFFF;
-      --offwhite: #F5F5F5;
-      --gray:   #6E6E6E;
-      --text:   #242424;
-      --border: #E8E8E8;
-      --radius: 16px;
-      --shadow: 0 8px 40px rgba(0, 0, 0, 0.14);
+      --red:        #C8102E;
+      --red-dark:   #9C0C24;
+      --red-soft:   rgba(200, 16, 46, 0.08);
+      --black:      #000000;
+      --ink:        #111111;
+      --ink-soft:   #2A2A2A;
+      --muted:      #6B6B6B;
+      --muted-2:    #9B9B9B;
+      --line:       #E6E6E6;
+      --line-2:     #F1F1F1;
+      --bg:         #FFFFFF;
+      --bg-soft:    #FAFAFA;
+      --bg-cream:   #F6F1EA;
+      --green:      #128C5A;
+      --whatsapp:   #25D366;
+      --max:        1280px;
+      --radius:     12px;
+      --radius-lg:  20px;
+      --shadow-sm:  0 1px 2px rgba(0,0,0,0.04), 0 4px 14px rgba(0,0,0,0.04);
+      --shadow-md:  0 6px 24px rgba(0,0,0,0.08);
+      --shadow-lg:  0 14px 40px rgba(0,0,0,0.10);
     }
 
-    /* ── Reset ── */
+    /* ───────────────────────── Reset ───────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     body {
-      font-family: 'DM Sans', sans-serif;
-      color: var(--text);
-      background: var(--white);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.55;
+      font-weight: 400;
       overflow-x: hidden;
     }
-    img { display: block; max-width: 100%; }
-    a { text-decoration: none; color: inherit; }
-    ul { list-style: none; }
+    img, video { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; }
+    ul, ol { list-style: none; }
+    .serif { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; }
 
-    /* ── Navbar ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
+    /* ───────────────────────── Top promo banner ───────────────────────── */
+    .promo-bar {
+      background: var(--red);
+      color: #fff;
+      font-size: .82rem;
+      font-weight: 500;
+      letter-spacing: .02em;
+      text-align: center;
+      padding: .55rem 1rem;
+      position: relative;
+      z-index: 50;
+    }
+    .promo-bar-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.1rem;
+      flex-wrap: wrap;
+    }
+    .promo-text {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .promo-text strong { font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+    .countdown {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      font-weight: 600;
+      letter-spacing: .03em;
+    }
+    .countdown-pill {
+      background: rgba(255,255,255,.18);
+      border-radius: 6px;
+      padding: .12rem .4rem;
+      min-width: 26px;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+      font-weight: 700;
+    }
+    .countdown small { font-size: .68rem; opacity: .85; font-weight: 500; }
+
+    /* ───────────────────────── Header / Nav ───────────────────────── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(255,255,255,0.96);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: 72px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 5%;
-      height: 72px;
-      background: var(--mint);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+      gap: 1rem;
     }
-    .nav-brand {
+    .nav-left, .nav-right {
       display: flex;
       align-items: center;
-      flex-shrink: 0;
-      padding: 0;
+      gap: .5rem;
+      flex: 1;
+    }
+    .nav-right { justify-content: flex-end; gap: 1.4rem; }
+    .nav-center {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: 1.55rem;
+      letter-spacing: .14em;
+      color: var(--ink);
+      text-transform: uppercase;
+    }
+    .brand img { height: 36px; width: auto; }
+    .brand-mark { letter-spacing: .22em; }
+    .icon-btn {
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       background: transparent;
-      border-radius: 0;
-      box-shadow: none;
-      transition: transform 0.2s ease;
-    }
-    .nav-brand:hover {
-      transform: scale(1.05);
-    }
-    .nav-brand:focus-visible {
-      outline: 3px solid var(--white);
-      outline-offset: 3px;
+      border: none;
+      cursor: pointer;
+      color: var(--ink);
       border-radius: 50%;
+      transition: background .2s;
     }
-    .nav-logo-img {
-      height: 68px;
-      width: 68px;
-      max-width: none;
-      object-fit: contain;
-      display: block;
-      background: transparent;
-    }
+    .icon-btn:hover { background: var(--bg-soft); }
+    .icon-btn svg { width: 22px; height: 22px; }
     .nav-links {
       display: flex;
-      gap: 2.2rem;
+      align-items: center;
+      gap: 2rem;
     }
     .nav-links a {
-      font-size: .875rem;
+      font-size: .82rem;
       font-weight: 500;
-      color: rgba(255,255,255,.75);
-      letter-spacing: .04em;
+      letter-spacing: .12em;
       text-transform: uppercase;
+      color: var(--ink-soft);
       transition: color .2s;
+      padding: .5rem 0;
+      position: relative;
     }
-    .nav-links a:hover { color: var(--white); opacity: 1; }
-    .nav-cta {
-      background: var(--white);
-      color: var(--mint) !important;
-      padding: .45rem 1.1rem;
-      border-radius: 100px;
-      font-weight: 600 !important;
+    .nav-links a:hover { color: var(--red); }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 2px;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform .25s ease;
     }
-    .nav-cta:hover { background: rgba(255, 255, 255, 0.92) !important; color: var(--mint2) !important; }
+    .nav-links a:hover::after { transform: scaleX(1); }
     .hamburger {
       display: none;
-      flex-direction: column;
-      justify-content: center;
-      gap: 5px;
+      width: 42px;
+      height: 42px;
+      background: transparent;
+      border: none;
       cursor: pointer;
-      min-width: 44px;
-      min-height: 44px;
-      padding: 10px;
-      margin-right: -6px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+      padding: 8px;
     }
-    .hamburger span { width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: .3s; }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform .25s, opacity .2s;
+    }
 
-    /* ── Hero ── */
-    #hero {
-      min-height: 100vh;
-      background: var(--navy);
+    /* Mobile drawer */
+    .mobile-drawer {
+      position: fixed;
+      top: 0; right: 0; bottom: 0;
+      width: min(82vw, 340px);
+      background: #fff;
+      box-shadow: -10px 0 36px rgba(0,0,0,.2);
+      transform: translateX(100%);
+      transition: transform .32s ease;
+      z-index: 110;
+      padding: 5.5rem 1.6rem 2rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: .25rem;
+    }
+    .mobile-drawer.open { transform: translateX(0); }
+    .mobile-drawer a {
+      padding: 1rem .25rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: .04em;
+      border-bottom: 1px solid var(--line);
       display: flex;
       align-items: center;
-      padding: 100px 5% 60px;
+      justify-content: space-between;
+    }
+    .mobile-drawer a:last-of-type { border-bottom: none; }
+    .mobile-drawer a:hover { color: var(--red); }
+    .mobile-drawer .drawer-cta {
+      background: var(--red);
+      color: #fff;
+      border-radius: 100px;
+      padding: .9rem 1.2rem;
+      justify-content: center;
+      margin-top: 1rem;
+      border: none;
+    }
+    .drawer-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.45);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s;
+      z-index: 105;
+    }
+    .drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ───────────────────────── Hero ───────────────────────── */
+    .hero {
+      background: linear-gradient(180deg, var(--bg-cream) 0%, #FFF 100%);
+      padding: 4rem 1.5rem 5rem;
+      overflow: hidden;
+    }
+    .hero-grid {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      color: var(--red);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 28px; height: 1px;
+      background: var(--red);
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: clamp(2.6rem, 5.2vw, 4.6rem);
+      line-height: 1.02;
+      letter-spacing: -.01em;
+      color: var(--ink);
+      margin-bottom: 1.4rem;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--red);
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+    .hero-actions {
+      display: flex;
+      gap: .8rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      padding: .95rem 1.8rem;
+      border-radius: 100px;
+      font-size: .92rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      cursor: pointer;
+      border: 1.5px solid transparent;
+      transition: transform .15s ease, background .2s, color .2s, border-color .2s;
+      white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary {
+      background: var(--red);
+      color: #fff;
+      border-color: var(--red);
+    }
+    .btn-primary:hover { background: var(--red-dark); border-color: var(--red-dark); }
+    .btn-outline-dark {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+    .btn-outline-dark:hover { background: var(--ink); color: #fff; }
+    .btn-outline-red {
+      background: transparent;
+      color: var(--red);
+      border-color: var(--red);
+    }
+    .btn-outline-red:hover { background: var(--red); color: #fff; }
+    .btn-block { width: 100%; }
+    .hero-trust {
+      margin-top: 2.2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+    .hero-trust-stars { color: var(--red); letter-spacing: .15em; font-size: .95rem; }
+    .hero-trust span { font-size: .85rem; color: var(--muted); }
+    .hero-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 420px;
+    }
+    .hero-visual::before {
+      content: '';
+      position: absolute;
+      width: 88%;
+      aspect-ratio: 1;
+      background: radial-gradient(circle at 50% 45%, rgba(200, 16, 46, 0.10) 0%, transparent 65%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+    }
+    .hero-product-img {
+      position: relative;
+      z-index: 1;
+      width: 78%;
+      max-width: 460px;
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,.25));
+      animation: floatUp 5s ease-in-out infinite;
+    }
+    @keyframes floatUp {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-14px); }
+    }
+    .hero-tag {
+      position: absolute;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 100px;
+      padding: .5rem 1rem;
+      font-size: .78rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-md);
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      z-index: 2;
+    }
+    .hero-tag svg { width: 16px; height: 16px; }
+    .hero-tag.tag-1 { top: 10%; left: -2%; color: var(--green); border-color: rgba(18,140,90,.3); }
+    .hero-tag.tag-2 { bottom: 14%; right: -2%; color: var(--red); border-color: rgba(200,16,46,.3); }
+
+    /* ───────────────────────── Section base ───────────────────────── */
+    section { padding: 5rem 1.5rem; }
+    .section-inner { max-width: var(--max); margin: 0 auto; }
+    .section-head {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 3rem;
+    }
+    .section-eyebrow {
+      color: var(--red);
+      font-size: .76rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      margin-bottom: .8rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--ink);
+      line-height: 1.1;
+      letter-spacing: -.005em;
+      margin-bottom: 1rem;
+    }
+    .section-title em { font-style: italic; color: var(--red); }
+    .section-sub {
+      font-size: 1.02rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ───────────────────────── Beneficios strip ───────────────────────── */
+    .benefits {
+      background: var(--ink);
+      color: #fff;
+      padding: 2.4rem 1.5rem;
+    }
+    .benefits-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+    .benefit {
+      display: flex;
+      align-items: center;
+      gap: .85rem;
+    }
+    .benefit-icon {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.08);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: var(--red);
+    }
+    .benefit-icon svg { width: 20px; height: 20px; }
+    .benefit-text { line-height: 1.3; }
+    .benefit-text strong {
+      display: block;
+      font-size: .9rem;
+      font-weight: 600;
+      color: #fff;
+    }
+    .benefit-text span {
+      font-size: .77rem;
+      color: rgba(255,255,255,.6);
+    }
+
+    /* ───────────────────────── Productos ───────────────────────── */
+    .products {
+      background: var(--bg);
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .product-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      transition: transform .25s, box-shadow .25s, border-color .25s;
       position: relative;
       overflow: hidden;
     }
-    /* dot grid background */
-    #hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(circle, rgba(255, 49, 38, 0.14) 1px, transparent 1px);
-      background-size: 32px 32px;
-      pointer-events: none;
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--line-2);
     }
-    /* glow orbs */
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      pointer-events: none;
+    .product-card.featured {
+      border: 2px solid var(--red);
+      box-shadow: 0 0 0 4px var(--red-soft);
     }
-    .orb-1 { width: 420px; height: 420px; background: rgba(255, 49, 38, 0.12); top: -80px; left: -100px; }
-    .orb-2 { width: 320px; height: 320px; background: rgba(255, 255, 255, 0.06); bottom: 40px; right: 10%; }
-
-    .hero-inner {
+    .product-badge {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      background: var(--red);
+      color: #fff;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: .3rem .7rem;
+      border-radius: 100px;
+      z-index: 2;
+    }
+    .product-image {
+      background: var(--bg-cream);
+      border-radius: var(--radius);
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      margin-bottom: 1.2rem;
       position: relative;
-      z-index: 1;
+      overflow: hidden;
+    }
+    .product-image img {
+      max-height: 100%;
+      max-width: 100%;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,.18));
+      transition: transform .35s ease;
+    }
+    .product-card:hover .product-image img { transform: scale(1.04); }
+    .product-options {
+      display: flex;
+      gap: .4rem;
+      margin-bottom: .9rem;
+    }
+    .product-options .opt {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 2px solid var(--line);
+      background: #fff;
+      cursor: default;
+    }
+    .product-options .opt.opt-black { background: var(--ink); border-color: var(--ink); }
+    .product-options .opt.opt-cream { background: #E5D4BE; border-color: #d6c2a5; }
+    .product-options .opt.opt-white { background: #fff; border-color: var(--line); }
+    .product-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 1.45rem;
+      color: var(--ink);
+      margin-bottom: .35rem;
+      line-height: 1.2;
+    }
+    .product-meta {
+      font-size: .82rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .product-bottom {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .8rem;
+    }
+    .product-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: 1.7rem;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .product-price small {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: .72rem;
+      color: var(--muted);
+      font-weight: 500;
+      margin-top: .15rem;
+    }
+    .product-price del {
+      font-family: 'Inter', sans-serif;
+      font-size: .85rem;
+      color: var(--muted-2);
+      font-weight: 400;
+      margin-right: .35rem;
+    }
+    .ship-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      background: rgba(18, 140, 90, 0.1);
+      border: 1px solid rgba(18, 140, 90, 0.3);
+      color: var(--green);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .3rem .6rem;
+      border-radius: 100px;
+      margin-bottom: .7rem;
+    }
+    .ship-tag svg { width: 12px; height: 12px; }
+    .product-buy {
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      padding: .7rem 1.4rem;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: .85rem;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+    .product-buy:hover { background: var(--red); transform: translateY(-1px); }
+
+    /* ───────────────────────── Featured combo ───────────────────────── */
+    .featured-section {
+      background: var(--ink);
+      color: #fff;
+      overflow: hidden;
+    }
+    .featured-grid {
+      max-width: var(--max);
+      margin: 0 auto;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 4rem;
       align-items: center;
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
     }
-    .hero-left {
-      display: flex;
-      flex-direction: column;
-      gap: 1.6rem;
-    }
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: .5rem;
-      background: rgba(255, 49, 38, 0.12);
-      border: 1px solid rgba(255, 49, 38, 0.35);
-      color: var(--mint);
-      font-size: .78rem;
-      font-weight: 600;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      padding: .35rem .9rem;
-      border-radius: 100px;
-      width: fit-content;
-    }
-    .hero-badge::before { content: '●'; font-size: .55rem; animation: blink 1.6s infinite; }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
-    .hero-title {
-      font-family: 'Cormorant Garant', serif;
-      font-size: clamp(2.8rem, 5vw, 4.4rem);
-      font-weight: 700;
-      color: var(--white);
-      line-height: 1.1;
-      letter-spacing: -.01em;
-    }
-    .hero-title em {
-      font-style: normal;
-      color: var(--mint);
-    }
-    .hero-sub {
-      font-size: 1.05rem;
-      color: rgba(255,255,255,.65);
-      line-height: 1.7;
-      max-width: 420px;
-    }
-    .hero-actions {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      align-items: stretch;
-    }
-    .btn-primary {
-      background: var(--mint);
-      color: var(--white);
-      font-weight: 600;
-      font-size: .95rem;
-      padding: .85rem 2rem;
-      border-radius: 100px;
-      border: none;
-      cursor: pointer;
-      transition: background .2s, transform .15s;
-      letter-spacing: .02em;
-    }
-    .btn-primary:hover { background: var(--mint2); color: var(--white); transform: translateY(-2px); }
-    .btn-outline {
-      background: transparent;
-      color: rgba(255,255,255,.8);
-      font-weight: 500;
-      font-size: .95rem;
-      padding: .85rem 2rem;
-      border-radius: 100px;
-      border: 1px solid rgba(255,255,255,.25);
-      cursor: pointer;
-      transition: border-color .2s, color .2s;
-    }
-    .btn-outline:hover { border-color: var(--mint); color: var(--mint); }
-
-    /* ── Product Carousel ── */
-    .hero-right { position: relative; }
-    .carousel-wrapper {
+    .featured-visual {
       position: relative;
-      width: 100%;
-      max-width: 420px;
-      margin: 0 auto;
-    }
-    .carousel-track {
-      position: relative;
-      height: 480px;
-    }
-    .carousel-card {
-      position: absolute;
-      inset: 0;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.1);
-      backdrop-filter: blur(12px);
-      border-radius: 24px;
-      padding: 2.5rem 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.4rem;
-      opacity: 0;
-      transform: translateX(40px) scale(.97);
-      transition: opacity .6s ease, transform .6s ease;
-      pointer-events: none;
-    }
-    .carousel-card.active {
-      opacity: 1;
-      transform: translateX(0) scale(1);
-      pointer-events: auto;
-    }
-    .carousel-card.exit {
-      opacity: 0;
-      transform: translateX(-40px) scale(.97);
-    }
-
-    .product-image-placeholder {
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, rgba(255, 49, 38, 0.22) 0%, rgba(255, 49, 38, 0.05) 100%);
-      border: 2px solid rgba(255, 49, 38, 0.28);
+      aspect-ratio: 4 / 5;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+      border-radius: var(--radius-lg);
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
-    }
-    .product-image-placeholder svg { width: 80px; height: 80px; opacity: .7; }
-    .product-image-placeholder.has-photo {
-      background: #FFFFFF;
-      border: 1px solid rgba(255, 49, 38, 0.18);
-      overflow: hidden;
-      padding: 10px;
-    }
-    .product-image-placeholder.has-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 50%;
-      display: block;
-    }
-    .product-badge-tag {
-      font-size: .72rem;
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--mint);
-      background: rgba(255, 49, 38, 0.1);
-      border: 1px solid rgba(255, 49, 38, 0.25);
-      padding: .25rem .7rem;
-      border-radius: 100px;
-    }
-    .product-name {
-      font-family: 'Cormorant Garant', serif;
-      font-size: 1.7rem;
-      font-weight: 700;
-      color: var(--white);
-      text-align: center;
-    }
-    .product-desc {
-      font-size: .9rem;
-      color: rgba(255,255,255,.6);
-      text-align: center;
-      line-height: 1.6;
-    }
-    .product-price {
-      font-family: 'Cormorant Garant', serif;
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--mint);
-    }
-    .product-price span { font-size: 1rem; font-family: 'DM Sans', sans-serif; color: rgba(255,255,255,.5); }
-    .free-ship-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: .35rem;
-      background: rgba(37, 211, 102, .18);
-      border: 1px solid rgba(37, 211, 102, .55);
-      color: #4ade80;
-      font-size: .72rem;
-      font-weight: 700;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      padding: .3rem .75rem;
-      border-radius: 100px;
-    }
-    .free-ship-pill svg { width: 14px; height: 14px; }
-    .free-ship-pill--solid {
-      background: #25D366;
-      color: #fff;
-      border-color: #25D366;
-    }
-    .card-btn {
-      background: var(--mint);
-      color: var(--white);
-      font-weight: 600;
-      font-size: .85rem;
-      padding: .65rem 1.6rem;
-      border-radius: 100px;
-      border: none;
-      cursor: pointer;
-      transition: background .2s;
-    }
-    .card-btn:hover { background: var(--mint2); }
-
-    .carousel-track {
-      touch-action: pan-y;
-      cursor: grab;
-      user-select: none;
-    }
-    .carousel-track.is-dragging { cursor: grabbing; }
-    .carousel-dots {
-      display: flex;
-      justify-content: center;
-      gap: .6rem;
-      margin-top: 1.4rem;
-    }
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.25);
-      cursor: pointer;
-      transition: background .3s, transform .3s;
-    }
-    .dot.active { background: var(--mint); transform: scale(1.3); }
-
-    /* ── Section base ── */
-    section {
-      padding: 100px 5%;
-    }
-    .section-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .section-label {
-      font-size: .75rem;
-      font-weight: 600;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--mint2);
-      margin-bottom: .75rem;
-    }
-    .section-title {
-      font-family: 'Cormorant Garant', serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 700;
-      color: var(--navy);
-      line-height: 1.15;
-      margin-bottom: 1.2rem;
-    }
-    .section-sub {
-      font-size: 1rem;
-      color: var(--gray);
-      line-height: 1.7;
-      max-width: 560px;
-    }
-
-    /* ── Nosotros ── */
-    #nosotros { background: var(--offwhite); }
-    .nosotros-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-      margin-top: 3rem;
-    }
-    .nosotros-visual {
-      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
-      border-radius: 24px;
-      height: 380px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
       overflow: hidden;
     }
-    .nosotros-visual::before {
+    .featured-visual::before {
       content: '';
       position: absolute;
       inset: 0;
-      background-image: radial-gradient(circle, rgba(255, 49, 38, 0.12) 1px, transparent 1px);
-      background-size: 24px 24px;
+      background-image: radial-gradient(circle at 30% 40%, rgba(200,16,46,.18) 0%, transparent 60%);
     }
-    .nosotros-visual-icon { position: relative; z-index: 1; }
-    .nosotros-visual-icon svg { width: 120px; height: 120px; opacity: .6; }
-    .nosotros-visual.has-video { padding: 0; }
-    .nosotros-visual.has-video::before { display: none; }
-    .nosotros-visual video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
+    .featured-visual img {
       position: relative;
       z-index: 1;
-      border-radius: 24px;
+      width: 70%;
+      max-width: 380px;
+      filter: drop-shadow(0 30px 60px rgba(0,0,0,.5));
     }
-    .nosotros-evidence {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      margin-top: 3.5rem;
+    .featured-tag {
+      position: absolute;
+      top: 1.5rem; left: 1.5rem;
+      background: var(--red);
+      color: #fff;
+      font-size: .75rem;
+      font-weight: 700;
+      padding: .4rem .9rem;
+      border-radius: 100px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      z-index: 2;
     }
-    .nosotros-evidence figure {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+    .featured-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+      line-height: 1.05;
+      margin-bottom: 1.4rem;
+      color: #fff;
+    }
+    .featured-text h2 em { font-style: italic; color: var(--red); }
+    .featured-text p {
+      color: rgba(255,255,255,.7);
+      font-size: 1.02rem;
+      line-height: 1.7;
+      margin-bottom: 1.8rem;
+      max-width: 460px;
+    }
+    .featured-includes {
       display: flex;
       flex-direction: column;
+      gap: .65rem;
+      margin-bottom: 2rem;
     }
-    .nosotros-evidence-img-wrap {
-      width: 100%;
-      aspect-ratio: 16 / 10;
-      background: var(--offwhite);
+    .featured-include {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      font-size: .92rem;
+      color: rgba(255,255,255,.85);
+    }
+    .featured-include svg {
+      width: 20px; height: 20px;
+      color: var(--red);
+      flex-shrink: 0;
+    }
+    .featured-actions { display: flex; gap: .8rem; flex-wrap: wrap; }
+
+    /* ───────────────────────── Testimonios ───────────────────────── */
+    .testimonials { background: var(--bg-soft); }
+    .testimonials-stars {
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+      gap: .8rem;
+      margin-bottom: 1rem;
     }
-    .nosotros-evidence img {
+    .testimonials-stars .stars {
+      color: var(--red);
+      font-size: 1.15rem;
+      letter-spacing: .15em;
+    }
+    .testimonials-stars span {
+      font-size: .88rem;
+      color: var(--ink-soft);
+      font-weight: 600;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .testimonial {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: transform .2s, box-shadow .25s;
+    }
+    .testimonial:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .testimonial .stars {
+      color: var(--red);
+      font-size: 1rem;
+      letter-spacing: .12em;
+    }
+    .testimonial-quote {
+      font-size: .95rem;
+      color: var(--ink-soft);
+      line-height: 1.65;
+      flex-grow: 1;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+    }
+    .testimonial-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--bg-cream);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .testimonial-avatar img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: block;
     }
-    .nosotros-evidence figcaption {
-      padding: .9rem 1rem;
-      font-size: .8rem;
+    .testimonial-name {
+      font-weight: 600;
+      font-size: .95rem;
+      color: var(--ink);
+    }
+    .testimonial-role {
+      font-size: .78rem;
+      color: var(--muted);
+    }
+    .testimonial-product {
+      margin-top: -.25rem;
+      font-size: .78rem;
+      color: var(--red);
+      font-weight: 600;
+      letter-spacing: .04em;
+    }
+
+    /* ───────────────────────── Propósito (about + video) ───────────────────────── */
+    .purpose { background: var(--bg); }
+    .purpose-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+    .purpose-visual {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4 / 5;
+      background: var(--ink);
+      box-shadow: var(--shadow-md);
+    }
+    .purpose-visual video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .purpose-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 2.2rem;
+    }
+    .purpose-stat {
+      background: var(--bg-soft);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+    }
+    .purpose-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
       font-weight: 700;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: var(--navy);
-      text-align: center;
-      border-top: 1px solid var(--border);
-      background: var(--white);
+      color: var(--ink);
+      line-height: 1;
     }
-    .stats {
+    .purpose-stat-num em { color: var(--red); font-style: normal; }
+    .purpose-stat-label {
+      font-size: .82rem;
+      color: var(--muted);
+      margin-top: .35rem;
+    }
+
+    /* ───────────────────────── Evidence (operations) ───────────────────────── */
+    .evidence { background: var(--bg-soft); }
+    .evidence-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1.5rem;
-      margin-top: 2rem;
     }
-    .stat {
-      background: var(--white);
-      border-radius: var(--radius);
-      padding: 1.4rem 1.2rem;
-      border: 1px solid var(--border);
-    }
-    .stat-num {
-      font-family: 'Cormorant Garant', serif;
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--navy);
-    }
-    .stat-num span { color: var(--mint2); }
-    .stat-label { font-size: .85rem; color: var(--gray); margin-top: .2rem; }
-
-    /* ── Productos ── */
-    #productos { background: var(--white); }
-    .productos-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-    .product-card {
-      background: var(--offwhite);
-      border-radius: 20px;
-      border: 1px solid var(--border);
+    .evidence-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
       overflow: hidden;
-      transition: transform .25s, box-shadow .25s;
+      box-shadow: var(--shadow-sm);
     }
-    .product-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
-    .product-card-img {
-      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
-      height: 220px;
+    .evidence-card img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+    }
+    .evidence-card-body {
+      padding: 1.2rem 1.4rem;
+      border-top: 1px solid var(--line);
+    }
+    .evidence-card-body strong {
+      display: block;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--ink);
+      margin-bottom: .25rem;
+    }
+    .evidence-card-body span {
+      font-size: .85rem;
+      color: var(--muted);
+    }
+
+    /* ───────────────────────── Partners (placeholder) ───────────────────────── */
+    .partners {
+      background: var(--ink);
+      color: #fff;
+      padding: 3rem 1.5rem;
+    }
+    .partners-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      text-align: center;
+    }
+    .partners-label {
+      font-size: .78rem;
+      color: rgba(255,255,255,.55);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .partners-row {
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-wrap: wrap;
+      gap: 2.4rem;
     }
-    .product-card-img svg { width: 90px; height: 90px; opacity: .5; }
-    .product-card-img.has-photo {
-      background: linear-gradient(135deg, #FFFFFF 0%, var(--offwhite) 100%);
-      padding: 1.25rem;
-    }
-    .product-card-img.has-photo img {
-      max-width: 100%;
-      max-height: 100%;
-      width: auto;
-      height: 100%;
-      object-fit: contain;
-      filter: drop-shadow(0 8px 18px rgba(0,0,0,.18));
-    }
-    .product-card-body { padding: 1.8rem 1.6rem; }
-    .product-card-tag {
-      font-size: .7rem;
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--mint2);
-      margin-bottom: .5rem;
-    }
-    .product-card-name {
-      font-family: 'Cormorant Garant', serif;
-      font-size: 1.45rem;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: .6rem;
-    }
-    .product-card-desc {
-      font-size: .88rem;
-      color: var(--gray);
-      line-height: 1.65;
-      margin-bottom: 1.4rem;
-    }
-    .product-card-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .product-card-price {
-      font-family: 'Cormorant Garant', serif;
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--mint);
-    }
-    .product-card-price small { font-family: 'DM Sans',sans-serif; font-size: .75rem; color: var(--gray); }
-    .product-card-ship {
+    .partner-slot {
       display: inline-flex;
       align-items: center;
-      gap: .35rem;
-      background: rgba(37, 211, 102, .14);
-      border: 1px solid rgba(37, 211, 102, .45);
-      color: #16a34a;
-      font-size: .7rem;
-      font-weight: 700;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      padding: .3rem .65rem;
-      border-radius: 100px;
-      margin-bottom: .9rem;
-    }
-    .product-card-ship svg { width: 13px; height: 13px; }
-    .product-card.is-featured {
-      border: 2px solid var(--mint);
-      box-shadow: 0 12px 36px rgba(255, 49, 38, .18);
-    }
-    .btn-card {
-      background: var(--navy);
-      color: var(--white);
-      font-size: .82rem;
+      justify-content: center;
+      min-width: 130px;
+      height: 50px;
+      padding: 0 1.2rem;
+      border: 1px dashed rgba(255,255,255,.18);
+      border-radius: 8px;
+      color: rgba(255,255,255,.45);
+      font-size: .72rem;
       font-weight: 600;
-      padding: .55rem 1.2rem;
-      border-radius: 100px;
-      border: none;
-      cursor: pointer;
-      transition: background .2s;
+      letter-spacing: .12em;
+      text-transform: uppercase;
     }
-    .btn-card:hover { background: var(--mint2); }
 
-    /* ── Testimonios ── */
-    #testimonios { background: var(--navy); position: relative; overflow: hidden; }
-    #testimonios::before {
+    /* ───────────────────────── Stores section (placeholder) ───────────────────────── */
+    .stores {
+      background: var(--bg);
+      padding: 0;
+      position: relative;
+    }
+    .stores-banner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 5rem 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .stores-visual {
+      aspect-ratio: 4 / 3;
+      background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,.4);
+      font-size: .85rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-weight: 600;
+      position: relative;
+      overflow: hidden;
+    }
+    .stores-visual::before {
       content: '';
       position: absolute;
       inset: 0;
-      background-image: radial-gradient(circle, rgba(255, 49, 38, 0.1) 1px, transparent 1px);
-      background-size: 28px 28px;
-      pointer-events: none;
+      background-image: radial-gradient(circle at 30% 40%, rgba(200,16,46,.15) 0%, transparent 60%);
     }
-    #testimonios .section-title { color: var(--white); }
-    #testimonios .section-sub { color: rgba(255,255,255,.5); }
-    #testimonios .section-label { color: var(--mint); }
-    .testimonios-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      margin-top: 3rem;
-      position: relative;
-      z-index: 1;
-    }
-    .testimonial-card {
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.1);
-      backdrop-filter: blur(8px);
-      border-radius: 20px;
-      padding: 2rem 1.8rem;
-      transition: border-color .25s;
-    }
-    .testimonial-card:hover { border-color: rgba(255, 49, 38, 0.45); }
-    .stars { color: var(--mint); font-size: 1.1rem; letter-spacing: .1em; margin-bottom: 1rem; }
-    .testimonial-text {
-      font-size: .95rem;
-      color: rgba(255,255,255,.75);
-      line-height: 1.7;
-      margin-bottom: 1.4rem;
-      font-style: italic;
-    }
-    .testimonial-author { display: flex; align-items: center; gap: .85rem; }
-    .author-avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--mint2), var(--navy));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Cormorant Garant', serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--white);
-      flex-shrink: 0;
-    }
-    .author-avatar.has-photo {
-      background: none;
-      overflow: hidden;
-      border: 2px solid rgba(255, 49, 38, 0.55);
-    }
-    .author-avatar.has-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .author-name { font-weight: 600; font-size: .9rem; color: var(--white); }
-    .author-role { font-size: .78rem; color: rgba(255,255,255,.45); margin-top: .1rem; }
+    .stores-visual span { position: relative; z-index: 1; }
 
-    /* ── FAQ ── */
-    #faq { background: var(--offwhite); }
-    .faq-list { margin-top: 3rem; display: flex; flex-direction: column; gap: 1rem; max-width: 740px; }
+    /* ───────────────────────── FAQ ───────────────────────── */
+    .faq { background: var(--bg-soft); }
+    .faq-list {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: .8rem;
+    }
     .faq-item {
-      background: var(--white);
-      border: 1px solid var(--border);
+      background: #fff;
+      border: 1px solid var(--line);
       border-radius: var(--radius);
       overflow: hidden;
       transition: box-shadow .2s;
     }
-    .faq-item:hover { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); }
+    .faq-item:hover { box-shadow: var(--shadow-sm); }
+    .faq-item.open { box-shadow: var(--shadow-sm); border-color: var(--ink); }
     .faq-question {
       width: 100%;
       background: none;
       border: none;
-      padding: 1.4rem 1.6rem;
+      padding: 1.3rem 1.5rem;
+      cursor: pointer;
+      text-align: left;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      cursor: pointer;
-      text-align: left;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .97rem;
+      gap: 1rem;
+      font-size: .98rem;
       font-weight: 600;
-      color: var(--navy);
+      color: var(--ink);
     }
     .faq-icon {
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
-      background: var(--offwhite);
-      border: 1px solid var(--border);
+      background: var(--bg-soft);
+      border: 1px solid var(--line);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      transition: background .2s, transform .3s;
+      transition: background .2s, transform .25s;
     }
-    .faq-icon svg { width: 14px; height: 14px; transition: transform .3s; }
-    .faq-item.open .faq-icon { background: var(--mint2); border-color: var(--mint2); }
-    .faq-item.open .faq-icon svg { transform: rotate(45deg); stroke: white; }
+    .faq-icon::before {
+      content: '+';
+      font-size: 1.15rem;
+      line-height: 1;
+      color: var(--ink);
+      font-weight: 400;
+    }
+    .faq-item.open .faq-icon { background: var(--red); border-color: var(--red); }
+    .faq-item.open .faq-icon::before { content: '−'; color: #fff; }
     .faq-answer {
       max-height: 0;
       overflow: hidden;
-      transition: max-height .4s ease, padding .3s;
-      padding: 0 1.6rem;
+      transition: max-height .3s ease, padding .25s;
+      padding: 0 1.5rem;
     }
-    .faq-item.open .faq-answer { max-height: 200px; padding-bottom: 1.4rem; }
-    .faq-answer p { font-size: .91rem; color: var(--gray); line-height: 1.7; }
+    .faq-item.open .faq-answer { max-height: 280px; padding-bottom: 1.2rem; }
+    .faq-answer p {
+      font-size: .92rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
 
-    /* ── Contacto ── */
-    #contacto { background: var(--white); }
-    .contacto-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.4fr;
-      gap: 5rem;
-      align-items: start;
-      margin-top: 3rem;
+    /* ───────────────────────── Need help CTA ───────────────────────── */
+    .help-cta {
+      background: var(--ink);
+      color: #fff;
+      text-align: center;
+      padding: 3rem 1.5rem;
     }
-    .contacto-info { display: flex; flex-direction: column; gap: 2rem; }
-    .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
-    .contact-icon {
-      width: 46px;
-      height: 46px;
-      border-radius: 12px;
-      background: rgba(255, 49, 38, 0.1);
-      border: 1px solid rgba(255, 49, 38, 0.25);
+    .help-cta h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 2rem;
+      margin-bottom: .5rem;
+    }
+    .help-cta p {
+      color: rgba(255,255,255,.65);
+      max-width: 460px;
+      margin: 0 auto 1.5rem;
+      font-size: .95rem;
+    }
+    .help-cta .btn { background: var(--whatsapp); color: #fff; border-color: var(--whatsapp); }
+    .help-cta .btn:hover { background: #1DAE53; border-color: #1DAE53; }
+    .help-cta .btn svg { width: 18px; height: 18px; }
+
+    /* ───────────────────────── Footer ───────────────────────── */
+    footer {
+      background: var(--ink);
+      color: rgba(255,255,255,.65);
+      padding: 4rem 1.5rem 2rem;
+    }
+    .footer-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
+      gap: 2.5rem;
+      margin-bottom: 3rem;
+    }
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+    .footer-brand img { height: 38px; }
+    .footer-tag {
+      font-size: .85rem;
+      line-height: 1.6;
+      margin-bottom: 1.4rem;
+    }
+    .footer-meta {
+      font-size: .78rem;
+      color: rgba(255,255,255,.45);
+      line-height: 1.6;
+    }
+    .footer-col h4 {
+      color: #fff;
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      margin-bottom: 1.1rem;
+    }
+    .footer-col ul li {
+      margin-bottom: .6rem;
+    }
+    .footer-col ul a {
+      font-size: .88rem;
+      color: rgba(255,255,255,.65);
+      transition: color .2s;
+    }
+    .footer-col ul a:hover { color: var(--red); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.12);
+      padding-top: 1.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: .8rem;
+      color: rgba(255,255,255,.4);
+    }
+    .footer-socials {
+      display: flex;
+      gap: .6rem;
+    }
+    .footer-socials a {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.06);
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
+      transition: background .2s, color .2s;
+      color: rgba(255,255,255,.7);
     }
-    .contact-icon svg { width: 20px; height: 20px; stroke: var(--mint2); }
-    .contact-item-label { font-weight: 600; font-size: .9rem; color: var(--navy); margin-bottom: .2rem; }
-    .contact-item-val { font-size: .88rem; color: var(--gray); }
-    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .form-group { display: flex; flex-direction: column; gap: .45rem; }
-    .form-group label { font-size: .82rem; font-weight: 600; color: var(--navy); letter-spacing: .03em; }
-    .form-group input,
-    .form-group textarea {
-      background: var(--offwhite);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: .85rem 1rem;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .9rem;
-      color: var(--text);
-      outline: none;
-      transition: border-color .2s, box-shadow .2s;
-      resize: none;
-    }
-    .form-group input:focus,
-    .form-group textarea:focus {
-      border-color: var(--mint2);
-      box-shadow: 0 0 0 3px rgba(255, 49, 38, 0.15);
-    }
-    .form-group textarea { min-height: 130px; }
-    .btn-submit {
-      background: var(--navy);
-      color: var(--white);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 600;
-      font-size: .95rem;
-      padding: .9rem 2rem;
-      border-radius: 100px;
-      border: none;
-      cursor: pointer;
-      transition: background .2s, transform .15s;
-      align-self: flex-start;
-    }
-    .btn-submit:hover { background: var(--mint2); transform: translateY(-2px); }
+    .footer-socials a:hover { background: var(--red); color: #fff; }
+    .footer-socials svg { width: 16px; height: 16px; }
 
-    /* ── Footer ── */
-    footer {
-      background: var(--navy);
-      color: rgba(255,255,255,.5);
-      padding: 3rem 5%;
-      text-align: center;
-      font-size: .85rem;
-    }
-    footer .footer-brand {
-      font-family: 'Cormorant Garant', serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: .5rem;
-    }
-    footer .footer-brand span { color: var(--mint); }
-    footer .footer-links { display: flex; justify-content: center; gap: 2rem; margin: 1.2rem 0; flex-wrap: wrap; }
-    footer .footer-links a { color: rgba(255,255,255,.5); font-size: .8rem; letter-spacing: .05em; text-transform: uppercase; transition: color .2s; }
-    footer .footer-links a:hover { color: var(--mint); }
-    footer .footer-copy { margin-top: .5rem; }
-
-    /* ── WhatsApp flotante ── */
+    /* ───────────────────────── WhatsApp floating ───────────────────────── */
     .wa-float {
       position: fixed;
       bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
       right: max(1.25rem, env(safe-area-inset-right, 0px));
-      z-index: 999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      z-index: 90;
       width: 58px;
       height: 58px;
       border-radius: 50%;
-      background: #25d366;
+      background: var(--whatsapp);
       color: #fff;
-      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45), 0 2px 8px rgba(0, 0, 0, 0.2);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 22px rgba(37, 211, 102, 0.45), 0 2px 8px rgba(0,0,0,0.18);
+      transition: transform .2s, box-shadow .2s;
     }
-    .wa-float:hover {
-      transform: scale(1.06);
-      box-shadow: 0 6px 28px rgba(37, 211, 102, 0.55), 0 4px 12px rgba(0, 0, 0, 0.22);
-    }
-    .wa-float:focus-visible {
-      outline: 3px solid var(--white);
-      outline-offset: 3px;
-    }
-    .wa-float svg {
-      width: 30px;
-      height: 30px;
-    }
+    .wa-float:hover { transform: scale(1.06); }
+    .wa-float svg { width: 30px; height: 30px; }
 
-    /* ── Responsive ── */
-    @media (max-width: 900px) {
-      .nav-links {
-        display: flex;
-        flex-direction: column;
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        width: min(78vw, 320px);
-        background: rgba(255, 49, 38, 0.98);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        padding: calc(72px + 1.25rem) 1.6rem 2rem;
-        gap: .25rem;
-        z-index: 110;
-        overflow-y: auto;
-        transform: translateX(100%);
-        transition: transform .32s ease;
-        box-shadow: -10px 0 32px rgba(0, 0, 0, 0.25);
-      }
-      .nav-links.open { transform: translateX(0); }
-      .nav-links li { width: 100%; }
-      .nav-links a {
-        padding: 0.85rem 0.4rem;
-        min-height: 48px;
-        display: flex;
-        align-items: center;
-        width: 100%;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-        color: rgba(255, 255, 255, 0.95);
-        font-weight: 600;
-        font-size: .92rem;
-      }
-      .nav-links li:last-child a {
-        border-bottom: none;
-      }
-      .nav-links .nav-cta {
-        margin-top: .9rem;
-        justify-content: center;
-        border-bottom: none;
-        background: var(--white);
-        color: var(--mint) !important;
-      }
-      .nav-backdrop {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.45);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity .25s ease;
-        z-index: 105;
-      }
-      .nav-backdrop.open {
-        opacity: 1;
-        pointer-events: auto;
-      }
-      .hamburger { display: flex; position: relative; z-index: 120; }
-      .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-      .hamburger.open span:nth-child(2) { opacity: 0; }
-      .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-      .hero-inner {
-        grid-template-columns: 1fr;
-        gap: 2.25rem;
-        display: flex;
-        flex-direction: column;
-      }
-      /* Móvil: 1) frase (badge + título + sub + botones), 2) carrusel */
-      .hero-left {
-        order: 1;
-        gap: 1.1rem;
-        align-items: stretch;
-        text-align: left;
-      }
-      .hero-right {
-        order: 2;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-      }
-      .hero-badge { align-self: flex-start; }
-      .hero-actions {
-        flex-direction: column;
-        width: 100%;
-        gap: .7rem;
-        margin-top: .25rem;
-      }
-      .hero-actions .btn-primary,
-      .hero-actions .btn-outline {
-        width: 100%;
-        min-height: 48px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-      }
-      .carousel-wrapper { width: 100%; max-width: min(100%, 360px); margin: 0 auto; }
-      .carousel-track { height: 560px; }
-      .carousel-card {
-        padding: 2rem 1.5rem;
-        gap: 1.1rem;
-        justify-content: center;
-      }
-      .product-image-placeholder { width: 150px; height: 150px; }
-      .nosotros-grid,
-      .contacto-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .productos-grid,
-      .testimonios-grid { grid-template-columns: 1fr; }
-      .form-row { grid-template-columns: 1fr; }
-      section { padding: 72px 5%; }
-      #hero {
-        padding: 88px 5% 48px;
-        align-items: flex-start;
-      }
-      .hero-title {
-        font-size: clamp(2.1rem, 9vw, 3.2rem);
-      }
-      .hero-sub {
-        max-width: none;
-        font-size: 1rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      nav {
-        padding: 0 4%;
-        height: 64px;
-      }
-      .nav-logo-img {
-        height: 40px;
-        width: 40px;
-      }
-      section {
-        padding: 56px 4%;
-      }
-      #hero {
-        padding: 80px 4% 40px;
-      }
-      .section-title {
-        font-size: clamp(1.65rem, 6.5vw, 2.4rem);
-      }
-      .carousel-track { height: 580px; }
-      .carousel-card {
-        padding: 1.85rem 1.25rem;
-        gap: 1rem;
-        justify-content: center;
-      }
-      .product-image-placeholder { width: 140px; height: 140px; }
-      .product-name {
-        font-size: 1.4rem;
-        margin-top: .1rem;
-      }
-      .product-desc {
-        font-size: .85rem;
-        line-height: 1.5;
-      }
-      .product-price {
-        font-size: 1.75rem;
-        margin-top: .15rem;
-      }
-      .card-btn {
-        margin-top: .55rem;
-        padding: .8rem 2.2rem;
-        font-size: .9rem;
-      }
-      .free-ship-pill {
-        margin-top: .15rem;
-      }
-      .nosotros-evidence { grid-template-columns: 1fr; gap: 1.25rem; margin-top: 2.5rem; }
-    }
-
-    /* ── Reveal animation ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity .7s ease, transform .7s ease;
-    }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    /* ── Modal de pedido ── */
+    /* ───────────────────────── Modal pedido ───────────────────────── */
     .order-modal {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, .55);
+      background: rgba(0,0,0,.55);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 1000;
-      padding: 1.5rem;
+      padding: 1.2rem;
       opacity: 0;
       transition: opacity .25s ease;
     }
     .order-modal.open { display: flex; opacity: 1; }
-    .order-modal-card {
-      background: var(--white);
-      border-radius: 20px;
+    .order-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
       width: 100%;
-      max-width: 460px;
-      max-height: 90vh;
+      max-width: 480px;
+      max-height: 92vh;
       overflow-y: auto;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, .25);
+      box-shadow: var(--shadow-lg);
       transform: translateY(20px) scale(.97);
       transition: transform .3s ease;
+    }
+    .order-modal.open .order-card { transform: translateY(0) scale(1); }
+    .order-head {
+      padding: 1.6rem 1.8rem 1.3rem;
+      border-bottom: 1px solid var(--line);
       position: relative;
     }
-    .order-modal.open .order-modal-card { transform: translateY(0) scale(1); }
-    .order-modal-header {
-      background: var(--mint);
-      color: var(--white);
-      padding: 1.6rem 1.8rem 1.4rem;
-      border-radius: 20px 20px 0 0;
-      position: relative;
-    }
-    .order-modal-title {
-      font-family: 'Cormorant Garant', serif;
-      font-size: 1.7rem;
-      font-weight: 600;
-      line-height: 1.2;
+    .order-head h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--ink);
       margin-bottom: .3rem;
     }
-    .order-modal-subtitle {
-      font-size: .9rem;
-      opacity: .9;
-      font-weight: 400;
+    .order-head p {
+      font-size: .88rem;
+      color: var(--muted);
     }
-    .order-modal-product {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 1rem 1.8rem;
-      background: var(--offwhite);
-      border-bottom: 1px solid var(--border);
-      font-size: .9rem;
-    }
-    .order-modal-product strong { color: var(--text); font-weight: 600; }
-    .order-modal-product .price-pill {
-      background: var(--mint);
-      color: var(--white);
-      padding: .3rem .8rem;
-      border-radius: 100px;
-      font-weight: 600;
-      font-size: .85rem;
-    }
-    .order-modal-shipping {
-      display: flex;
-      align-items: center;
-      gap: .6rem;
-      background: rgba(37, 211, 102, .12);
-      border-bottom: 1px solid rgba(37, 211, 102, .35);
-      color: #16a34a;
-      font-size: .85rem;
-      font-weight: 600;
-      padding: .7rem 1.8rem;
-    }
-    .order-modal-shipping[hidden] { display: none; }
-    .order-modal-shipping svg { width: 18px; height: 18px; flex-shrink: 0; }
-    .order-modal-close {
+    .order-close {
       position: absolute;
-      top: 14px;
-      right: 14px;
-      width: 34px;
-      height: 34px;
+      top: 14px; right: 14px;
+      width: 34px; height: 34px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, .25);
-      color: var(--white);
+      background: var(--bg-soft);
       border: none;
-      font-size: 1.3rem;
-      line-height: 1;
       cursor: pointer;
+      font-size: 1.4rem;
+      line-height: 1;
+      color: var(--ink);
       display: flex;
       align-items: center;
       justify-content: center;
       transition: background .2s;
     }
-    .order-modal-close:hover { background: rgba(255, 255, 255, .4); }
-    .order-modal-body { padding: 1.6rem 1.8rem 1.8rem; }
-    .order-form .form-row { display: flex; gap: .9rem; }
-    .order-form .form-group { margin-bottom: 1rem; flex: 1; }
+    .order-close:hover { background: var(--line); }
+    .order-product {
+      padding: 1rem 1.8rem;
+      background: var(--bg-cream);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: .92rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .order-product strong { color: var(--ink); }
+    .order-product .price {
+      background: var(--ink);
+      color: #fff;
+      padding: .35rem .85rem;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: .9rem;
+    }
+    .order-shipping {
+      display: none;
+      align-items: center;
+      gap: .55rem;
+      padding: .65rem 1.8rem;
+      background: rgba(18,140,90,.1);
+      border-bottom: 1px solid rgba(18,140,90,.3);
+      color: var(--green);
+      font-size: .85rem;
+      font-weight: 600;
+    }
+    .order-shipping svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .order-shipping.show { display: flex; }
+    .order-body { padding: 1.5rem 1.8rem 1.8rem; }
+    .order-form .form-row { display: flex; gap: .8rem; }
+    .order-form .form-group { margin-bottom: .9rem; flex: 1; }
     .order-form label {
       display: block;
-      font-size: .8rem;
+      font-size: .78rem;
       font-weight: 600;
-      color: var(--text);
-      margin-bottom: .35rem;
-      letter-spacing: .02em;
+      color: var(--ink);
+      margin-bottom: .3rem;
+      letter-spacing: .03em;
+    }
+    .order-form label small {
+      font-weight: 400;
+      color: var(--muted);
+      letter-spacing: 0;
+      text-transform: none;
     }
     .order-form input,
     .order-form textarea,
     .order-form select {
       width: 100%;
       padding: .75rem .9rem;
-      border: 1.5px solid var(--border);
+      border: 1.5px solid var(--line);
       border-radius: 10px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .95rem;
-      color: var(--text);
-      background: var(--white);
+      font-family: inherit;
+      font-size: .92rem;
+      color: var(--ink);
+      background: #fff;
       transition: border-color .2s, box-shadow .2s;
     }
     .order-form input:focus,
-    .order-form textarea:focus,
-    .order-form select:focus {
+    .order-form textarea:focus {
       outline: none;
-      border-color: var(--mint);
-      box-shadow: 0 0 0 3px rgba(255, 49, 38, .12);
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px var(--red-soft);
     }
-    .order-form textarea { resize: vertical; min-height: 70px; }
-    .btn-whatsapp {
-      width: 100%;
+    .order-form textarea { resize: vertical; min-height: 60px; }
+    .pay-actions {
+      display: flex;
+      flex-direction: column;
+      gap: .65rem;
       margin-top: .5rem;
-      padding: .95rem 1.2rem;
-      background: #25D366;
-      color: var(--white);
-      border: none;
-      border-radius: 100px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: .55rem;
-      transition: background .2s, transform .2s;
     }
-    .btn-whatsapp:hover { background: #1DAE53; transform: translateY(-1px); }
-    .btn-whatsapp svg { width: 20px; height: 20px; }
-    .btn-mp {
+    .pay-btn {
       width: 100%;
-      margin-top: .25rem;
-      padding: .95rem 1.2rem;
-      background: #009ee3;
-      color: var(--white);
-      border: none;
+      padding: 1rem 1.2rem;
       border-radius: 100px;
-      font-family: 'DM Sans', sans-serif;
+      font-family: inherit;
       font-size: 1rem;
-      font-weight: 600;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: .55rem;
-      transition: background .2s, transform .2s;
+      border: 2px solid transparent;
+      transition: background .2s, color .2s, border-color .2s, transform .15s;
     }
-    .btn-mp:hover { background: #0084c7; transform: translateY(-1px); }
-    .btn-mp:disabled { opacity: .7; cursor: not-allowed; transform: none; }
-    .btn-mp svg { width: 22px; height: 22px; }
-    .pay-divider {
+    .pay-btn:hover { transform: translateY(-1px); }
+    .pay-btn:disabled { opacity: .65; cursor: not-allowed; transform: none; }
+    .pay-btn.primary {
+      background: var(--red);
+      color: #fff;
+      border-color: var(--red);
+    }
+    .pay-btn.primary:hover { background: var(--red-dark); border-color: var(--red-dark); }
+    .pay-btn.outline {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+    .pay-btn.outline:hover { background: var(--ink); color: #fff; }
+    .pay-btn svg { width: 20px; height: 20px; }
+    .pay-hint {
+      text-align: center;
+      font-size: .78rem;
+      color: var(--muted);
+      margin-top: 1rem;
+    }
+    .pay-hint a {
+      color: var(--ink);
+      font-weight: 600;
+      text-decoration: underline;
+    }
+    .pay-cards {
       display: flex;
       align-items: center;
-      gap: .8rem;
-      margin: .9rem 0 .55rem;
-      color: var(--gray);
-      font-size: .78rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .12em;
-    }
-    .pay-divider::before,
-    .pay-divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-    .order-form-hint {
-      font-size: .78rem;
-      color: var(--gray);
-      text-align: center;
+      justify-content: center;
+      gap: .5rem;
       margin-top: .8rem;
-      line-height: 1.45;
     }
-    .order-form-hint--mp {
-      margin-top: .35rem;
-      color: #009ee3;
-      font-weight: 500;
+    .pay-cards span {
+      font-size: .68rem;
+      color: var(--muted-2);
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      margin-right: .35rem;
     }
-    /* Banner de resultado de pago (al volver de MP) */
+    .pay-cards img,
+    .pay-cards svg {
+      height: 18px;
+      width: auto;
+      opacity: .7;
+    }
+
+    /* ───────────────────────── Pay result banner ───────────────────────── */
     .pay-result-banner {
       position: fixed;
       top: 84px;
@@ -1231,488 +1363,642 @@
       padding: .95rem 1.4rem;
       border-radius: 14px;
       font-weight: 600;
-      font-size: .92rem;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+      font-size: .9rem;
+      box-shadow: var(--shadow-lg);
       display: flex;
       align-items: center;
       gap: .7rem;
       animation: payBannerIn .35s ease;
     }
-    .pay-result-banner.success {
-      background: #ecfdf5; color: #047857; border: 1px solid #6ee7b7;
-    }
-    .pay-result-banner.failure {
-      background: #fef2f2; color: #b91c1c; border: 1px solid #fca5a5;
-    }
-    .pay-result-banner.pending {
-      background: #fffbeb; color: #b45309; border: 1px solid #fcd34d;
-    }
+    .pay-result-banner.success { background: #ecfdf5; color: #047857; border: 1px solid #6ee7b7; }
+    .pay-result-banner.failure { background: #fef2f2; color: #b91c1c; border: 1px solid #fca5a5; }
+    .pay-result-banner.pending { background: #fffbeb; color: #b45309; border: 1px solid #fcd34d; }
     .pay-result-banner button {
       background: transparent; border: none; cursor: pointer;
-      color: inherit; font-size: 1.2rem; line-height: 1;
-      padding: 0 .25rem; opacity: .7;
+      color: inherit; font-size: 1.2rem; line-height: 1; padding: 0 .25rem; opacity: .7;
     }
     .pay-result-banner button:hover { opacity: 1; }
     @keyframes payBannerIn {
       from { opacity: 0; transform: translate(-50%, -10px); }
       to   { opacity: 1; transform: translate(-50%,  0); }
     }
-    @media (max-width: 480px) {
+
+    /* ───────────────────────── Reveal ───────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ───────────────────────── Responsive ───────────────────────── */
+    @media (max-width: 1024px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-visual { min-height: 360px; }
+      .featured-grid, .purpose-grid, .stores-banner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr 1fr; }
+      .footer-brand-col { grid-column: 1 / -1; }
+    }
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: inline-flex; }
+      .nav-left { flex: 0 0 auto; }
+      .nav-right { flex: 0 0 auto; }
+      .nav-center { flex: 1; justify-content: center; }
+      .brand img { height: 32px; }
+      .benefits-inner { grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+      .products-grid, .testimonials-grid, .evidence-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-brand-col { grid-column: 1 / -1; }
+    }
+    @media (max-width: 640px) {
+      section { padding: 3.5rem 1.2rem; }
+      .hero { padding: 2.5rem 1.2rem 3rem; }
+      .hero h1 { font-size: clamp(2.1rem, 9vw, 3rem); }
+      .hero-actions .btn { flex: 1; min-width: 0; }
+      .promo-bar { font-size: .75rem; padding: .5rem .8rem; }
+      .promo-bar-inner { gap: .6rem; }
+      .countdown-pill { padding: .1rem .3rem; min-width: 22px; font-size: .8rem; }
+      .order-card { max-width: 100%; }
       .order-form .form-row { flex-direction: column; gap: 0; }
-      .order-modal-header { padding: 1.3rem 1.4rem 1.2rem; }
-      .order-modal-product { padding: .85rem 1.4rem; }
-      .order-modal-body { padding: 1.3rem 1.4rem 1.5rem; }
-      .order-modal-title { font-size: 1.45rem; }
+      .order-head { padding: 1.3rem 1.4rem 1rem; }
+      .order-product { padding: .8rem 1.4rem; }
+      .order-body { padding: 1.2rem 1.4rem 1.5rem; }
+      .partners-row { gap: 1rem; }
+      .partner-slot { min-width: 110px; height: 44px; font-size: .65rem; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; text-align: center; gap: 1rem; }
+    }
+    @media (max-width: 420px) {
+      .hero-actions { flex-direction: column; width: 100%; }
+      .hero-actions .btn { width: 100%; }
+      .pay-btn { font-size: .9rem; padding: .9rem 1rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ══ NAVBAR ══ -->
-  <nav>
-    <a href="#hero" class="nav-brand">
-      <img src="assets/logo.png" alt="EDYCACE STORE" class="nav-logo-img" width="120" height="40" decoding="async" />
-    </a>
-    <ul class="nav-links">
-      <li><a href="#nosotros">Nosotros</a></li>
-      <li><a href="#productos">Productos</a></li>
-      <li><a href="#testimonios">Testimonios</a></li>
-      <li><a href="#faq">FAQ</a></li>
-      <li><a href="#contacto" class="nav-cta">Contacto</a></li>
-    </ul>
-    <div class="hamburger" id="hamburger">
-      <span></span><span></span><span></span>
+  <!-- ═══════════════ Promo bar ═══════════════ -->
+  <div class="promo-bar" role="region" aria-label="Promoción actual">
+    <div class="promo-bar-inner">
+      <span class="promo-text"><strong>Envío gratis</strong> en todos los Pack x3 a todo el Perú</span>
+      <span class="countdown" id="countdown" aria-label="Tiempo restante de la promoción">
+        TERMINA EN
+        <span class="countdown-pill" id="cd-h">--</span><small>h</small>
+        <span class="countdown-pill" id="cd-m">--</span><small>min</small>
+        <span class="countdown-pill" id="cd-s">--</span><small>seg</small>
+      </span>
     </div>
-  </nav>
+  </div>
 
-  <!-- ══ HERO ══ -->
-  <section id="hero">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="hero-inner">
-      <div class="hero-left">
-        <div class="hero-badge">Respira mejor, vive mejor</div>
-        <h1 class="hero-title">
-          EDYCACE<br />
-          <em>STORE</em>
-        </h1>
+  <!-- ═══════════════ Header ═══════════════ -->
+  <header class="site-header">
+    <div class="nav">
+      <div class="nav-left">
+        <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="nav-links" aria-label="Navegación principal">
+          <a href="#productos">Productos</a>
+          <a href="#nosotros">Nosotros</a>
+          <a href="#testimonios">Reseñas</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+      </div>
+      <div class="nav-center">
+        <a href="#top" class="brand" aria-label="EDYCACE STORE — inicio">
+          <img src="assets/logo.png" alt="EDYCACE STORE" />
+          <span class="brand-mark">EDYCACE</span>
+        </a>
+      </div>
+      <div class="nav-right">
+        <a class="icon-btn" href="https://wa.link/fzkfna" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+        <a class="icon-btn" href="#productos" aria-label="Comprar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 01-8 0"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile drawer -->
+  <aside class="mobile-drawer" id="mobileDrawer" aria-label="Menú móvil">
+    <a href="#productos">Productos <span aria-hidden="true">→</span></a>
+    <a href="#nosotros">Nosotros <span aria-hidden="true">→</span></a>
+    <a href="#testimonios">Reseñas <span aria-hidden="true">→</span></a>
+    <a href="#faq">FAQ <span aria-hidden="true">→</span></a>
+    <a class="drawer-cta" href="#productos">Comprar ahora</a>
+  </aside>
+  <div class="drawer-backdrop" id="drawerBackdrop" aria-hidden="true"></div>
+
+  <!-- ═══════════════ Hero ═══════════════ -->
+  <main id="top">
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-text reveal">
+        <div class="hero-eyebrow">Tiras nasales · Hechas para respirar</div>
+        <h1>Respira mejor.<br /><em>Vive mejor.</em></h1>
         <p class="hero-sub">
-          Tiras nasales de alta calidad diseñadas para mejorar tu respiración, reducir el ronquido y potenciar tu descanso nocturno.
+          Tiras nasales hipoalergénicas que abren tus fosas en segundos. Reduce el ronquido, mejora tu descanso y siéntete con más energía cada día.
         </p>
         <div class="hero-actions">
-          <button class="btn-primary" onclick="document.getElementById('productos').scrollIntoView({behavior:'smooth'})">Ver Productos</button>
-          <button class="btn-outline" onclick="document.getElementById('nosotros').scrollIntoView({behavior:'smooth'})">Conoce más</button>
+          <a class="btn btn-primary" href="#productos">Ver productos</a>
+          <a class="btn btn-outline-dark" href="#nosotros">Conoce más</a>
+        </div>
+        <div class="hero-trust">
+          <span class="hero-trust-stars" aria-hidden="true">★★★★★</span>
+          <span><strong style="color:var(--ink)">+5,000</strong> clientes satisfechos en Perú</span>
         </div>
       </div>
+      <div class="hero-visual reveal">
+        <span class="hero-tag tag-1" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+          Envío gratis
+        </span>
+        <span class="hero-tag tag-2" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Hipoalergénico
+        </span>
+        <img class="hero-product-img" src="assets/3xpro.png" alt="Pack x3 — 90 tiras nasales EDYCACE" />
+      </div>
+    </div>
+  </section>
 
-      <div class="hero-right">
-        <div class="carousel-wrapper">
-          <div class="carousel-track" id="carouselTrack">
-
-            <!-- Card 1 — Pack x3 -->
-            <div class="carousel-card active">
-              <div class="product-image-placeholder has-photo">
-                <img src="assets/3xpro.png" alt="Pack x3 — 90 tiras nasales" loading="lazy" />
-              </div>
-              <div class="product-badge-tag">Más Popular</div>
-              <div class="product-name">Pack x3</div>
-              <div class="product-desc">3 packs · 90 tiras en total. La opción más completa para más de un mes de uso.</div>
-              <div class="product-price">S/ 50 <span>/ 3 packs · 90 tiras</span></div>
-              <div class="free-ship-pill">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>
-                </svg>
-                Envío gratis
-              </div>
-              <button class="card-btn" onclick="openOrderModal('Pack x3 (3 packs · 90 tiras)','S/ 50', true)">Comprar</button>
-            </div>
-
-            <!-- Card 2 — Pack x2 -->
-            <div class="carousel-card">
-              <div class="product-image-placeholder has-photo">
-                <img src="assets/2xpro.png" alt="Pack x2 — 60 tiras nasales" loading="lazy" />
-              </div>
-              <div class="product-badge-tag">Ahorra</div>
-              <div class="product-name">Pack x2</div>
-              <div class="product-desc">2 packs · 60 tiras. Lo justo para varias semanas con un buen ahorro frente al pack individual.</div>
-              <div class="product-price">S/ 35 <span>/ 2 packs · 60 tiras</span></div>
-              <button class="card-btn" onclick="openOrderModal('Pack x2 (2 packs · 60 tiras)','S/ 35', false)">Comprar</button>
-            </div>
-
-            <!-- Card 3 — Pack Individual -->
-            <div class="carousel-card">
-              <div class="product-image-placeholder has-photo">
-                <img src="assets/1xpro.png" alt="Pack Individual — 30 tiras nasales" loading="lazy" />
-              </div>
-              <div class="product-badge-tag">Para Probar</div>
-              <div class="product-name">Pack Individual</div>
-              <div class="product-desc">1 pack · 30 tiras. Ideal para conocer la calidad de nuestras tiras nasales.</div>
-              <div class="product-price">S/ 20 <span>/ 1 pack · 30 tiras</span></div>
-              <button class="card-btn" onclick="openOrderModal('Pack Individual (1 pack · 30 tiras)','S/ 20', false)">Comprar</button>
-            </div>
-
-          </div><!-- /carousel-track -->
-          <div class="carousel-dots">
-            <div class="dot active" onclick="goToSlide(0, {fromUser:true})" role="button" aria-label="Ver Pack x3"></div>
-            <div class="dot" onclick="goToSlide(1, {fromUser:true})" role="button" aria-label="Ver Pack x2"></div>
-            <div class="dot" onclick="goToSlide(2, {fromUser:true})" role="button" aria-label="Ver Pack Individual"></div>
-          </div>
+  <!-- ═══════════════ Beneficios strip ═══════════════ -->
+  <section class="benefits" aria-label="Beneficios">
+    <div class="benefits-inner">
+      <div class="benefit">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+        </div>
+        <div class="benefit-text">
+          <strong>Envío a todo el Perú</strong>
+          <span>2 a 5 días hábiles</span>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+        <div class="benefit-text">
+          <strong>Hipoalergénico</strong>
+          <span>Apto para piel sensible</span>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="benefit-text">
+          <strong>Resultados desde la 1° noche</strong>
+          <span>Abre fosas al instante</span>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div class="benefit-text">
+          <strong>Hasta 12h de uso</strong>
+          <span>Cómodas y discretas</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ══ NOSOTROS ══ -->
-  <section id="nosotros">
+  <!-- ═══════════════ Productos ═══════════════ -->
+  <section class="products" id="productos">
     <div class="section-inner">
-      <div class="section-label reveal">Nuestra historia</div>
-      <h2 class="section-title reveal">Nacimos para que<br />respires mejor</h2>
-      <div class="nosotros-grid">
-        <div class="nosotros-visual has-video reveal">
+      <div class="section-head reveal">
+        <div class="section-eyebrow">Nuestros productos</div>
+        <h2 class="section-title">Elige el pack <em>ideal para ti</em></h2>
+        <p class="section-sub">Tres formatos pensados para acompañarte cada noche. Cuanto más grande el pack, más ahorras.</p>
+      </div>
+      <div class="products-grid">
+
+        <!-- Pack Individual -->
+        <article class="product-card reveal">
+          <div class="product-image">
+            <img src="assets/1xpro.png" alt="Pack Individual — 30 tiras nasales" loading="lazy" />
+          </div>
+          <div class="product-options" aria-label="Variantes disponibles">
+            <span class="opt opt-black" title="Negro"></span>
+          </div>
+          <h3 class="product-name">Pack Individual</h3>
+          <div class="product-meta">1 pack · 30 tiras</div>
+          <div class="product-bottom">
+            <div class="product-price">S/ 20<small>1 pack</small></div>
+            <button class="product-buy" type="button" onclick="openOrderModal('Pack Individual (1 pack · 30 tiras)','S/ 20', false)">Comprar</button>
+          </div>
+        </article>
+
+        <!-- Pack x2 -->
+        <article class="product-card reveal">
+          <div class="product-image">
+            <img src="assets/2xpro.png" alt="Pack x2 — 60 tiras nasales" loading="lazy" />
+          </div>
+          <div class="product-options" aria-label="Variantes disponibles">
+            <span class="opt opt-black" title="Negro"></span>
+          </div>
+          <h3 class="product-name">Pack x2</h3>
+          <div class="product-meta">2 packs · 60 tiras</div>
+          <div class="product-bottom">
+            <div class="product-price">
+              <del>S/ 40</del>S/ 35
+              <small>2 packs</small>
+            </div>
+            <button class="product-buy" type="button" onclick="openOrderModal('Pack x2 (2 packs · 60 tiras)','S/ 35', false)">Comprar</button>
+          </div>
+        </article>
+
+        <!-- Pack x3 -->
+        <article class="product-card reveal featured">
+          <div class="product-badge">Más popular</div>
+          <div class="product-image">
+            <img src="assets/3xpro.png" alt="Pack x3 — 90 tiras nasales" loading="lazy" />
+          </div>
+          <div class="product-options" aria-label="Variantes disponibles">
+            <span class="opt opt-black" title="Negro"></span>
+          </div>
+          <h3 class="product-name">Pack x3</h3>
+          <div class="product-meta">3 packs · 90 tiras</div>
+          <div class="ship-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+            Envío gratis
+          </div>
+          <div class="product-bottom">
+            <div class="product-price">
+              <del>S/ 60</del>S/ 50
+              <small>3 packs</small>
+            </div>
+            <button class="product-buy" type="button" onclick="openOrderModal('Pack x3 (3 packs · 90 tiras)','S/ 50', true)">Comprar</button>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ Featured combo ═══════════════ -->
+  <section class="featured-section">
+    <div class="featured-grid">
+      <div class="featured-visual reveal">
+        <span class="featured-tag">Top ventas</span>
+        <img src="assets/3xpro.png" alt="Pack x3 destacado" loading="lazy" />
+      </div>
+      <div class="featured-text reveal">
+        <h2>Más noches buenas, <em>menos ronquidos.</em></h2>
+        <p>El Pack x3 te alcanza para más de un mes de uso continuo, con envío gratis a todo el Perú. La opción que eligen 8 de cada 10 clientes.</p>
+        <div class="featured-includes">
+          <div class="featured-include">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            90 tiras hipoalergénicas listas para usar
+          </div>
+          <div class="featured-include">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Envío gratis a todo el Perú
+          </div>
+          <div class="featured-include">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Pago seguro con tarjeta o contra entrega
+          </div>
+          <div class="featured-include">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Soporte por WhatsApp en menos de 24 h
+          </div>
+        </div>
+        <div class="featured-actions">
+          <button class="btn btn-primary" type="button" onclick="openOrderModal('Pack x3 (3 packs · 90 tiras)','S/ 50', true)">Comprar Pack x3 — S/ 50</button>
+          <a class="btn btn-outline-red" href="#productos" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.4)">Ver otros packs</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ Testimonios ═══════════════ -->
+  <section class="testimonials" id="testimonios">
+    <div class="section-inner">
+      <div class="section-head reveal">
+        <div class="testimonials-stars">
+          <span class="stars" aria-hidden="true">★★★★★</span>
+          <span>+5,000 clientes satisfechos</span>
+        </div>
+        <h2 class="section-title">Experiencias <em>reales</em></h2>
+        <p class="section-sub">Lo que dicen las personas que ya cambiaron su forma de descansar.</p>
+      </div>
+      <div class="testimonials-grid">
+
+        <article class="testimonial reveal">
+          <div class="stars" aria-hidden="true">★★★★★</div>
+          <p class="testimonial-quote">"Llevaba años despertándome cansado. Desde que las uso, duermo de corrido y mi pareja ya no se queja del ronquido. Un cambio increíble."</p>
+          <div class="testimonial-product">Pack x3</div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar"><img src="assets/cliente1.jpeg" alt="Carlos M." loading="lazy" /></div>
+            <div>
+              <div class="testimonial-name">Carlos M.</div>
+              <div class="testimonial-role">Lima · Cliente verificado</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="testimonial reveal">
+          <div class="stars" aria-hidden="true">★★★★★</div>
+          <p class="testimonial-quote">"Las uso en mis entrenamientos de crossfit. La adhesión es brutal, no se despegan ni con el sudor. Mi rendimiento mejoró notablemente."</p>
+          <div class="testimonial-product">Pack x2</div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar"><img src="assets/cliente2.jpeg" alt="Laura V." loading="lazy" /></div>
+            <div>
+              <div class="testimonial-name">Laura V.</div>
+              <div class="testimonial-role">Lima · Atleta</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="testimonial reveal">
+          <div class="stars" aria-hidden="true">★★★★★</div>
+          <p class="testimonial-quote">"Sufría de congestión crónica. Estas tiras me dan el alivio que necesito para dormir sin medicamentos. Las recomiendo a toda mi familia."</p>
+          <div class="testimonial-product">Pack Individual</div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar"><img src="assets/cliente3.png" alt="Andrea P." loading="lazy" /></div>
+            <div>
+              <div class="testimonial-name">Andrea P.</div>
+              <div class="testimonial-role">Lima · Cliente verificada</div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ Propósito + video ═══════════════ -->
+  <section class="purpose" id="nosotros">
+    <div class="section-inner">
+      <div class="purpose-grid">
+        <div class="purpose-visual reveal">
           <video autoplay muted loop playsinline controls preload="metadata">
             <source src="assets/dejandopedidos1.mp4" type="video/mp4" />
             Tu navegador no soporta video HTML5.
           </video>
         </div>
         <div class="reveal">
-          <p class="section-sub" style="max-width:100%;margin-bottom:1.2rem;">
-            EDYCACE STORE nació de una necesidad real: encontrar una solución sencilla y efectiva para quienes sufren de congestión nasal o dificultades para respirar durante el sueño.
+          <div class="section-eyebrow">Nuestro propósito</div>
+          <h2 class="section-title" style="text-align:left;margin-bottom:1.5rem">Nacimos para que <em>respires mejor</em></h2>
+          <p class="section-sub" style="text-align:left;margin-bottom:1.2rem">
+            EDYCACE STORE nació de una necesidad real: ofrecer una solución sencilla, hipoalergénica y efectiva para quienes sufren de congestión nasal o dificultades para respirar durante el sueño.
           </p>
-          <p class="section-sub" style="max-width:100%;margin-bottom:2rem;">
-            Creemos que dormir bien es un derecho, no un lujo. Por eso desarrollamos tiras nasales fabricadas con materiales hipoalergénicos, con una adhesión óptima y un diseño que se adapta a todo tipo de nariz. Cada producto pasa por rigurosos controles de calidad antes de llegar a tus manos.
+          <p class="section-sub" style="text-align:left">
+            Creemos que dormir bien no es un lujo. Por eso cada lote pasa por controles rigurosos antes de llegar a tu casa. Adhesión óptima, materiales seguros y un diseño que se adapta a todo tipo de nariz.
           </p>
-          <div class="stats">
-            <div class="stat reveal">
-              <div class="stat-num">+5K<span>+</span></div>
-              <div class="stat-label">Clientes satisfechos</div>
+          <div class="purpose-stats">
+            <div class="purpose-stat">
+              <div class="purpose-stat-num">+5K<em>+</em></div>
+              <div class="purpose-stat-label">Clientes satisfechos</div>
             </div>
-            <div class="stat reveal">
-              <div class="stat-num">3<span>+</span></div>
-              <div class="stat-label">Años en el mercado</div>
+            <div class="purpose-stat">
+              <div class="purpose-stat-num">3<em>+</em></div>
+              <div class="purpose-stat-label">Años en el mercado</div>
             </div>
-            <div class="stat reveal">
-              <div class="stat-num">98<span>%</span></div>
-              <div class="stat-label">Tasa de satisfacción</div>
+            <div class="purpose-stat">
+              <div class="purpose-stat-num">98<em>%</em></div>
+              <div class="purpose-stat-label">Tasa de satisfacción</div>
             </div>
-            <div class="stat reveal">
-              <div class="stat-num">0</div>
-              <div class="stat-label">Ingredientes dañinos</div>
+            <div class="purpose-stat">
+              <div class="purpose-stat-num">0</div>
+              <div class="purpose-stat-label">Ingredientes dañinos</div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="nosotros-evidence">
-        <figure class="reveal">
-          <div class="nosotros-evidence-img-wrap">
-            <img src="assets/consolidadopedidos.png" alt="Consolidado de pedidos" loading="lazy" />
-          </div>
-          <figcaption>Consolidado de pedidos</figcaption>
+  <!-- ═══════════════ Evidencia operativa ═══════════════ -->
+  <section class="evidence">
+    <div class="section-inner">
+      <div class="section-head reveal">
+        <div class="section-eyebrow">Detrás de cada pedido</div>
+        <h2 class="section-title">Operamos con <em>cuidado</em> y trazabilidad</h2>
+        <p class="section-sub">Cada pedido se consolida, empaca y despacha el mismo día con seguimiento.</p>
+      </div>
+      <div class="evidence-grid">
+        <figure class="evidence-card reveal">
+          <img src="assets/consolidadopedidos.png" alt="Consolidado de pedidos" loading="lazy" />
+          <figcaption class="evidence-card-body">
+            <strong>Consolidado de pedidos</strong>
+            <span>Cada pedido es revisado y validado antes del despacho.</span>
+          </figcaption>
         </figure>
-        <figure class="reveal">
-          <div class="nosotros-evidence-img-wrap">
-            <img src="assets/envios.png" alt="Envíos a todo el país" loading="lazy" />
-          </div>
-          <figcaption>Envíos a todo el país</figcaption>
+        <figure class="evidence-card reveal">
+          <img src="assets/envios.png" alt="Envíos a todo el país" loading="lazy" />
+          <figcaption class="evidence-card-body">
+            <strong>Envíos a todo el país</strong>
+            <span>Trabajamos con couriers confiables para llegar a tu puerta.</span>
+          </figcaption>
         </figure>
       </div>
     </div>
   </section>
 
-  <!-- ══ PRODUCTOS ══ -->
-  <section id="productos">
-    <div class="section-inner">
-      <div class="section-label reveal">Nuestras ofertas</div>
-      <h2 class="section-title reveal">Elige el pack<br />ideal para ti</h2>
-      <p class="section-sub reveal">Tres formatos para que ahorres más mientras más compras. Cada pack incluye 30 tiras nasales hipoalergénicas y sin látex.</p>
-      <div class="productos-grid">
-
-        <!-- Pack x3 -->
-        <div class="product-card reveal is-featured">
-          <div class="product-card-img has-photo">
-            <img src="assets/3xpro.png" alt="Pack x3 — 90 tiras" loading="lazy" />
-          </div>
-          <div class="product-card-body">
-            <div class="product-card-tag">Más popular</div>
-            <div class="product-card-name">Pack x3 — 90 tiras</div>
-            <p class="product-card-desc">3 packs de 30 tiras (90 tiras en total). La mejor relación calidad‑precio. Suficiente para más de un mes de uso continuo.</p>
-            <div class="product-card-ship">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>
-              </svg>
-              Envío gratis incluido
-            </div>
-            <div class="product-card-footer">
-              <div class="product-card-price">S/ 50 <small>/ 3 packs</small></div>
-              <button class="btn-card" onclick="openOrderModal('Pack x3 (3 packs · 90 tiras)','S/ 50', true)">Comprar</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Pack x2 -->
-        <div class="product-card reveal">
-          <div class="product-card-img has-photo">
-            <img src="assets/2xpro.png" alt="Pack x2 — 60 tiras" loading="lazy" />
-          </div>
-          <div class="product-card-body">
-            <div class="product-card-tag">Ahorra</div>
-            <div class="product-card-name">Pack x2 — 60 tiras</div>
-            <p class="product-card-desc">2 packs de 30 tiras (60 tiras en total). Lo justo para varias semanas de uso, con un buen ahorro frente al pack individual.</p>
-            <div class="product-card-footer">
-              <div class="product-card-price">S/ 35 <small>/ 2 packs</small></div>
-              <button class="btn-card" onclick="openOrderModal('Pack x2 (2 packs · 60 tiras)','S/ 35', false)">Comprar</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Pack Individual -->
-        <div class="product-card reveal">
-          <div class="product-card-img has-photo">
-            <img src="assets/1xpro.png" alt="Pack Individual — 30 tiras" loading="lazy" />
-          </div>
-          <div class="product-card-body">
-            <div class="product-card-tag">Para probar</div>
-            <div class="product-card-name">Pack Individual — 30 tiras</div>
-            <p class="product-card-desc">1 pack de 30 tiras. Ideal para conocer la calidad de nuestras tiras nasales antes de pasar a un pack más grande.</p>
-            <div class="product-card-footer">
-              <div class="product-card-price">S/ 20 <small>/ 1 pack</small></div>
-              <button class="btn-card" onclick="openOrderModal('Pack Individual (1 pack · 30 tiras)','S/ 20', false)">Comprar</button>
-            </div>
-          </div>
-        </div>
-
+  <!-- ═══════════════ Partners (placeholder) ═══════════════ -->
+  <section class="partners" aria-label="Aliados">
+    <div class="partners-inner">
+      <div class="partners-label">Nos eligen</div>
+      <div class="partners-row">
+        <span class="partner-slot">Aliado 1</span>
+        <span class="partner-slot">Aliado 2</span>
+        <span class="partner-slot">Aliado 3</span>
+        <span class="partner-slot">Aliado 4</span>
+        <span class="partner-slot">Aliado 5</span>
+        <span class="partner-slot">Aliado 6</span>
       </div>
     </div>
   </section>
 
-  <!-- ══ TESTIMONIOS ══ -->
-  <section id="testimonios">
-    <div class="section-inner">
-      <div class="section-label reveal">Lo que dicen</div>
-      <h2 class="section-title reveal">Clientes que ya<br />respiran mejor</h2>
-      <div class="testimonios-grid">
-
-        <div class="testimonial-card reveal">
-          <div class="stars">★★★★★</div>
-          <p class="testimonial-text">"Llevaba años despertándome cansado. Desde que uso las Tiras Max de EDYCACE STORE, duermo de corrido y mi pareja ya no se queja del ronquido. Un cambio increíble."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar has-photo">
-              <img src="assets/cliente1.jpeg" alt="Carlos M." loading="lazy" />
-            </div>
-            <div>
-              <div class="author-name">Carlos M.</div>
-              <div class="author-role">Cliente verificado · Lima</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-card reveal">
-          <div class="stars">★★★★★</div>
-          <p class="testimonial-text">"Las uso durante mis entrenamientos de crossfit. La adhesión es brutal, no se despegan ni con el sudor. El flujo de aire mejora notablemente mi rendimiento."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar has-photo">
-              <img src="assets/cliente2.jpeg" alt="Laura V." loading="lazy" />
-            </div>
-            <div>
-              <div class="author-name">Laura V.</div>
-              <div class="author-role">Atleta · Lima</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-card reveal">
-          <div class="stars">★★★★★</div>
-          <p class="testimonial-text">"Sufría de congestión crónica. Las Tiras Clásicas me dan el alivio que necesito para dormir sin medicamentos. Las recomiendo a toda mi familia."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar has-photo">
-              <img src="assets/cliente3.png" alt="Andrea P." loading="lazy" />
-            </div>
-            <div>
-              <div class="author-name">Andrea P.</div>
-              <div class="author-role">Cliente verificada · Lima</div>
-            </div>
-          </div>
-        </div>
-
+  <!-- ═══════════════ Stores (placeholder) ═══════════════ -->
+  <section class="stores">
+    <div class="stores-banner">
+      <div class="stores-visual reveal" aria-hidden="true">
+        <span>Foto de tienda — próximamente</span>
+      </div>
+      <div class="reveal">
+        <div class="section-eyebrow">Próximamente</div>
+        <h2 class="section-title" style="text-align:left;margin-bottom:1.2rem">También en <em>tiendas físicas</em></h2>
+        <p class="section-sub" style="text-align:left;margin-bottom:1.6rem">
+          Estamos llevando EDYCACE STORE a más puntos físicos en Lima y provincias. Si tienes una tienda y quieres distribuirnos, escríbenos por WhatsApp.
+        </p>
+        <a class="btn btn-outline-dark" href="https://wa.link/fzkfna" target="_blank" rel="noopener noreferrer">Quiero distribuirlas</a>
       </div>
     </div>
   </section>
 
-  <!-- ══ FAQ ══ -->
-  <section id="faq">
+  <!-- ═══════════════ FAQ ═══════════════ -->
+  <section class="faq" id="faq">
     <div class="section-inner">
-      <div class="section-label reveal">Dudas comunes</div>
-      <h2 class="section-title reveal">Preguntas<br />frecuentes</h2>
+      <div class="section-head reveal">
+        <div class="section-eyebrow">Dudas comunes</div>
+        <h2 class="section-title">Preguntas <em>frecuentes</em></h2>
+      </div>
       <div class="faq-list">
 
         <div class="faq-item reveal">
-          <button class="faq-question" onclick="toggleFaq(this)">
+          <button class="faq-question" type="button" onclick="toggleFaq(this)">
             ¿Cómo se usa correctamente una tira nasal?
-            <div class="faq-icon">
-              <svg viewBox="0 0 14 14" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round">
-                <line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/>
-              </svg>
-            </div>
+            <span class="faq-icon" aria-hidden="true"></span>
           </button>
-          <div class="faq-answer"><p>Limpia y seca bien el puente de la nariz. Retira el protector adhesivo y aplica la tira centrada sobre el puente nasal, presionando suavemente los extremos. La tira actúa como un resorte que levanta los laterales de la nariz para abrir las fosas nasales.</p></div>
+          <div class="faq-answer"><p>Limpia y seca el puente de la nariz. Retira el protector adhesivo y aplica la tira centrada sobre el puente nasal, presionando suavemente los extremos. Actúa como un resorte que abre las fosas nasales.</p></div>
         </div>
 
         <div class="faq-item reveal">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            ¿Son seguras para pieles sensibles?
-            <div class="faq-icon">
-              <svg viewBox="0 0 14 14" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round">
-                <line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/>
-              </svg>
-            </div>
+          <button class="faq-question" type="button" onclick="toggleFaq(this)">
+            ¿Son seguras para piel sensible?
+            <span class="faq-icon" aria-hidden="true"></span>
           </button>
-          <div class="faq-answer"><p>Sí. Todas nuestras tiras están fabricadas con materiales hipoalergénicos, libres de látex y dermatológicamente probados. Si tienes una alergia específica, revisa la lista completa de componentes en el empaque o contáctanos.</p></div>
+          <div class="faq-answer"><p>Sí. Todas nuestras tiras son hipoalergénicas, libres de látex y dermatológicamente probadas. Si tienes una alergia específica, revisa los componentes en el empaque o escríbenos.</p></div>
         </div>
 
         <div class="faq-item reveal">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            ¿Cuántas horas puedo usar la tira?
-            <div class="faq-icon">
-              <svg viewBox="0 0 14 14" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round">
-                <line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/>
-              </svg>
-            </div>
+          <button class="faq-question" type="button" onclick="toggleFaq(this)">
+            ¿Cuántas horas puedo usar una tira?
+            <span class="faq-icon" aria-hidden="true"></span>
           </button>
-          <div class="faq-answer"><p>Las tiras están diseñadas para uso de hasta 12 horas continuas. Son de un solo uso: después de retirarlas, deséchelas. No se recomienda reutilizarlas ya que el adhesivo pierde eficacia y la higiene no puede garantizarse.</p></div>
+          <div class="faq-answer"><p>Hasta 12 horas continuas. Son de un solo uso: después de retirarlas, deséchalas. No se recomienda reutilizarlas porque el adhesivo pierde eficacia.</p></div>
         </div>
 
         <div class="faq-item reveal">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            ¿Cómo hago mi pedido?
-            <div class="faq-icon">
-              <svg viewBox="0 0 14 14" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round">
-                <line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/>
-              </svg>
-            </div>
+          <button class="faq-question" type="button" onclick="toggleFaq(this)">
+            ¿Cómo pago mi pedido?
+            <span class="faq-icon" aria-hidden="true"></span>
           </button>
-          <div class="faq-answer"><p>Puedes contactarnos directamente a través del formulario de contacto de esta página o escribirnos por WhatsApp. Te responderemos en menos de 24 horas con disponibilidad, precios y opciones de envío a tu ciudad.</p></div>
+          <div class="faq-answer"><p>Puedes pagar con tarjeta de crédito/débito (Visa, Mastercard, Amex) directamente desde la web vía Mercado Pago, o coordinar pago contra entrega y Yape/Plin por WhatsApp.</p></div>
         </div>
 
         <div class="faq-item reveal">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            ¿Hacen envíos a todo el país?
-            <div class="faq-icon">
-              <svg viewBox="0 0 14 14" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round">
-                <line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/>
-              </svg>
-            </div>
+          <button class="faq-question" type="button" onclick="toggleFaq(this)">
+            ¿Hacen envíos a todo el Perú?
+            <span class="faq-icon" aria-hidden="true"></span>
           </button>
-          <div class="faq-answer"><p>Sí, realizamos envíos a todo el territorio nacional. El tiempo de entrega varía entre 2 y 5 días hábiles dependiendo de tu ubicación. Los pedidos superiores a cierto monto tienen envío gratis. Consulta la promoción vigente al momento de tu compra.</p></div>
+          <div class="faq-answer"><p>Sí, enviamos a todo el territorio nacional. Tiempo de entrega: 2 a 5 días hábiles según ciudad. El Pack x3 incluye envío gratis a todo el país.</p></div>
         </div>
 
       </div>
     </div>
   </section>
+  </main>
 
-  <!-- ══ CONTACTO ══ -->
-  <section id="contacto">
-    <div class="section-inner">
-      <div class="section-label reveal">Escríbenos</div>
-      <h2 class="section-title reveal">¿Tienes alguna<br />pregunta?</h2>
-      <div class="contacto-grid">
-        <div class="contacto-info reveal">
-          <p class="section-sub">Estamos aquí para ayudarte. Responderemos tu mensaje en menos de 24 horas.</p>
-          <div class="contact-item">
-            <div class="contact-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
-              </svg>
-            </div>
-            <div>
-              <div class="contact-item-label">Email</div>
-              <div class="contact-item-val">edycace.importaciones@gmail.com</div>
-            </div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.02 1.18 2 2 0 012 .02h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/>
-              </svg>
-            </div>
-            <div>
-              <div class="contact-item-label">WhatsApp</div>
-              <div class="contact-item-val">+51 912 370 223</div>
-            </div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-              </svg>
-            </div>
-            <div>
-              <div class="contact-item-label">Horario de atención</div>
-              <div class="contact-item-val">Lun – Vie: 8:00 am – 6:00 pm</div>
-            </div>
-          </div>
-        </div>
-
-        <form class="contact-form reveal" onsubmit="handleSubmit(event)">
-          <div class="form-row">
-            <div class="form-group">
-              <label>Nombre</label>
-              <input type="text" placeholder="Tu nombre" required />
-            </div>
-            <div class="form-group">
-              <label>Email</label>
-              <input type="email" placeholder="tu@email.com" required />
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Asunto</label>
-            <input type="text" placeholder="¿En qué te podemos ayudar?" />
-          </div>
-          <div class="form-group">
-            <label>Mensaje</label>
-            <textarea placeholder="Escribe tu mensaje aquí..."></textarea>
-          </div>
-          <button type="submit" class="btn-submit">Enviar mensaje →</button>
-        </form>
-      </div>
-    </div>
+  <!-- ═══════════════ Help CTA ═══════════════ -->
+  <section class="help-cta">
+    <h3>¿Tienes alguna pregunta?</h3>
+    <p>Hablar con un asesor por WhatsApp es la forma más rápida de resolver dudas, coordinar envío o pagar con Yape/Plin.</p>
+    <a class="btn" href="https://wa.link/fzkfna" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Hablar con un asesor
+    </a>
   </section>
 
-  <!-- ══ FOOTER ══ -->
+  <!-- ═══════════════ Footer ═══════════════ -->
   <footer>
-    <div class="footer-brand">EDYCACE<span>·</span>STORE</div>
-    <p>Tiras nasales premium para una mejor respiración</p>
-    <div class="footer-links">
-      <a href="#nosotros">Nosotros</a>
-      <a href="#productos">Productos</a>
-      <a href="#testimonios">Testimonios</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contacto">Contacto</a>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand-col">
+          <div class="footer-brand">
+            <img src="assets/logo.png" alt="EDYCACE STORE" />
+            EDYCACE
+          </div>
+          <p class="footer-tag">Tiras nasales premium hechas para que respires mejor y duermas sin interrupciones.</p>
+          <div class="footer-meta">
+            EDYCACE S.A.C.<br />
+            edycace.importaciones@gmail.com<br />
+            +51 912 370 223
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Productos</h4>
+          <ul>
+            <li><a href="#productos">Pack Individual</a></li>
+            <li><a href="#productos">Pack x2</a></li>
+            <li><a href="#productos">Pack x3</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#testimonios">Reseñas</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="https://wa.link/fzkfna" target="_blank" rel="noopener noreferrer">Distribuidores</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Síguenos</h4>
+          <ul>
+            <li><a href="https://wa.link/fzkfna" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+            <li><a href="#" rel="noopener">Instagram</a></li>
+            <li><a href="#" rel="noopener">TikTok</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Políticas</h4>
+          <ul>
+            <li><a href="#">Política de envíos</a></li>
+            <li><a href="#">Política de devoluciones</a></li>
+            <li><a href="#">Términos del servicio</a></li>
+            <li><a href="#">Libro de reclamaciones</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© <span id="footerYear">2026</span> EDYCACE S.A.C. Todos los derechos reservados.</div>
+        <div class="footer-socials">
+          <a href="https://wa.link/fzkfna" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          </a>
+          <a href="#" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005.8 20.1a6.34 6.34 0 0010.86-4.43V8.42a8.16 8.16 0 004.77 1.52V6.49a4.85 4.85 0 01-1.84-.2z"/></svg>
+          </a>
+        </div>
+      </div>
     </div>
-    <div class="footer-copy">© 2024 EDYCACE STORE. Todos los derechos reservados.</div>
   </footer>
 
-  <!-- ══ MODAL DE PEDIDO ══ -->
-  <div class="order-modal" id="orderModal" role="dialog" aria-modal="true" aria-labelledby="orderModalTitle" onclick="if(event.target===this) closeOrderModal()">
-    <div class="order-modal-card">
-      <div class="order-modal-header">
-        <button class="order-modal-close" type="button" aria-label="Cerrar" onclick="closeOrderModal()">×</button>
-        <div class="order-modal-title" id="orderModalTitle">Hacer pedido</div>
-        <div class="order-modal-subtitle">Completa tus datos y elige cómo pagar</div>
+  <!-- WhatsApp floating -->
+  <a class="wa-float" href="https://wa.link/fzkfna" target="_blank" rel="noopener noreferrer" aria-label="Escríbenos por WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <!-- ═══════════════ Modal de pedido ═══════════════ -->
+  <div class="order-modal" id="orderModal" role="dialog" aria-modal="true" aria-labelledby="orderTitle" onclick="if(event.target===this) closeOrderModal()">
+    <div class="order-card">
+      <div class="order-head">
+        <button class="order-close" type="button" aria-label="Cerrar" onclick="closeOrderModal()">×</button>
+        <h3 id="orderTitle">Hacer pedido</h3>
+        <p>Completa tus datos y elige cómo pagar.</p>
       </div>
 
-      <div class="order-modal-product">
+      <div class="order-product">
         <div>Producto: <strong id="orderProductName">—</strong></div>
-        <div class="price-pill" id="orderProductPrice">—</div>
+        <div class="price" id="orderProductPrice">—</div>
       </div>
 
-      <div class="order-modal-shipping" id="orderShippingBanner" hidden>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>
-        </svg>
+      <div class="order-shipping" id="orderShipping">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
         Envío gratis incluido en esta promo
       </div>
 
-      <div class="order-modal-body">
+      <div class="order-body">
         <form class="order-form" id="orderForm" onsubmit="sendWhatsAppOrder(event)">
           <div class="form-row">
             <div class="form-group">
@@ -1731,7 +2017,7 @@
               <input type="tel" id="orderPhone" placeholder="999 999 999" required />
             </div>
             <div class="form-group">
-              <label for="orderEmail">Email <span style="color:var(--gray);font-weight:400">(para tarjeta)</span></label>
+              <label for="orderEmail">Email <small>(para tarjeta)</small></label>
               <input type="email" id="orderEmail" placeholder="tu@email.com" />
             </div>
           </div>
@@ -1741,174 +2027,111 @@
             <textarea id="orderNotes" placeholder="Distrito, dirección de envío, referencia..."></textarea>
           </div>
 
-          <button type="button" class="btn-mp" id="btnPayMP" onclick="payWithMercadoPago(event)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="2" y="5" width="20" height="14" rx="2"/>
-              <line x1="2" y1="10" x2="22" y2="10"/>
-              <line x1="6" y1="15" x2="10" y2="15"/>
-            </svg>
-            Pagar con tarjeta
-          </button>
-          <div class="order-form-hint order-form-hint--mp">Pago seguro con Mercado Pago · Visa, Mastercard, Yape y más</div>
+          <div class="pay-actions">
+            <button type="button" class="pay-btn primary" id="btnPayMP" onclick="payWithMercadoPago(event)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="5" width="20" height="14" rx="2"/>
+                <line x1="2" y1="10" x2="22" y2="10"/>
+                <line x1="6" y1="15" x2="10" y2="15"/>
+              </svg>
+              Pagar ahora con tarjeta
+            </button>
+            <button type="submit" class="pay-btn outline">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pagar contra entrega / WhatsApp
+            </button>
+          </div>
 
-          <div class="pay-divider">o</div>
+          <div class="pay-cards" aria-label="Métodos de pago aceptados">
+            <span>Aceptamos</span>
+            <svg viewBox="0 0 48 32" aria-hidden="true"><rect width="48" height="32" rx="4" fill="#1A1F71"/><text x="24" y="20" fill="#fff" font-family="Arial Black" font-size="11" text-anchor="middle">VISA</text></svg>
+            <svg viewBox="0 0 48 32" aria-hidden="true"><rect width="48" height="32" rx="4" fill="#000"/><circle cx="20" cy="16" r="8" fill="#EB001B"/><circle cx="28" cy="16" r="8" fill="#F79E1B" fill-opacity=".9"/></svg>
+            <svg viewBox="0 0 48 32" aria-hidden="true"><rect width="48" height="32" rx="4" fill="#006FCF"/><text x="24" y="20" fill="#fff" font-family="Arial Black" font-size="9" text-anchor="middle">AMEX</text></svg>
+            <svg viewBox="0 0 48 32" aria-hidden="true"><rect width="48" height="32" rx="4" fill="#642D8C"/><text x="24" y="20" fill="#fff" font-family="Arial Black" font-size="8" text-anchor="middle">YAPE</text></svg>
+          </div>
 
-          <button type="submit" class="btn-whatsapp">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-            </svg>
-            Pedir por WhatsApp
-          </button>
-
-          <div class="order-form-hint">¿Prefieres coordinar primero? Al pulsar "Pedir por WhatsApp" abrimos un chat con tus datos prellenados.</div>
+          <div class="pay-hint">
+            Pago seguro con Mercado Pago · Si prefieres Yape / Plin / transferencia, escríbenos por <a href="https://wa.link/fzkfna" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          </div>
         </form>
       </div>
     </div>
   </div>
 
-  <a
-    href="https://wa.link/fzkfna"
-    class="wa-float"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Escríbenos por WhatsApp"
-    title="WhatsApp"
-  >
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
-  </a>
-
-  <!-- ══ JS ══ -->
+  <!-- ═══════════════ JS ═══════════════ -->
   <script>
-    /* ── Reset al inicio en cada carga / recarga ──
-       Evita que el navegador salte a una sección (#testimonios, #productos, etc.)
-       o que restaure la posición previa de scroll cuando se recarga la página. */
+    /* ── Reset al inicio en cada carga / recarga ── */
     (function () {
       if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
       }
-      // Si hay un hash en la URL (por una navegación previa o un enlace), lo limpiamos
       if (window.location.hash) {
         try {
           history.replaceState(null, '', window.location.pathname + window.location.search);
         } catch (_) {}
       }
       function scrollTop() {
-        // Forzamos scroll instantáneo al tope, sin animación
         window.scrollTo({ top: 0, left: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
       }
-      // Ejecutamos en el momento más temprano posible, y de nuevo en DOMContentLoaded y load
       scrollTop();
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', scrollTop);
-      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', scrollTop);
       window.addEventListener('load', scrollTop);
-      // Y una vez más justo después, por si el navegador intentó saltar al hash
       setTimeout(scrollTop, 0);
     })();
 
-    /* ── Carousel ── */
-    const cards = document.querySelectorAll('.carousel-card');
-    const dots  = document.querySelectorAll('.dot');
-    const carouselTrack = document.getElementById('carouselTrack');
-    let current = 0;
-    let timer;
-    let autoplayPaused = false;
-    const AUTOPLAY_MS = 4500;
+    /* ── Año en footer ── */
+    document.getElementById('footerYear').textContent = new Date().getFullYear();
 
-    function goToSlide(n, opts) {
-      const total = cards.length;
-      const target = ((n % total) + total) % total;
-      if (target === current) return;
-      cards[current].classList.remove('active');
-      cards[current].classList.add('exit');
-      dots[current].classList.remove('active');
-      const previous = current;
-      setTimeout(() => cards[previous].classList.remove('exit'), 600);
-      current = target;
-      cards[current].classList.add('active');
-      dots[current].classList.add('active');
-      if (opts && opts.fromUser) {
-        pauseAutoplay();
-      } else {
-        resetTimer();
+    /* ── Countdown promo bar (cuenta atrás hasta medianoche local) ── */
+    (function countdown() {
+      const hEl = document.getElementById('cd-h');
+      const mEl = document.getElementById('cd-m');
+      const sEl = document.getElementById('cd-s');
+      if (!hEl || !mEl || !sEl) return;
+
+      function tick() {
+        const now = new Date();
+        const end = new Date();
+        end.setHours(23, 59, 59, 999);
+        let diff = Math.max(0, end - now);
+        const h = Math.floor(diff / 3600000); diff -= h * 3600000;
+        const m = Math.floor(diff / 60000);   diff -= m * 60000;
+        const s = Math.floor(diff / 1000);
+        hEl.textContent = String(h).padStart(2, '0');
+        mEl.textContent = String(m).padStart(2, '0');
+        sEl.textContent = String(s).padStart(2, '0');
       }
-    }
+      tick();
+      setInterval(tick, 1000);
+    })();
 
-    function next() { goToSlide(current + 1); }
-    function prev() { goToSlide(current - 1); }
+    /* ── Mobile drawer ── */
+    (function () {
+      const hb = document.getElementById('hamburger');
+      const dr = document.getElementById('mobileDrawer');
+      const bd = document.getElementById('drawerBackdrop');
+      if (!hb || !dr || !bd) return;
 
-    function resetTimer() {
-      clearInterval(timer);
-      if (!autoplayPaused) {
-        timer = setInterval(next, AUTOPLAY_MS);
+      function open() {
+        dr.classList.add('open');
+        bd.classList.add('open');
+        hb.classList.add('open');
+        hb.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
       }
-    }
-
-    function pauseAutoplay() {
-      autoplayPaused = true;
-      clearInterval(timer);
-    }
-
-    timer = setInterval(next, AUTOPLAY_MS);
-
-    /* Pausar autoplay si el cursor está sobre el carrusel */
-    if (carouselTrack) {
-      carouselTrack.addEventListener('mouseenter', () => clearInterval(timer));
-      carouselTrack.addEventListener('mouseleave', () => { if (!autoplayPaused) resetTimer(); });
-    }
-
-    /* Navegación con teclado (flechas) cuando el carrusel está enfocado */
-    document.addEventListener('keydown', (e) => {
-      const heroVisible = document.getElementById('hero').getBoundingClientRect().bottom > 0;
-      if (!heroVisible) return;
-      if (e.key === 'ArrowLeft')  { goToSlide(current - 1, { fromUser: true }); }
-      if (e.key === 'ArrowRight') { goToSlide(current + 1, { fromUser: true }); }
-    });
-
-    /* Swipe / drag (táctil + ratón) */
-    if (carouselTrack) {
-      let dragStartX = 0;
-      let dragDelta  = 0;
-      let dragging   = false;
-      let pointerId  = null;
-      const SWIPE_THRESHOLD = 45;
-
-      const onPointerDown = (e) => {
-        if (e.target.closest('.card-btn')) return; // no interferir con el botón Comprar
-        dragging = true;
-        dragStartX = e.clientX;
-        dragDelta = 0;
-        pointerId = e.pointerId;
-        carouselTrack.classList.add('is-dragging');
-        try { carouselTrack.setPointerCapture(pointerId); } catch (_) {}
-      };
-      const onPointerMove = (e) => {
-        if (!dragging) return;
-        dragDelta = e.clientX - dragStartX;
-      };
-      const onPointerEnd = () => {
-        if (!dragging) return;
-        dragging = false;
-        carouselTrack.classList.remove('is-dragging');
-        if (pointerId !== null) {
-          try { carouselTrack.releasePointerCapture(pointerId); } catch (_) {}
-          pointerId = null;
-        }
-        if (Math.abs(dragDelta) > SWIPE_THRESHOLD) {
-          if (dragDelta < 0) goToSlide(current + 1, { fromUser: true });
-          else               goToSlide(current - 1, { fromUser: true });
-        }
-        dragDelta = 0;
-      };
-
-      carouselTrack.addEventListener('pointerdown',   onPointerDown);
-      carouselTrack.addEventListener('pointermove',   onPointerMove);
-      carouselTrack.addEventListener('pointerup',     onPointerEnd);
-      carouselTrack.addEventListener('pointercancel', onPointerEnd);
-      carouselTrack.addEventListener('pointerleave',  onPointerEnd);
-    }
+      function close() {
+        dr.classList.remove('open');
+        bd.classList.remove('open');
+        hb.classList.remove('open');
+        hb.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+      hb.addEventListener('click', () => dr.classList.contains('open') ? close() : open());
+      bd.addEventListener('click', close);
+      dr.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && dr.classList.contains('open')) close(); });
+      window.addEventListener('resize', () => { if (window.innerWidth > 900 && dr.classList.contains('open')) close(); });
+    })();
 
     /* ── FAQ accordion ── */
     function toggleFaq(btn) {
@@ -1918,113 +2141,81 @@
       if (!isOpen) item.classList.add('open');
     }
 
-    /* ── Modal de pedido + WhatsApp ── */
-    // Número de WhatsApp para recibir pedidos (formato internacional sin "+", ej. Perú: 51XXXXXXXXX)
+    /* ── Modal de pedido ── */
     const WHATSAPP_NUMBER = '51912370223';
-    // Enlace corto alternativo de WhatsApp (wa.link) provisto por la marca
-    const WHATSAPP_SHORT_LINK = 'https://wa.link/fzkfna';
-
-    // Estado actual del pedido (para incluir info en el mensaje de WhatsApp)
     let currentOrder = { product: '', price: '', freeShipping: false };
 
     function openOrderModal(productName, productPrice, freeShipping) {
       const modal = document.getElementById('orderModal');
-      currentOrder = {
-        product: productName || '—',
-        price: productPrice || '',
-        freeShipping: !!freeShipping
-      };
+      currentOrder = { product: productName || '—', price: productPrice || '', freeShipping: !!freeShipping };
       document.getElementById('orderProductName').textContent = currentOrder.product;
       document.getElementById('orderProductPrice').textContent = currentOrder.price;
-      const banner = document.getElementById('orderShippingBanner');
-      if (currentOrder.freeShipping) banner.removeAttribute('hidden');
-      else banner.setAttribute('hidden', '');
+      const ship = document.getElementById('orderShipping');
+      if (currentOrder.freeShipping) ship.classList.add('show');
+      else ship.classList.remove('show');
       modal.classList.add('open');
       document.body.style.overflow = 'hidden';
-      // Foco en el primer campo
       setTimeout(() => document.getElementById('orderFirstName').focus(), 80);
     }
 
     function closeOrderModal() {
-      const modal = document.getElementById('orderModal');
-      modal.classList.remove('open');
+      document.getElementById('orderModal').classList.remove('open');
       document.body.style.overflow = '';
     }
 
-    // Cerrar con tecla ESC
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeOrderModal();
-    });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOrderModal(); });
 
+    /* ── WhatsApp ── */
     function sendWhatsAppOrder(e) {
       e.preventDefault();
-      const firstName = document.getElementById('orderFirstName').value.trim();
-      const lastName  = document.getElementById('orderLastName').value.trim();
-      const phone     = document.getElementById('orderPhone').value.trim();
-      const notes     = document.getElementById('orderNotes').value.trim();
-      const product   = currentOrder.product;
-      const price     = currentOrder.price;
-      const freeShip  = currentOrder.freeShipping;
+      const fn = document.getElementById('orderFirstName').value.trim();
+      const ln = document.getElementById('orderLastName').value.trim();
+      const ph = document.getElementById('orderPhone').value.trim();
+      const em = document.getElementById('orderEmail').value.trim();
+      const nt = document.getElementById('orderNotes').value.trim();
 
       const lines = [
         '¡Hola! Quiero hacer un pedido 🛒',
         '',
-        '*Promo:* ' + product,
-        '*Total:* ' + price + (freeShip ? ' (envío gratis incluido 🚚)' : ''),
+        '*Promo:* ' + currentOrder.product,
+        '*Total:* ' + currentOrder.price + (currentOrder.freeShipping ? ' (envío gratis incluido 🚚)' : ''),
         '',
-        '*Nombre:* ' + firstName + ' ' + lastName,
-        '*Teléfono:* ' + phone
+        '*Nombre:* ' + fn + ' ' + ln,
+        '*Teléfono:* ' + ph
       ];
-      if (notes) {
-        lines.push('*Dirección / Notas:* ' + notes);
-      }
-      if (!freeShip) {
-        lines.push('', '_(Por favor confírmame el costo de envío a mi distrito)_');
-      }
+      if (em) lines.push('*Email:* ' + em);
+      if (nt) lines.push('*Dirección / Notas:* ' + nt);
+      if (!currentOrder.freeShipping) lines.push('', '_(Por favor confírmame el costo de envío a mi distrito)_');
       lines.push('', 'Gracias 🙌');
 
       const text = encodeURIComponent(lines.join('\n'));
-      const url  = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + text;
-      window.open(url, '_blank', 'noopener,noreferrer');
+      window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + text, '_blank', 'noopener,noreferrer');
 
-      // Pequeña confirmación visual y reset
-      const btn = e.target.querySelector('.btn-whatsapp');
-      const original = btn.innerHTML;
+      const btn = e.target.querySelector('.pay-btn.outline');
+      const orig = btn.innerHTML;
       btn.innerHTML = '✓ Abriendo WhatsApp…';
-      btn.style.background = '#1DAE53';
       setTimeout(() => {
-        btn.innerHTML = original;
-        btn.style.background = '';
+        btn.innerHTML = orig;
         e.target.reset();
         closeOrderModal();
       }, 1400);
     }
 
-    /* ── Pago con tarjeta vía Mercado Pago Checkout Pro ── */
+    /* ── Mercado Pago Checkout Pro ── */
     async function payWithMercadoPago(e) {
       if (e && e.preventDefault) e.preventDefault();
 
-      const firstName = document.getElementById('orderFirstName').value.trim();
-      const lastName  = document.getElementById('orderLastName').value.trim();
-      const phone     = document.getElementById('orderPhone').value.trim();
-      const email     = (document.getElementById('orderEmail') || {}).value
-                        ? document.getElementById('orderEmail').value.trim() : '';
-      const notes     = document.getElementById('orderNotes').value.trim();
+      const fn = document.getElementById('orderFirstName').value.trim();
+      const ln = document.getElementById('orderLastName').value.trim();
+      const ph = document.getElementById('orderPhone').value.trim();
+      const em = document.getElementById('orderEmail').value.trim();
+      const nt = document.getElementById('orderNotes').value.trim();
 
-      // Validación mínima — nombre y apellido obligatorios para el checkout
-      if (!firstName || !lastName) {
-        alert('Por favor escribe tu nombre y apellido antes de pagar con tarjeta.');
-        document.getElementById('orderFirstName').focus();
-        return;
-      }
-      if (!phone) {
-        alert('Por favor agrega un teléfono de contacto.');
-        document.getElementById('orderPhone').focus();
-        return;
-      }
+      if (!fn || !ln) { alert('Por favor escribe tu nombre y apellido antes de pagar con tarjeta.'); document.getElementById('orderFirstName').focus(); return; }
+      if (!ph) { alert('Por favor agrega un teléfono de contacto.'); document.getElementById('orderPhone').focus(); return; }
 
       const btn = document.getElementById('btnPayMP');
-      const originalHTML = btn.innerHTML;
+      const orig = btn.innerHTML;
       btn.disabled = true;
       btn.innerHTML = 'Generando pago seguro…';
 
@@ -2033,10 +2224,10 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            product:  currentOrder.product,
-            price:    currentOrder.price,
+            product: currentOrder.product,
+            price: currentOrder.price,
             quantity: 1,
-            customer: { firstName, lastName, phone, email, notes },
+            customer: { firstName: fn, lastName: ln, phone: ph, email: em, notes: nt },
           }),
         });
 
@@ -2049,137 +2240,44 @@
         const url = (data.mode === 'sandbox')
           ? (data.sandbox_init_point || data.init_point)
           : (data.init_point || data.sandbox_init_point);
-
-        if (!url) throw new Error('No se recibió la URL de pago de Mercado Pago.');
-
-        // Redirigimos al checkout de MP
+        if (!url) throw new Error('No se recibió la URL de pago.');
         window.location.href = url;
       } catch (err) {
-        console.error('Error pagar con tarjeta:', err);
+        console.error('Error MP:', err);
         btn.disabled = false;
-        btn.innerHTML = originalHTML;
-        alert('No pudimos iniciar el pago con tarjeta:\n\n' + err.message +
-              '\n\nPuedes intentar de nuevo o coordinar el pedido por WhatsApp.');
+        btn.innerHTML = orig;
+        alert('No pudimos iniciar el pago con tarjeta:\n\n' + err.message + '\n\nIntenta de nuevo o usa "Pagar contra entrega / WhatsApp".');
       }
     }
 
-    /* ── Banner cuando volvemos de Mercado Pago (success / failure / pending) ── */
+    /* ── Banner de resultado de pago al volver de MP ── */
     (function showPayResultBanner() {
       const params = new URLSearchParams(window.location.search);
       const status = params.get('status');
       if (!status || !['success', 'failure', 'pending'].includes(status)) return;
 
       const messages = {
-        success: { icon: '✓', text: '¡Pago aprobado! Te enviaremos los detalles del envío por WhatsApp en breve.' },
+        success: { icon: '✓', text: '¡Pago aprobado! Te contactamos pronto por WhatsApp con los detalles del envío.' },
         failure: { icon: '✕', text: 'El pago no se completó. Puedes reintentar o pedir por WhatsApp.' },
-        pending: { icon: '⏳', text: 'Tu pago está pendiente de confirmación. Te avisaremos en cuanto se acredite.' },
+        pending: { icon: '⏳', text: 'Tu pago está pendiente de confirmación. Te avisaremos cuando se acredite.' },
       };
       const m = messages[status];
 
       const banner = document.createElement('div');
       banner.className = 'pay-result-banner ' + status;
-      banner.innerHTML =
-        '<span style="font-size:1.2rem;line-height:1">' + m.icon + '</span>' +
-        '<span>' + m.text + '</span>' +
-        '<button type="button" aria-label="Cerrar">×</button>';
+      banner.innerHTML = '<span style="font-size:1.2rem;line-height:1">' + m.icon + '</span><span>' + m.text + '</span><button type="button" aria-label="Cerrar">×</button>';
       document.body.appendChild(banner);
-
       banner.querySelector('button').addEventListener('click', () => banner.remove());
-      // Auto-dismiss después de 9 segundos
       setTimeout(() => { if (banner.parentNode) banner.remove(); }, 9000);
-
-      // Limpiamos los parámetros de la URL para que no se quede pegado al recargar
-      try {
-        history.replaceState(null, '', window.location.pathname);
-      } catch (_) {}
+      try { history.replaceState(null, '', window.location.pathname); } catch (_) {}
     })();
 
-    /* ── Contact form ── */
-    function handleSubmit(e) {
-      e.preventDefault();
-      const btn = e.target.querySelector('.btn-submit');
-      btn.textContent = '¡Mensaje enviado! ✓';
-      btn.style.background = 'var(--mint2)';
-      setTimeout(() => {
-        btn.textContent = 'Enviar mensaje →';
-        btn.style.background = '';
-        e.target.reset();
-      }, 3000);
-    }
-
-    /* ── Scroll reveal ── */
+    /* ── Reveal on scroll ── */
     const revealEls = document.querySelectorAll('.reveal');
-    const observer  = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('visible'); io.unobserve(en.target); } });
     }, { threshold: 0.12 });
-    revealEls.forEach(el => observer.observe(el));
-
-    /* ── Mobile nav (drawer lateral derecho) ── */
-    (function () {
-      const navEl     = document.querySelector('nav');
-      const hamburger = document.getElementById('hamburger');
-      const navLinks  = document.querySelector('.nav-links');
-      if (!navEl || !hamburger || !navLinks) return;
-
-      // Mover .nav-links según el viewport: en móvil → <body>, en escritorio → dentro del <nav>
-      // Esto evita cualquier "containing block" creado por filtros/transforms en ancestros que recortaría el drawer.
-      function placeNavLinks() {
-        const isMobile = window.matchMedia('(max-width: 900px)').matches;
-        if (isMobile) {
-          if (navLinks.parentNode !== document.body) {
-            document.body.appendChild(navLinks);
-          }
-        } else {
-          if (navLinks.parentNode !== navEl) {
-            navEl.insertBefore(navLinks, hamburger);
-          }
-        }
-      }
-      placeNavLinks();
-      window.addEventListener('resize', placeNavLinks);
-
-      // Backdrop semitransparente para cerrar el menú al tocar fuera
-      const backdrop = document.createElement('div');
-      backdrop.className = 'nav-backdrop';
-      document.body.appendChild(backdrop);
-
-      function openMenu() {
-        navLinks.classList.add('open');
-        backdrop.classList.add('open');
-        hamburger.classList.add('open');
-        hamburger.setAttribute('aria-expanded', 'true');
-        document.body.style.overflow = 'hidden';
-      }
-      function closeMenu() {
-        navLinks.classList.remove('open');
-        backdrop.classList.remove('open');
-        hamburger.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      }
-
-      hamburger.addEventListener('click', () => {
-        if (navLinks.classList.contains('open')) closeMenu();
-        else openMenu();
-      });
-
-      backdrop.addEventListener('click', closeMenu);
-
-      // Cerrar al pulsar cualquier enlace del menú
-      navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', closeMenu);
-      });
-
-      // Cerrar con tecla Escape
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && navLinks.classList.contains('open')) closeMenu();
-      });
-
-      // Si la pantalla se agranda y dejamos el modo móvil, garantizamos cierre
-      window.addEventListener('resize', () => {
-        if (window.innerWidth > 900 && navLinks.classList.contains('open')) closeMenu();
-      });
-    })();
+    revealEls.forEach(el => io.observe(el));
   </script>
 </body>
 </html>
