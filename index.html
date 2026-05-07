@@ -2019,6 +2019,214 @@
       font-weight: 700;
     }
 
+    /* ───────────────────────── Product page (vista full-page con URL propia) ───────────────────────── */
+    .product-page {
+      background: var(--bg);
+      padding: 2.5rem 1.5rem 5rem;
+      min-height: calc(100vh - 200px);
+    }
+    .product-page-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    .product-page-back {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: transparent;
+      border: 1px solid var(--line);
+      padding: .6rem 1.2rem;
+      border-radius: 100px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: .87rem;
+      color: var(--ink);
+      margin-bottom: 1.8rem;
+      font-family: inherit;
+      transition: background .2s, border-color .2s;
+    }
+    .product-page-back:hover { background: var(--bg-soft); border-color: var(--ink); }
+    .product-page-back svg { width: 16px; height: 16px; }
+    .product-page-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem;
+      align-items: start;
+    }
+    .product-page-image-wrap {
+      position: sticky;
+      top: 100px;
+    }
+    .product-page-image {
+      background: var(--bg-cream);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3.5rem;
+      min-height: 480px;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-page-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 50% 45%, rgba(200, 16, 46, 0.06) 0%, transparent 65%);
+    }
+    .product-page-image img {
+      max-width: 100%;
+      max-height: 460px;
+      object-fit: contain;
+      filter: drop-shadow(0 14px 28px rgba(0,0,0,.18));
+      position: relative;
+      z-index: 1;
+    }
+    .pp-badge {
+      position: absolute;
+      top: 1.2rem;
+      left: 1.2rem;
+      background: var(--red);
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: .35rem .85rem;
+      border-radius: 100px;
+      z-index: 3;
+      box-shadow: 0 2px 8px rgba(0,0,0,.18);
+    }
+    .product-page-info { padding: .5rem 0; }
+    .pp-category {
+      color: var(--red);
+      font-size: .76rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      margin-bottom: .6rem;
+    }
+    .pp-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+    .pp-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: .65rem;
+      margin-bottom: .8rem;
+    }
+    .pp-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: 2.2rem;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .pp-price-old {
+      color: var(--muted-2);
+      text-decoration: line-through;
+      font-size: 1.1rem;
+    }
+    .pp-stock {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .85rem;
+      color: var(--green);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .pp-stock::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+    .pp-stock.out::before { background: var(--red); }
+    .pp-stock.out { color: var(--red); }
+    .pp-desc {
+      color: var(--ink-soft);
+      line-height: 1.7;
+      font-size: 1rem;
+      margin-bottom: 1.4rem;
+    }
+    .pp-benefits-title {
+      font-size: .8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--ink);
+      margin-bottom: .8rem;
+      margin-top: 1.2rem;
+    }
+    .pp-benefits {
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+      margin-bottom: 1.8rem;
+    }
+    .pp-benefit {
+      display: flex;
+      align-items: center;
+      gap: .55rem;
+      font-size: .92rem;
+      color: var(--ink-soft);
+    }
+    .pp-benefit svg {
+      width: 17px;
+      height: 17px;
+      color: var(--green);
+      flex-shrink: 0;
+    }
+    .pp-qty-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.4rem;
+    }
+    .pp-qty-label {
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .pp-actions {
+      display: flex;
+      gap: .7rem;
+      margin-bottom: 1.8rem;
+    }
+    .pp-actions .btn {
+      flex: 1;
+      padding: 1.05rem 1.3rem;
+      font-size: .92rem;
+    }
+    .pp-trust {
+      border-top: 1px solid var(--line);
+      padding-top: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+    }
+    .pp-trust-item {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      font-size: .87rem;
+      color: var(--muted);
+    }
+    .pp-trust-item svg {
+      width: 18px;
+      height: 18px;
+      color: var(--ink);
+      flex-shrink: 0;
+    }
+
     /* ───────────────────────── Reveal ───────────────────────── */
     .reveal {
       opacity: 0;
@@ -2042,6 +2250,10 @@
       .pm-image img { max-height: 260px; }
       .pm-info { padding: 1.8rem; }
       .pm-name { font-size: 1.7rem; }
+      .product-page-grid { grid-template-columns: 1fr; gap: 2.2rem; }
+      .product-page-image-wrap { position: static; }
+      .product-page-image { min-height: 320px; padding: 2.5rem; }
+      .product-page-image img { max-height: 320px; }
     }
     @media (max-width: 900px) {
       .nav-links { display: none; }
@@ -2087,6 +2299,11 @@
       .pm-info { padding: 1.4rem; }
       .pm-name { font-size: 1.5rem; }
       .pm-actions { flex-direction: column; }
+      .product-page { padding: 1.5rem 1.2rem 3rem; }
+      .product-page-image { min-height: 260px; padding: 1.8rem; }
+      .product-page-image img { max-height: 260px; }
+      .pp-actions { flex-direction: column; }
+      .pp-name { font-size: 1.7rem; }
     }
     @media (max-width: 420px) {
       .hero-actions { flex-direction: column; width: 100%; }
@@ -2460,6 +2677,66 @@
   </section>
   </main>
 
+  <!-- ═══════════════ Página de producto (vista dedicada con URL propia) ═══════════════ -->
+  <main class="product-page" id="productPageView" hidden>
+    <div class="product-page-inner">
+      <button class="product-page-back" type="button" id="ppBackBtn" aria-label="Volver al catálogo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Volver al catálogo
+      </button>
+      <div class="product-page-grid">
+        <div class="product-page-image-wrap">
+          <div class="product-page-image">
+            <span class="pp-badge" id="ppBadge" hidden></span>
+            <img id="ppImage" src="" alt="" />
+          </div>
+        </div>
+        <div class="product-page-info">
+          <div class="pp-category" id="ppCategory"></div>
+          <h1 class="pp-name" id="ppName"></h1>
+          <div class="pp-price-row">
+            <span class="pp-price" id="ppPrice"></span>
+            <span class="pp-price-old" id="ppPriceOld" hidden></span>
+          </div>
+          <div class="pp-stock" id="ppStock">En stock</div>
+          <div class="ship-tag" id="ppShipTag" hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+            Envío gratis
+          </div>
+          <p class="pp-desc" id="ppDesc"></p>
+          <div class="pp-benefits-title">Beneficios</div>
+          <div class="pp-benefits" id="ppBenefits"></div>
+          <div class="pp-qty-row">
+            <span class="pp-qty-label">Cantidad:</span>
+            <div class="pm-qty-control">
+              <button type="button" id="ppQtyMinus" aria-label="Disminuir cantidad">−</button>
+              <span id="ppQty">1</span>
+              <button type="button" id="ppQtyPlus" aria-label="Aumentar cantidad">+</button>
+            </div>
+          </div>
+          <div class="pp-actions">
+            <button class="btn btn-outline-dark" type="button" id="ppAddToCart">Añadir al carrito</button>
+            <button class="btn btn-primary" type="button" id="ppBuyNow">Comprar ahora</button>
+          </div>
+          <div class="pp-trust">
+            <div class="pp-trust-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>Pago seguro con Mercado Pago, Yape o Plin</span>
+            </div>
+            <div class="pp-trust-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+              <span>Envíos a todo el Perú · desde 1 día hábil</span>
+            </div>
+            <div class="pp-trust-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Material hipoalergénico y dermatológicamente probado</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
   <!-- ═══════════════ Help CTA ═══════════════ -->
   <section class="help-cta">
     <h3>¿Tienes alguna pregunta?</h3>
@@ -2591,46 +2868,6 @@
     </div>
   </aside>
   <div class="cart-backdrop" id="cartBackdrop" aria-hidden="true"></div>
-
-  <!-- ═══════════════ Product detail modal ═══════════════ -->
-  <div class="product-modal" id="productModal" role="dialog" aria-modal="true" aria-labelledby="pmName" onclick="if(event.target===this) cerrarModalProducto()">
-    <div class="product-modal-card">
-      <button class="pm-close" type="button" aria-label="Cerrar" onclick="cerrarModalProducto()">×</button>
-      <div class="pm-grid">
-        <div class="pm-image">
-          <span class="pm-badge" id="pmBadge" hidden></span>
-          <img id="pmImage" src="" alt="" />
-        </div>
-        <div class="pm-info">
-          <div class="pm-category" id="pmCategory"></div>
-          <h2 class="pm-name" id="pmName"></h2>
-          <div class="pm-price-row">
-            <span class="pm-price" id="pmPrice"></span>
-            <span class="pm-price-old" id="pmPriceOld" hidden></span>
-          </div>
-          <div class="pm-stock" id="pmStock">En stock</div>
-          <div class="ship-tag" id="pmShipTag" hidden>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
-            Envío gratis
-          </div>
-          <p class="pm-desc" id="pmDesc"></p>
-          <div class="pm-benefits" id="pmBenefits"></div>
-          <div class="pm-qty-row">
-            <span class="pm-qty-label">Cantidad:</span>
-            <div class="pm-qty-control">
-              <button type="button" id="pmQtyMinus" aria-label="Disminuir cantidad">−</button>
-              <span id="pmQty">1</span>
-              <button type="button" id="pmQtyPlus" aria-label="Aumentar cantidad">+</button>
-            </div>
-          </div>
-          <div class="pm-actions">
-            <button class="btn btn-outline-dark" type="button" id="pmAddToCart">Añadir al carrito</button>
-            <button class="btn btn-primary" type="button" id="pmBuyNow">Comprar ahora</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- ═══════════════ Toast ═══════════════ -->
   <div class="toast" id="toast" role="status" aria-live="polite">
@@ -2918,9 +3155,9 @@
           + '</article>';
       }).join('');
 
-      // Bind botones
+      // Bind botones — navegan a la página del producto con URL propia
       grid.querySelectorAll('.product-buy[data-product-id]').forEach(btn => {
-        btn.addEventListener('click', () => abrirModalProducto(btn.dataset.productId));
+        btn.addEventListener('click', () => irAProductoPage(btn.dataset.productId));
       });
 
       // Reveal: re-observar las nuevas cards
@@ -3038,32 +3275,32 @@
     }
 
     /* ─────────────────────────────────────────────────────────
-       MODAL DETALLE DE PRODUCTO
+       PÁGINA DE PRODUCTO (vista dedicada con URL propia)
+       URL: ?producto=ID — para que sea compartible (TikTok, etc.)
        ───────────────────────────────────────────────────────── */
     let pmCurrentProduct = null;
     let pmCurrentQty = 1;
+    const PAGE_TITLE_DEFAULT = 'EDYCACE STORE — Tiras Nasales Premium';
 
-    function abrirModalProducto(productoId) {
-      const p = getProducto(productoId);
-      if (!p) return;
+    function renderPaginaProducto(p) {
       pmCurrentProduct = p;
       pmCurrentQty = 1;
 
-      document.getElementById('pmCategory').textContent = p.categoria || '';
-      document.getElementById('pmName').textContent = p.nombre;
-      document.getElementById('pmPrice').textContent = formatPrice(p.precio);
-      const pmOld = document.getElementById('pmPriceOld');
+      document.getElementById('ppCategory').textContent = p.categoria || '';
+      document.getElementById('ppName').textContent = p.nombre;
+      document.getElementById('ppPrice').textContent = formatPrice(p.precio);
+      const ppOld = document.getElementById('ppPriceOld');
       if (p.precioOriginal) {
-        pmOld.textContent = formatPrice(p.precioOriginal);
-        pmOld.hidden = false;
+        ppOld.textContent = formatPrice(p.precioOriginal);
+        ppOld.hidden = false;
       } else {
-        pmOld.hidden = true;
+        ppOld.hidden = true;
       }
-      document.getElementById('pmDesc').textContent = p.descripcion || '';
-      document.getElementById('pmImage').src = p.imagen;
-      document.getElementById('pmImage').alt = p.nombre;
+      document.getElementById('ppDesc').textContent = p.descripcion || '';
+      document.getElementById('ppImage').src = p.imagen;
+      document.getElementById('ppImage').alt = p.nombre + ' — ' + (p.descripcionCorta || '');
 
-      const stockEl = document.getElementById('pmStock');
+      const stockEl = document.getElementById('ppStock');
       if (p.stock && p.stock > 0) {
         stockEl.classList.remove('out');
         stockEl.textContent = 'En stock' + (p.descripcionCorta ? ' · ' + p.descripcionCorta : '');
@@ -3072,42 +3309,81 @@
         stockEl.textContent = 'Agotado';
       }
 
-      const pmBadge = document.getElementById('pmBadge');
-      if (p.badge) { pmBadge.textContent = p.badge; pmBadge.hidden = false; }
-      else pmBadge.hidden = true;
+      const ppBadge = document.getElementById('ppBadge');
+      if (p.badge) { ppBadge.textContent = p.badge; ppBadge.hidden = false; }
+      else ppBadge.hidden = true;
 
-      // Tag de envío gratis dentro del modal
-      const pmShip = document.getElementById('pmShipTag');
-      if (pmShip) pmShip.hidden = !p.envioGratis;
+      const ppShip = document.getElementById('ppShipTag');
+      if (ppShip) ppShip.hidden = !p.envioGratis;
 
-      const benefList = document.getElementById('pmBenefits');
+      const benefList = document.getElementById('ppBenefits');
       benefList.innerHTML = (p.beneficios || []).map(b => ''
-        + '<div class="pm-benefit">'
+        + '<div class="pp-benefit">'
         +   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
         +   '<span>' + b + '</span>'
         + '</div>'
       ).join('');
 
-      document.getElementById('pmQty').textContent = String(pmCurrentQty);
-      document.getElementById('productModal').classList.add('open');
-      document.body.style.overflow = 'hidden';
+      document.getElementById('ppQty').textContent = String(pmCurrentQty);
+
+      // Cambia título de la pestaña para mejor SEO/sharing
+      document.title = p.nombre + ' — ' + formatPrice(p.precio) + ' | EDYCACE STORE';
     }
 
-    function cerrarModalProducto() {
-      document.getElementById('productModal').classList.remove('open');
+    function mostrarPaginaProducto(productoId) {
+      const p = getProducto(productoId);
+      if (!p) return false;
+      renderPaginaProducto(p);
+      const cat = document.getElementById('top');
+      const page = document.getElementById('productPageView');
+      if (cat) cat.hidden = true;
+      if (page) page.hidden = false;
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      return true;
+    }
+
+    function ocultarPaginaProducto() {
+      const cat = document.getElementById('top');
+      const page = document.getElementById('productPageView');
+      if (page) page.hidden = true;
+      if (cat) cat.hidden = false;
       pmCurrentProduct = null;
-      if (!document.getElementById('cartSidebar').classList.contains('open') &&
-          !document.getElementById('orderModal').classList.contains('open')) {
-        document.body.style.overflow = '';
-      }
+      document.title = PAGE_TITLE_DEFAULT;
+    }
+
+    function irAProductoPage(productoId) {
+      if (!mostrarPaginaProducto(productoId)) return;
+      try {
+        if (window.history && window.history.pushState) {
+          history.pushState({ producto: productoId }, '', '?producto=' + encodeURIComponent(productoId));
+        }
+      } catch (_) {}
+    }
+
+    function volverACatalogo() {
+      ocultarPaginaProducto();
+      try {
+        if (window.history && window.history.pushState) {
+          history.pushState({}, '', window.location.pathname);
+        }
+      } catch (_) {}
+      // Scroll a la sección de productos al volver
+      setTimeout(() => {
+        const pr = document.getElementById('productos');
+        if (pr) pr.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
     }
 
     /* ─────────────────────────────────────────────────────────
-       Quick buy — abrir modal de detalle desde botones rápidos
+       Quick buy — desde botones rápidos del hero/featured
        ───────────────────────────────────────────────────────── */
     function quickBuy(productoId) {
-      abrirModalProducto(productoId);
+      irAProductoPage(productoId);
     }
+
+    // Compatibilidad hacia atrás: stub para llamadas viejas si las hay
+    function abrirModalProducto(productoId) { irAProductoPage(productoId); }
+    function cerrarModalProducto() { ocultarPaginaProducto(); }
 
     /* ─────────────────────────────────────────────────────────
        TOAST
@@ -3406,38 +3682,65 @@
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
         if (document.getElementById('cartSidebar').classList.contains('open')) cerrarSidebarCarrito();
-        if (document.getElementById('productModal').classList.contains('open')) cerrarModalProducto();
       }
     });
 
     /* ─────────────────────────────────────────────────────────
-       BINDINGS — Modal de producto (cantidad, agregar, comprar)
+       BINDINGS — Página de producto (cantidad, agregar, comprar, volver)
        ───────────────────────────────────────────────────────── */
-    document.getElementById('pmQtyMinus').addEventListener('click', () => {
+    document.getElementById('ppBackBtn').addEventListener('click', volverACatalogo);
+
+    document.getElementById('ppQtyMinus').addEventListener('click', () => {
       if (pmCurrentQty > 1) {
         pmCurrentQty -= 1;
-        document.getElementById('pmQty').textContent = String(pmCurrentQty);
+        document.getElementById('ppQty').textContent = String(pmCurrentQty);
       }
     });
-    document.getElementById('pmQtyPlus').addEventListener('click', () => {
+    document.getElementById('ppQtyPlus').addEventListener('click', () => {
       const max = (pmCurrentProduct && pmCurrentProduct.stock) ? Math.min(99, pmCurrentProduct.stock) : 99;
       if (pmCurrentQty < max) {
         pmCurrentQty += 1;
-        document.getElementById('pmQty').textContent = String(pmCurrentQty);
+        document.getElementById('ppQty').textContent = String(pmCurrentQty);
       }
     });
-    document.getElementById('pmAddToCart').addEventListener('click', () => {
+    document.getElementById('ppAddToCart').addEventListener('click', () => {
       if (!pmCurrentProduct) return;
-      agregarAlCarrito(pmCurrentProduct.id, pmCurrentQty);
       const nombre = pmCurrentProduct.nombre;
-      cerrarModalProducto();
+      agregarAlCarrito(pmCurrentProduct.id, pmCurrentQty);
       showToast('✓ ' + nombre + ' añadido al carrito');
     });
-    document.getElementById('pmBuyNow').addEventListener('click', () => {
+    document.getElementById('ppBuyNow').addEventListener('click', () => {
       if (!pmCurrentProduct) return;
       agregarAlCarrito(pmCurrentProduct.id, pmCurrentQty);
-      cerrarModalProducto();
       checkoutFromCart();
+    });
+
+    /* ─────────────────────────────────────────────────────────
+       Brand link — al hacer click vuelve al catálogo si estamos en página de producto
+       ───────────────────────────────────────────────────────── */
+    (function () {
+      const brand = document.querySelector('.brand');
+      if (!brand) return;
+      brand.addEventListener('click', e => {
+        const page = document.getElementById('productPageView');
+        if (page && !page.hidden) {
+          e.preventDefault();
+          volverACatalogo();
+        }
+      });
+    })();
+
+    /* ─────────────────────────────────────────────────────────
+       ROUTING — popstate (botón atrás del navegador) + carga inicial
+       ───────────────────────────────────────────────────────── */
+    window.addEventListener('popstate', () => {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('producto');
+      if (id && getProducto(id)) {
+        mostrarPaginaProducto(id);
+      } else {
+        ocultarPaginaProducto();
+      }
     });
 
     /* ─────────────────────────────────────────────────────────
@@ -3447,6 +3750,15 @@
     renderProductos();
     actualizarNumeroCarrito();
     renderCarrito();
+
+    // Si la URL trae ?producto=ID, mostrar la página directamente (TikTok deep link)
+    (function bootRouting() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('producto');
+      if (id && getProducto(id)) {
+        mostrarPaginaProducto(id);
+      }
+    })();
   </script>
 </body>
 </html>
